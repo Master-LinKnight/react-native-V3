@@ -1,0 +1,3 @@
+rootProject.name = 'Channel5'
+
+include ':app'
