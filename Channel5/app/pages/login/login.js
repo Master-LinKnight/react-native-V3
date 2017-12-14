@@ -62,8 +62,16 @@ export default class Login extends Component {
     };
 
     skipToPlayground = () => {
-        userService.GetTest({id:1})
-        Navigation.navigate('Index')
+        // userService.GetTest({id:1})
+        let params = {}
+        params.username = 'lei'
+        params.password = '123456'
+        userService.PostLogin(params).then(
+            (res) => {
+                console.log(res)
+            }
+        )
+        // Navigation.navigate('Index')
     }
 
     render() {
@@ -91,26 +99,6 @@ const styles = StyleSheet.create({
         height: 128,
         marginTop: 0,
         backgroundColor: '#272638'
-    },
-    logo: {
-        marginTop: 100,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    inputView: {
-        marginTop:30,
-        marginLeft:30,
-        marginRight:30,
-        height:80,
-        borderRadius:4,
-        backgroundColor:'#FFFFFF',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    input: {
-        fontSize: 30,
-        marginLeft: 15,
-        width:450
     },
     loginBtnView: {
         height:80,
