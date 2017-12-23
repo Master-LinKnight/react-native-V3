@@ -13,7 +13,7 @@ export default class Resolution {
         return useFixWidth?{...props.fw}:{...props.fh}
     }
 
-    static setDesignSize(dwidth=640,dheight=1136,dim="window"){  //dwidth=750,dheight=1336
+    static setDesignSize(dwidth=750,dheight=1336,dim="window"){  //dwidth=750,dheight=1336
         let designSize = {width:dwidth,height:dheight};
 
         console.log(Platform.OS)

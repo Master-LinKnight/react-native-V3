@@ -13,31 +13,15 @@ import {
     View,
     TouchableWithoutFeedback,
 } from 'react-native';
-import { StackNavigator,TabNavigator,DrawerNavigator } from 'react-navigation';
-// import Drawer from 'react-native-drawer'
 
-export default class Index extends Component {
+export default class Video extends Component {
     constructor(props){
         super(props);
 
     }
     static navigationOptions = ({navigation}) => {
         return ({
-            title:'Index',
-            headerTitleStyle: {
-                color: '#ffffff',
-                fontSize: 36,
-                textAlign: 'center',
-                marginTop: 16,
-            },
-            headerStyle: {
-                backgroundColor: '#3b5597',
-                height: 132
-            },
-            headerTintColor: '#ffffff',
-            headerBackTitle: null,
-            // headerLeft: null,
-            gesturesEnabled: false
+            header: null
         })
     }
 

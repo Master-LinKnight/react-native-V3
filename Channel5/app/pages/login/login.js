@@ -71,7 +71,7 @@ export default class Login extends Component {
                 console.log(res)
             }
         )
-        // Navigation.navigate('Index')
+        Navigation.navigate('Index')
     }
 
     render() {

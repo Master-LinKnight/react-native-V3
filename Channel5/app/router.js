@@ -15,19 +15,106 @@ import {
 } from 'react-native';
 import { StackNavigator,TabNavigator,DrawerNavigator,addNavigationHelpers } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import TabBarItem from './common/tabBarItem'
 import Login from './pages/login/login'
 import Index from './pages/index/index'
-import {connect} from 'react-redux';
+import Cartoon from './pages/cartoon/cartoon'
+import Community from './pages/community/community'
+import Novel from './pages/novel/novel'
+import Search from './pages/search/search'
+import Video from  './pages/video/video'
 
 class Router extends Component {
     render() {
+        const TabScreen = TabNavigator({
+                Novel: {
+                    screen: Novel,
+                    navigationOptions: {
+                        tabBarLabel: '小说',
+                        tabBarIcon: ({focused}) => (
+                            <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_novel.png')} selectedImage={require('./images/icon_novel_active.png')}/>
+                        )
+                    }
+                },
+                Cartoon: {
+                    screen: Cartoon,
+                    navigationOptions: {
+                        tabBarLabel: '卡通',
+                        tabBarIcon: ({focused}) => (
+                            <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_cartoon.png')} selectedImage={require('./images/icon_cartoon_active.png')}/>
+                        )
+                    }
+                },
+                Video: {
+                    screen: Video,
+                    navigationOptions: {
+                        tabBarLabel: '直播和视频',
+                        tabBarIcon: ({focused}) => (
+                            <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_video.png')} selectedImage={require('./images/icon_video_active.png')}/>
+                        )
+                    }
+                },
+                Community: {
+                    screen: Community,
+                    navigationOptions: {
+                        tabBarLabel: '社区',
+                        tabBarIcon: ({focused}) => (
+                            <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_com.png')} selectedImage={require('./images/icon_com_active.png')}/>
+                        )
+                    }
+                },
+                Search: {
+                    screen: Search,
+                    navigationOptions: {
+                        tabBarLabel: '搜素',
+                        tabBarIcon: ({focused}) => (
+                            <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_search.png')} selectedImage={require('./images/icon_search_active.png')}/>
+                        )
+                    }
+                },
+            },
+            {
+                animationEnabled: true,
+                lazy: true,
+                swipeEnabled: false,
+                tabBarPosition: 'bottom',
+                initialRouteName: 'Video',
+                tabBarOptions: {
+                    activeTintColor: '#3b5597',
+                    // activeBackgroundColor: '#3b5597',
+                    pressOpacity: 0.95,
+                    inactiveTintColor: '#8a8a8a',
+                    showIcon: true,
+                    indicatorStyle: {
+                        opacity: 0
+                    },
+                    tabStyle: {
+                        padding: 0,
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                    },
+                    labelStyle: {
+                        marginBottom: 6,
+                        fontSize: 18 // 文字大小
+                    },
+                    style: {
+                        backgroundColor: '#E1E1E1',
+                        height: 90
+                    },
+                    iconStyle: {
+                        height: 38,
+                        width: 38,
+                    }
+                },
+                backBehavior: 'none',
+            });
         const AppScreen = StackNavigator({
                 Login: {
                     screen: Login,
                     path: '/pages/Login'
                 },
                 Index: {
-                    screen: Index,
+                    screen: TabScreen,
                     path: '/pages/Index'
                 }
             },
@@ -63,9 +150,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     tabBarIcon: {
-        height: 45,
-        width: 45,
-        marginBottom: 30
+        height: 41,
+        width: 38,
+        marginBottom: 24
     }
 });
 

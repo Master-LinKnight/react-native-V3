@@ -13,17 +13,15 @@ import {
     View,
     TouchableWithoutFeedback,
 } from 'react-native';
-import { StackNavigator,TabNavigator,DrawerNavigator } from 'react-navigation';
-// import Drawer from 'react-native-drawer'
 
-export default class Index extends Component {
+export default class Cartoon extends Component {
     constructor(props){
         super(props);
 
     }
     static navigationOptions = ({navigation}) => {
         return ({
-            title:'Index',
+            title:'卡通',
             headerTitleStyle: {
                 color: '#ffffff',
                 fontSize: 36,

@@ -32,10 +32,10 @@ export default class App extends Component {
                     animated={true}
                     hidden={false}
                     translucent={true}
-                    barStyle={'light-content'}
+                    // barStyle={'light-content'}
                     showHideTransition={'fade'}
                     networkActivityIndicatorVisible={true}
-                    backgroundColor = {'#3b5597'}
+                    // backgroundColor = {'#3b5597'}
                 />
                 <Router />
             </Resolution.FixWidthView>
