@@ -18,7 +18,7 @@ import Resolution from './common/resolution'
 import Router from './router'
 import {Provider} from 'react-redux'
 import configureStore from './store/configure-store'
-// const store = configureStore()
+const store = configureStore()
 
 export default class App extends Component {
     componentDidMount() {
@@ -27,18 +27,20 @@ export default class App extends Component {
     }
     render() {
         return (
-            <Resolution.FixWidthView style={styles.container}>
-                <StatusBar
-                    animated={true}
-                    hidden={false}
-                    translucent={true}
-                    // barStyle={'light-content'}
-                    showHideTransition={'fade'}
-                    networkActivityIndicatorVisible={true}
-                    // backgroundColor = {'#3b5597'}
-                />
-                <Router />
-            </Resolution.FixWidthView>
+            <Provider store={store}>
+                <Resolution.FixWidthView style={styles.container}>
+                    <StatusBar
+                        animated={true}
+                        hidden={false}
+                        translucent={true}
+                        // barStyle={'light-content'}
+                        showHideTransition={'fade'}
+                        networkActivityIndicatorVisible={true}
+                        // backgroundColor = {'#3b5597'}
+                    />
+                    <Router />
+                </Resolution.FixWidthView>
+            </Provider>
         );
     }
 }

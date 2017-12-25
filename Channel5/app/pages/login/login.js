@@ -20,8 +20,10 @@ import {
 } from 'react-native';
 import UserService from '../../services/userService'
 const userService = new UserService()
+import { connect } from 'react-redux'
+import {login} from '../../actions/login'
 var Navigation
-export default class Login extends Component {
+class Login extends Component {
     // static navigationOptions = ({navigation}) => {
     //     return ({
     //         header: null
@@ -61,24 +63,44 @@ export default class Login extends Component {
         })
     };
 
-    skipToPlayground = () => {
+    shouldComponentUpdate (nextProps, nextState) {
+        console.log(nextProps)
+        if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
+            Navigation.navigate('Index')
+            return false
+        }
+        // if(nextProps.status == 'doing'){
+        //     //loggining
+        //     this.refs.modal.open();
+        //     return false;
+        // }
+        // if(nextProps.status == 'error' || nextProps.status == 'done'){
+        //     this.refs.modal.close();
+        //     return false;
+        // }
+
+        return true;
+    }
+
+    skipToIndex = () => {
         // userService.GetTest({id:1})
         let params = {}
         params.username = 'lei'
         params.password = '123456'
-        userService.PostLogin(params).then(
-            (res) => {
-                console.log(res)
-            }
-        )
-        Navigation.navigate('Index')
+        // userService.PostLogin(params).then(
+        //     (res) => {
+        //         console.log(res)
+        //     }
+        // )
+        // Navigation.navigate('Index')
+        this.props.dispatch(login(params))
     }
 
     render() {
         Navigation = this.props.navigation;
         return (
             <View style={styles.loginBtnView}>
-                <TouchableWithoutFeedback onPress={this.skipToPlayground}>
+                <TouchableWithoutFeedback onPress={this.skipToIndex}>
                     <View style={styles.loginBtn}>
                         <Text style={{fontSize:28, color:'#3b5597', fontWeight:'bold'}}>{'Login'}</Text>
                     </View>
@@ -120,3 +142,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 });
+
+function mapStateToProps(state) {
+    const { login } = state
+    return {
+        login
+    }
+}
+
+export default connect(mapStateToProps)(Login)
