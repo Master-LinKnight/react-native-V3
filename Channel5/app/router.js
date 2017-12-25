@@ -74,7 +74,7 @@ class Router extends Component {
                 },
             },
             {
-                animationEnabled: true,
+                animationEnabled: false,
                 lazy: true,
                 swipeEnabled: false,
                 tabBarPosition: 'bottom',
@@ -82,7 +82,7 @@ class Router extends Component {
                 tabBarOptions: {
                     activeTintColor: '#3b5597',
                     // activeBackgroundColor: '#3b5597',
-                    pressOpacity: 0.95,
+                    // pressOpacity: 0.95,
                     inactiveTintColor: '#8a8a8a',
                     showIcon: true,
                     indicatorStyle: {
@@ -91,7 +91,7 @@ class Router extends Component {
                     tabStyle: {
                         padding: 0,
                         alignItems: 'center',
-                        justifyContent: 'flex-end',
+                        justifyContent: 'flex-end'
                     },
                     labelStyle: {
                         marginBottom: 6,

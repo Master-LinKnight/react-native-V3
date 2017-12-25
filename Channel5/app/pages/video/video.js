@@ -75,10 +75,6 @@ export default class Video extends Component {
                 }
             ]
         }
-        // var ds = new ListView.DataSource({
-        //     rowHasChanged: (r1, r2) => r1 !== r2,
-        //     sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-        // })
     }
     
     static navigationOptions = ({navigation}) => {
@@ -108,17 +104,15 @@ export default class Video extends Component {
                 dataBlob[i+':'+j] = video[j]
             }
         }
-        // console.log('dataBlob', dataBlob)
         this.setState(
             {
                 dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob,sectionIDs,rowIDs)
             }
         )
-        // console.log('dataSource', this.state.dataSource)
     }
     renderRow = (rowData) => {
         return (
-            <View style={{height: 885}}>
+            <View style={{height: 895}}>
                 <View style={styles.rowView}>
                     <Image style={styles.rowImageView} source={rowData.imageUrl}>
                         <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
@@ -150,6 +144,7 @@ export default class Video extends Component {
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}
                     renderSectionHeader={this.renderSectionHeader}
+                    stickySectionHeadersEnabled={false}
                 />
             </View>
         );
@@ -161,8 +156,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
     sectionHeader: {
-        height: 164,
-        flexDirection:'row',
+        height: 184,
+        flexDirection:'column',
         backgroundColor: '#ffffff'
     },
     sectionDateTitle: {
