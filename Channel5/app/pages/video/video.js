@@ -188,15 +188,15 @@ const styles = StyleSheet.create({
     },
     rowView: {
         height: 835,
-        marginTop: 22,
+        marginTop: 25,
         marginLeft: 35,
         marginRight: 35,
         width: 680,
         borderRadius: 30,
         shadowOffset: {width: 0, height: 0},
         shadowColor: 'black',
-        shadowOpacity: 0.3,
-        shadowRadius: 15,
+        shadowOpacity: 0.4,
+        shadowRadius: 12,
         elevation: 8
     },
     rowImageView: {

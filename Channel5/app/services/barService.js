@@ -1,52 +1,50 @@
 import React, { Component } from 'react';
 import BaseService from './baseService'
 
-export default class ComicService extends BaseService{
+export default class BarService extends BaseService {
     constructor() {
         super();
     }
 
-    async GetBaseComicInfos(params) {
+    async GetBaseBarInfors(params) {
         try {
-            // 注意这里的await语句，其所在的函数必须有async关键字声明
-            let url = '/Comics/GetBaseComicInfos'
+            let url = '/Bars/GetBaseBarInfors'
             url = this.complexParamsUrl(url, params)
             let response = await fetch(url)
             let responseJson = await response.json()
             return responseJson
         } catch(error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
-    async GetBaseComicInfos(params) {
+    async GetSingleBarInfos(params) {
         try {
-            // 注意这里的await语句，其所在的函数必须有async关键字声明
-            let url = '/Comics/GetSingleComicChapter'
+            let url = '/Bars/GetSingleBarInfos'
             url = this.complexParamsUrl(url, params)
             let response = await fetch(url)
             let responseJson = await response.json()
             return responseJson
         } catch(error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
-    async GetSingleComic(params) {
+    async GetSingleBarTopic(params) {
         try {
-            let url = '/Comics/GetSingleComic'
+            let url = '/Bars/GetSingleBarTopic'
             url = this.complexParamsUrl(url, params)
             let response = await fetch(url)
             let responseJson = await response.json()
             return responseJson
         } catch(error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
-    async PostComicComment(params) {
+    async PostBarTopic(params) {
         try {
-            let url = '/Comics/PostComicComment'
+            let url = '/Bars/PostBarTopic'
             url = this.complexUrl(url)
             let response = await fetch(url, {
                 method: 'POST',
@@ -63,9 +61,9 @@ export default class ComicService extends BaseService{
         }
     }
 
-    async PostAddFavoriteComic(params) {
+    async PostTopicComment(params) {
         try {
-            let url = '/Comics/PostAddFavoriteComic'
+            let url = '/Bars/PostTopicComment'
             url = this.complexUrl(url)
             let response = await fetch(url, {
                 method: 'POST',
@@ -82,9 +80,28 @@ export default class ComicService extends BaseService{
         }
     }
 
-    async GetComicsByKeyWords(params) {
+    async PostAddFavoriteBar(params) {
         try {
-            let url = '/Comics/GetComicsByKeyWords'
+            let url = '/Bars/PostAddFavoriteBar'
+            url = this.complexUrl(url)
+            let response = await fetch(url, {
+                method: 'POST',
+                body: this.complexParams(params),
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Accept": "application/json"
+                }
+            });
+            let responseJson = await response.json()
+            return responseJson
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    async GetBarsByKeyWords(params) {
+        try {
+            let url = '/Bars/GetBarsByKeyWords'
             url = this.complexParamsUrl(url, params)
             let response = await fetch(url)
             let responseJson = await response.json()

@@ -1,52 +1,38 @@
 import React, { Component } from 'react';
 import BaseService from './baseService'
 
-export default class ComicService extends BaseService{
+export default class ShortVideoService extends BaseService {
     constructor() {
         super();
     }
 
-    async GetBaseComicInfos(params) {
+    async GetBaseShortVideoInfos(params) {
         try {
-            // 注意这里的await语句，其所在的函数必须有async关键字声明
-            let url = '/Comics/GetBaseComicInfos'
+            let url = '/ShortVideos/GetBaseShortVideoInfos'
             url = this.complexParamsUrl(url, params)
             let response = await fetch(url)
             let responseJson = await response.json()
             return responseJson
         } catch(error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
-    async GetBaseComicInfos(params) {
+    async GetSingleShortVideo(params) {
         try {
-            // 注意这里的await语句，其所在的函数必须有async关键字声明
-            let url = '/Comics/GetSingleComicChapter'
+            let url = '/ShortVideos/GetSingleShortVideo'
             url = this.complexParamsUrl(url, params)
             let response = await fetch(url)
             let responseJson = await response.json()
             return responseJson
         } catch(error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
-    async GetSingleComic(params) {
+    async PostComment(params) {
         try {
-            let url = '/Comics/GetSingleComic'
-            url = this.complexParamsUrl(url, params)
-            let response = await fetch(url)
-            let responseJson = await response.json()
-            return responseJson
-        } catch(error) {
-            console.error(error)
-        }
-    }
-
-    async PostComicComment(params) {
-        try {
-            let url = '/Comics/PostComicComment'
+            let url = '/ShortVideos/PostComment'
             url = this.complexUrl(url)
             let response = await fetch(url, {
                 method: 'POST',
@@ -63,9 +49,9 @@ export default class ComicService extends BaseService{
         }
     }
 
-    async PostAddFavoriteComic(params) {
+    async PostAddFavoriteShortVideo(params) {
         try {
-            let url = '/Comics/PostAddFavoriteComic'
+            let url = '/ShortVideos/PostAddFavoriteShortVideo'
             url = this.complexUrl(url)
             let response = await fetch(url, {
                 method: 'POST',
@@ -82,9 +68,9 @@ export default class ComicService extends BaseService{
         }
     }
 
-    async GetComicsByKeyWords(params) {
+    async GetShortVideosByKeyWords(params) {
         try {
-            let url = '/Comics/GetComicsByKeyWords'
+            let url = '/ShortVideos/GetShortVideosByKeyWords'
             url = this.complexParamsUrl(url, params)
             let response = await fetch(url)
             let responseJson = await response.json()
