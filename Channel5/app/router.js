@@ -23,6 +23,7 @@ import Community from './pages/community/community'
 import Novel from './pages/novel/novel'
 import Search from './pages/search/search'
 import Video from  './pages/video/video'
+import VideoDetail from './pages/videoDetail/videoDetail'
 
 class Router extends Component {
     render() {
@@ -116,6 +117,10 @@ class Router extends Component {
                 Index: {
                     screen: TabScreen,
                     path: '/pages/Index'
+                },
+                VideoDetail: {
+                    screen: VideoDetail,
+                    path: '/pages/VideoDetail'
                 }
             },
             {

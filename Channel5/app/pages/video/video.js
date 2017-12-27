@@ -19,6 +19,7 @@ import {
 var headerIcon = require('../../images/pic_head.png')
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
+var Navigation
 var dataBlob = {},
     sectionIDs = [],
     rowIDs = []
@@ -110,17 +111,22 @@ export default class Video extends Component {
             }
         )
     }
+    onItemClick = (rowData) => {
+        Navigation.navigate('VideoDetail')
+    }
     renderRow = (rowData) => {
         return (
             <View style={{height: 895}}>
-                <View style={styles.rowView}>
-                    <Image style={styles.rowImageView} source={rowData.imageUrl}>
-                        <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
-                        <Text style={styles.rowTitle}>{rowData.title}</Text>
-                        <Text style={styles.rowDuration}>{rowData.duration}</Text>
-                        <Image style={styles.rowPlay} source={require('../../images/icon_play.png')}/>
-                    </Image>
-                </View>
+                <TouchableWithoutFeedback onPress={this.onItemClick.bind(this, rowData)}>
+                    <View style={styles.rowView}>
+                        <Image style={styles.rowImageView} source={rowData.imageUrl}>
+                            <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
+                            <Text style={styles.rowTitle}>{rowData.title}</Text>
+                            <Text style={styles.rowDuration}>{rowData.duration}</Text>
+                            <Image style={styles.rowPlay} source={require('../../images/icon_play.png')}/>
+                        </Image>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         )
     }
@@ -137,6 +143,7 @@ export default class Video extends Component {
     }
 
     render() {
+        Navigation = this.props.navigation
         return (
             <View style={styles.container}>
                 <ListView

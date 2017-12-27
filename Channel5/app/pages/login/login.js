@@ -19,6 +19,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 import UserService from '../../services/userService'
+import Loading from '../../common/loading'
 const userService = new UserService()
 import { connect } from 'react-redux'
 import {login} from '../../actions/login'
@@ -52,7 +53,7 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            // isBlock: true
+            isFreshing: false
         }
         // this.pswBlock = this.pswBlock.bind(this)
     }
@@ -67,6 +68,18 @@ class Login extends Component {
         console.log(nextProps)
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
             Navigation.navigate('Index')
+            return false
+        }
+
+        if (nextProps.login.isFreshing) {
+            this.setState({
+                isFreshing: true
+            })
+            return false
+        } else {
+            this.setState({
+                isFreshing: false
+            })
             return false
         }
         // if(nextProps.status == 'doing'){
@@ -99,12 +112,15 @@ class Login extends Component {
     render() {
         Navigation = this.props.navigation;
         return (
-            <View style={styles.loginBtnView}>
-                <TouchableWithoutFeedback onPress={this.skipToIndex}>
-                    <View style={styles.loginBtn}>
-                        <Text style={{fontSize:28, color:'#3b5597', fontWeight:'bold'}}>{'Login'}</Text>
-                    </View>
-                </TouchableWithoutFeedback>
+            <View>
+                <Loading size={'large'} visible={this.state.isFreshing}/>
+                <View style={styles.loginBtnView}>
+                    <TouchableWithoutFeedback onPress={this.skipToIndex}>
+                        <View style={styles.loginBtn}>
+                            <Text style={{fontSize:28, color:'#3b5597', fontWeight:'bold'}}>{'Login'}</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
             </View>
         );
     }
