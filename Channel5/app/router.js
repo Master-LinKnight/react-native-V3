@@ -24,7 +24,7 @@ import Novel from './pages/novel/novel'
 import Search from './pages/search/search'
 import Video from  './pages/video/video'
 import VideoDetail from './pages/videoDetail/videoDetail'
-
+import CartoonDetail from './pages/cartoonDetail/cartoonDetail'
 class Router extends Component {
     render() {
         const TabScreen = TabNavigator({
@@ -121,6 +121,10 @@ class Router extends Component {
                 VideoDetail: {
                     screen: VideoDetail,
                     path: '/pages/VideoDetail'
+                },
+                CartoonDetail: {
+                    screen: CartoonDetail,
+                    path: '/pages/CartoonDetail'
                 }
             },
             {

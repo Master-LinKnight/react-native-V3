@@ -55,6 +55,7 @@ class Login extends Component {
         this.state = {
             isFreshing: false
         }
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
         // this.pswBlock = this.pswBlock.bind(this)
     }
 
@@ -64,19 +65,24 @@ class Login extends Component {
         })
     };
 
-    shouldComponentUpdate (nextProps, nextState) {
-        console.log(nextProps)
+    componentWillReceiveProps (nextProps, nextState) {
+        // console.log(nextProps)
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
+            this.setState({
+                isFreshing: false
+            })
             Navigation.navigate('Index')
             return false
         }
 
         if (nextProps.login.isFreshing) {
+            console.log('isfreshing')
             this.setState({
                 isFreshing: true
             })
             return false
         } else {
+            console.log('not isfreshing')
             this.setState({
                 isFreshing: false
             })

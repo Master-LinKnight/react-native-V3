@@ -77,7 +77,7 @@ export default class VideoDetail extends Component {
             <ScrollView style={styles.container}>
                 <Image style={{height: h, width: w, justifyContent: 'center', alignItems: 'center'}} source={require('../../images/index_img02.png')}>
                     <TouchableWithoutFeedback onPress={this.clickToGoBack.bind()}>
-                        <View style={{height: 50, width: 50, position: 'absolute', backgroundColor: '#ffffff', top: 55, left: 35}}/>
+                        <Image style={{height: 50, width: 50, position: 'absolute', top: 55, left: 35}} source={require('../../images/close.png')}/>
                     </TouchableWithoutFeedback>
                     <Image style={styles.playImg} source={require('../../images/icon_play.png')}/>
                 </Image>
