@@ -76,7 +76,10 @@ export default class CartoonDetail extends Component {
                         <Text style={{fontSize: 26, left: 30, top: 26, position: 'absolute', color: '#999999', fontWeight: 'bold'}}>{this.state.data.subhead}</Text>
                         <Text style={{fontSize: 60, left: 30, top: 80, position: 'absolute', color: '#333333', fontWeight: '900'}}>{this.state.data.title}</Text>
                         <Text style={{fontSize: 28, right: 30, top: 24, position: 'absolute', color: '#999999', fontWeight: 'bold'}}>{this.state.data.duration}</Text>
-                        <Text style={{}}></Text>
+                        {/*<Text style={{}}></Text>*/}
+                        <View style={{height: 56, width: 180, top: 90, right: 30, backgroundColor: 'blue', position: 'absolute', borderRadius: 28, justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{fontSize: 24, color: '#ffffff', backgroundColor: 'rgba(255, 255, 255, 0)', fontWeight: '500'}}>{'开始阅读'}</Text>
+                        </View>
                     </View>
                 </Image>
             </ScrollView>
