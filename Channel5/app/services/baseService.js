@@ -4,7 +4,6 @@ import serverConfig from './service-config'
 export default class BaseService {
     complexParamsUrl(url, params) {
         if (params) {
-            url = serverConfig.serverUrl + url
             let paramsArray = [];
             //拼接参数
             Object.keys(params).forEach(key => paramsArray.push(key + '=' + params[key]))
@@ -14,7 +13,7 @@ export default class BaseService {
                 url += '&' + paramsArray.join('&')
             }
         }
-        return url
+        return serverConfig.serverUrl + url
     }
 
     complexUrl(url) {

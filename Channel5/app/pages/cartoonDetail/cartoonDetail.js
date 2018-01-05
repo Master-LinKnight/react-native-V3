@@ -19,10 +19,12 @@ import {
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
 var Navigation
+import BaseStyle from '../../common/style'
 export default class CartoonDetail extends Component {
     constructor(props){
         super(props);
         this.state = {
+            opt: 1,
             data: {
                 title: '海贼王',
                 duration: '12月16日 连载中 816集',
@@ -52,6 +54,12 @@ export default class CartoonDetail extends Component {
     clickToGoBack = () => {
         Navigation.goBack()
     }
+    clickTabBar = (opts) => {
+        // console.log(opts)
+        this.setState({
+            opt: opts.obj
+        })
+    }
     render() {
         let w = '100%'
         let h = 1010
@@ -76,9 +84,51 @@ export default class CartoonDetail extends Component {
                         <Text style={{fontSize: 26, left: 30, top: 26, position: 'absolute', color: '#999999', fontWeight: 'bold'}}>{this.state.data.subhead}</Text>
                         <Text style={{fontSize: 60, left: 30, top: 80, position: 'absolute', color: '#333333', fontWeight: '900'}}>{this.state.data.title}</Text>
                         <Text style={{fontSize: 28, right: 30, top: 24, position: 'absolute', color: '#999999', fontWeight: 'bold'}}>{this.state.data.duration}</Text>
-                        <Text style={{}}></Text>
+                        <View style={[{height: 56, width: 180, top: 90, right: 30, backgroundColor: '#007aff', position: 'absolute', borderRadius: 28}, BaseStyle.txtCenter]}>
+                            <Text style={{fontSize: 24, color: '#ffffff', backgroundColor: 'rgba(255, 255, 255, 0)', fontWeight: '500'}}>{'开始阅读'}</Text>
+                        </View>
                     </View>
                 </Image>
+                <View style={{height: 135, backgroundColor: '#ffffff'}}>
+                    <View style={{position: 'absolute', bottom: 0, left: 35, right: 35, height: 52, backgroundColor: '#ffffff', flexDirection: 'row', borderRadius: 8, borderColor: '#007aff', borderWidth: 1}}>
+                        <TouchableWithoutFeedback onPress={this.clickTabBar.bind(this, {obj: 1})}>
+                            {
+                                this.state.opt === 1 ?
+                                <View style={[{backgroundColor: '#007aff', height: 52, width: '33%', borderTopLeftRadius: 8, borderBottomLeftRadius: 8}, BaseStyle.txtCenter]}>
+                                    <Text style={{fontSize: 30, color: '#ffffff'}}>{'简介'}</Text>
+                                </View> :
+                                <View style={[{height: 52, width: '33%'}, BaseStyle.txtCenter]}>
+                                    <Text style={{fontSize: 30, color: '#007aff'}}>{'简介'}</Text>
+                                </View>
+                            }
+                        </TouchableWithoutFeedback>
+                        <View style={{height: 52, width: '0.5%', backgroundColor: '#007aff'}}/>
+                        <TouchableWithoutFeedback onPress={this.clickTabBar.bind(this, {obj: 2})}>
+                            {
+                                this.state.opt === 2 ?
+                                <View style={[{backgroundColor: '#007aff', height: 52, width: '33%'}, BaseStyle.txtCenter]}>
+                                    <Text style={{fontSize: 30, color: '#ffffff'}}>{'目录'}</Text>
+                                </View> :
+                                <View style={[{height: 52, width: '33%'}, BaseStyle.txtCenter]}>
+                                    <Text style={{fontSize: 30, color: '#007aff'}}>{'目录'}</Text>
+                                </View>
+                            }
+                        </TouchableWithoutFeedback>
+                        <View style={{height: 52, width: '0.5%', backgroundColor: '#007aff'}}/>
+                        <TouchableWithoutFeedback onPress={this.clickTabBar.bind(this, {obj: 3})}>
+                            {
+                                this.state.opt === 3 ?
+                                <View style={[{backgroundColor: '#007aff', height: 52, width: '33%', borderTopRightRadius: 8, borderBottomRightRadius: 8}, BaseStyle.txtCenter]}>
+                                    <Text style={{fontSize: 30, color: '#ffffff'}}>{'评论'}</Text>
+                                </View> :
+                                <View style={[{height: 52, width: '33%'}, BaseStyle.txtCenter]}>
+                                    <Text style={{fontSize: 30, color: '#007aff'}}>{'评论'}</Text>
+                                </View>
+
+                            }
+                        </TouchableWithoutFeedback>
+                    </View>
+                </View>
             </ScrollView>
         );
     }
