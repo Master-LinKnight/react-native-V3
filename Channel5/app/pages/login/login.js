@@ -23,8 +23,6 @@ import Loading from '../../common/loading'
 const userService = new UserService()
 import { connect } from 'react-redux'
 import {login} from '../../actions/login'
-import shortVideoService from '../../services/shortVideoService'
-var ShortVideoService = new shortVideoService()
 var Navigation
 class Login extends Component {
     // static navigationOptions = ({navigation}) => {
@@ -100,7 +98,7 @@ class Login extends Component {
         //     return false;
         // }
 
-        return true;
+        return true
     }
 
     skipToIndex = () => {
@@ -115,7 +113,6 @@ class Login extends Component {
         // )
         // Navigation.navigate('Index')
         this.props.dispatch(login(params))
-        // ShortVideoService.GetBaseShortVideoInfos()
     }
 
     render() {

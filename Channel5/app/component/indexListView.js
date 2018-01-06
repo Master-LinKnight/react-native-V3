@@ -42,24 +42,33 @@ export default class IndexListView extends Component {
     componentDidMount(){
         this.loadListViewDataFormJson()
     }
+    componentWillReceiveProps(nextProps, nextState) {
+        // console.log(this)
+        if (nextProps.data != this.props.data && nextProps.data.length > 0) {
+            this.loadListViewDataFormJson(nextProps.data)
+        }
+    }
 
-    loadListViewDataFormJson = () => {
-        let jsonData = this.props.data
+    loadListViewDataFormJson = (data) => {
+        let jsonData = data
 
         for (let i in jsonData) {
             sectionIDs.push(i)
             dataBlob[i] = {
                 dateTitle: jsonData[i].dateTitle,
                 title: jsonData[i].title,
-                iconUrl: jsonData[i].iconUrl
+                // iconUrl: jsonData[i].iconUrl
             }
             rowIDs[i] = []
-            let video = jsonData[i].video
-            for (let j in video) {
+            let listData = jsonData[i].listData
+            for (let j in listData) {
                 rowIDs[i].push(j)
-                dataBlob[i+':'+j] = video[j]
+                dataBlob[i+':'+j] = listData[j]
             }
         }
+        console.log(dataBlob)
+        console.log(sectionIDs)
+        console.log(rowIDs)
         this.setState(
             {
                 dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob,sectionIDs,rowIDs)
@@ -72,7 +81,7 @@ export default class IndexListView extends Component {
             <View style={{height: 895}}>
                 <TouchableWithoutFeedback onPress={this.onItemClick.bind(this, rowData)}>
                     <View style={styles.rowView}>
-                        <Image style={styles.rowImageView} source={rowData.imageUrl}>
+                        <Image style={styles.rowImageView} source={{url: rowData.imageUrl}}>
                             <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
                             <Text style={styles.rowTitle}>{rowData.title}</Text>
                             <Text style={styles.rowDuration}>{rowData.duration}</Text>
@@ -90,7 +99,7 @@ export default class IndexListView extends Component {
             <View style={styles.sectionHeader}>
                 <Text style={styles.sectionDateTitle}>{sectionData.dateTitle}</Text>
                 <Text style={styles.sectionTitle}>{sectionData.title}</Text>
-                <Image style={styles.sectionAvatar} source={sectionData.iconUrl}/>
+                {/*<Image style={styles.sectionAvatar} source={uri:sectionData.iconUrl}/>*/}
             </View>
         )
     }
