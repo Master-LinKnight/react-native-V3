@@ -19,7 +19,7 @@ export default class ComicService extends BaseService{
         }
     }
 
-    async GetBaseComicInfos(params) {
+    async GetSingleComicChapter(params) {
         try {
             // 注意这里的await语句，其所在的函数必须有async关键字声明
             let url = '/Comics/GetSingleComicChapter'

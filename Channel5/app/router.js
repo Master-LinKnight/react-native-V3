@@ -25,6 +25,8 @@ import Search from './pages/search/search'
 import Video from  './pages/video/video'
 import VideoDetail from './pages/videoDetail/videoDetail'
 import CartoonDetail from './pages/cartoonDetail/cartoonDetail'
+import {connect} from 'react-redux'
+import {changeRouter} from './actions/router'
 class Router extends Component {
     render() {
         const TabScreen = TabNavigator({
@@ -52,7 +54,11 @@ class Router extends Component {
                         tabBarLabel: '直播和视频',
                         tabBarIcon: ({focused}) => (
                             <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_video.png')} selectedImage={require('./images/icon_video_active.png')}/>
-                        )
+                        ),
+                        tabBarOnPress: (obj) => {
+                            obj.jumpToIndex(obj.scene.index)
+                            // this.props.dispatch(changeRouter('video'))
+                        }
                     }
                 },
                 Community: {

@@ -17,6 +17,7 @@ var dataBlob = {},
     sectionIDs = [],
     rowIDs = [],
     Navigation
+import IndexListItem from './indexListItem'
 
 export default class IndexListView extends Component {
     constructor(props){
@@ -39,19 +40,21 @@ export default class IndexListView extends Component {
         }
         // Navigation = this.props.navigation
     }
-    componentDidMount(){
-        this.loadListViewDataFormJson()
-    }
+    // componentDidMount(){
+    //     this.loadListViewDataFormJson()
+    // }
     componentWillReceiveProps(nextProps, nextState) {
         // console.log(this)
-        if (nextProps.data != this.props.data && nextProps.data.length > 0) {
+        if (nextProps.data != this.props.data && nextProps.data.length > 0 && this.props.data.length == 0) {
             this.loadListViewDataFormJson(nextProps.data)
         }
     }
 
     loadListViewDataFormJson = (data) => {
         let jsonData = data
-
+        dataBlob = []
+        sectionIDs = []
+        rowIDs = []
         for (let i in jsonData) {
             sectionIDs.push(i)
             dataBlob[i] = {
@@ -66,9 +69,7 @@ export default class IndexListView extends Component {
                 dataBlob[i+':'+j] = listData[j]
             }
         }
-        console.log(dataBlob)
-        console.log(sectionIDs)
-        console.log(rowIDs)
+
         this.setState(
             {
                 dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob,sectionIDs,rowIDs)
@@ -78,18 +79,7 @@ export default class IndexListView extends Component {
 
     renderRow = (rowData) => {
         return (
-            <View style={{height: 895}}>
-                <TouchableWithoutFeedback onPress={this.onItemClick.bind(this, rowData)}>
-                    <View style={styles.rowView}>
-                        <Image style={styles.rowImageView} source={{url: rowData.imageUrl}}>
-                            <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
-                            <Text style={styles.rowTitle}>{rowData.title}</Text>
-                            <Text style={styles.rowDuration}>{rowData.duration}</Text>
-                            <Image style={styles.rowPlay} source={require('../images/icon_play.png')}/>
-                        </Image>
-                    </View>
-                </TouchableWithoutFeedback>
-            </View>
+            <IndexListItem rowData={rowData} {...this.props}/>
         )
     }
 
@@ -111,6 +101,8 @@ export default class IndexListView extends Component {
     }
 
     render() {
+        const {category} = this.props
+        console.log(category)
         return (
             <ListView
                 style={{marginTop: 40}}
@@ -149,51 +141,5 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 35,
         top: 85
-    },
-    rowView: {
-        height: 835,
-        marginTop: 25,
-        marginLeft: 35,
-        marginRight: 35,
-        width: 680,
-        borderRadius: 30,
-        shadowOffset: {width: 0, height: 0},
-        shadowColor: 'black',
-        shadowOpacity: 0.4,
-        shadowRadius: 12,
-        elevation: 8
-    },
-    rowImageView: {
-        height: 835,
-        width: 680,
-        borderRadius: 30
-    },
-    rowSubhead: {
-        fontSize: 28,
-        marginLeft: 36,
-        marginTop: 30,
-        color: 'white',
-        backgroundColor: 'rgba(255, 255, 255, 0)'
-    },
-    rowTitle: {
-        fontSize: 48,
-        marginLeft: 36,
-        marginTop: 20,
-        color: 'white',
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        fontWeight: '900'
-    },
-    rowDuration: {
-        fontSize: 28,
-        marginLeft: 36,
-        marginTop: 21,
-        color: 'white',
-        backgroundColor: 'rgba(255, 255, 255, 0)'
-    },
-    rowPlay: {
-        width: 128,
-        height: 128,
-        alignSelf: 'center',
-        marginTop: 184
     }
 })

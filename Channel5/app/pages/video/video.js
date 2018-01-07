@@ -25,10 +25,9 @@ var dataBlob = {},
     sectionIDs = [],
     rowIDs = []
 import IndexListView from '../../component/indexListView'
-import shortVideoService from '../../services/shortVideoService'
-var ShortVideoService = new shortVideoService()
 import {videoList} from '../../actions/video'
 import Loading from '../../common/loading'
+
 class Video extends Component {
     constructor(props){
         super(props);
@@ -41,14 +40,13 @@ class Video extends Component {
         this.componentDidMount = this.componentDidMount.bind(this)
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     }
-    
+
     static navigationOptions = ({navigation}) => {
         return ({
             header: null
         })
     }
     componentWillReceiveProps = (nextProps, nextState) => {
-        console.log(nextProps.video.status)
         if(nextProps.video.status != this.props.video.status && nextProps.video.status === 'FETCH_DATA_SUCCESS'){
             this.setState({
                 isFreshing: false
@@ -77,6 +75,7 @@ class Video extends Component {
             })
             return false
         }
+
         return true
     }
     componentDidMount = () => {
@@ -84,11 +83,10 @@ class Video extends Component {
     }
 
     render() {
-        Navigation = this.props.navigation
         return (
             <View style={styles.container}>
                 <Loading size={'large'} visible={this.state.isFreshing}/>
-                <IndexListView data={this.state.data} {...this.props}/>
+                <IndexListView data={this.state.data} category={'video'} {...this.props}/>
             </View>
         );
     }
@@ -101,9 +99,10 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-    const { video } = state
+    const { video, router } = state
     return {
-        video
+        video,
+        router
     }
 }
 

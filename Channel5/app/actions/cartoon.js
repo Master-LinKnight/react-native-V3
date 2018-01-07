@@ -1,27 +1,28 @@
 import * as types from './types'
-import shortVideoService from "../services/shortVideoService";
-var ShortVideoService = new shortVideoService()
+import comicService from '../services/comicService'
+var ComicService = new comicService()
 
-export function videoList() {
+export function cartoonList() {
     return dispatch => {
         dispatch(fetchDataLoading())
-        ShortVideoService.GetBaseShortVideoInfos().then(
+        ComicService.GetBaseComicInfos().then(
             (res) => {
-                if (res && res.shortVideos && res.shortVideos.length > 0) {
+                // console.log(res)
+                if (res.comics && res.comics.length > 0) {
                     let data = []
-                    for (let v of res.shortVideos) {
+                    for (let v of res.comics) {
                         if (data && data.length > 0) {
                             for (let vv of data) {
                                 if (v.groupKey == vv.groupKey) {
                                     vv.listData.push({
-                                        id: v.videoId,
+                                        id: v.comicId,
                                         title: v.name,
                                         description: v.description,
-                                        url: v.videoUrl,
-                                        imageUrl: v.coverImage,
-                                        duration: v.playTime,
-                                        playCount: v.playCount,
-                                        subhead: v.playCountStr
+                                        // url: v.videoUrl,
+                                        imageUrl: v.largeImage,
+                                        duration: v.status,
+                                        readCount: v.readCount,
+                                        subhead: v.readCountStr
                                     })
                                 } else {
                                     data.push({
@@ -29,14 +30,14 @@ export function videoList() {
                                         groupKey: v.groupKey,
                                         listData: [
                                             {
-                                                id: v.videoId,
+                                                id: v.comicId,
                                                 title: v.name,
                                                 description: v.description,
-                                                url: v.videoUrl,
-                                                imageUrl: v.coverImage,
-                                                duration: v.playTime,
-                                                playCount: v.playCount,
-                                                subhead: v.playCountStr
+                                                // url: v.videoUrl,
+                                                imageUrl: v.largeImage,
+                                                duration: v.status,
+                                                readCount: v.readCount,
+                                                subhead: v.readCountStr
                                             }
                                         ]
                                     })
@@ -48,14 +49,14 @@ export function videoList() {
                                 groupKey: v.groupKey,
                                 listData: [
                                     {
-                                        id: v.videoId,
+                                        id: v.comicId,
                                         title: v.name,
                                         description: v.description,
-                                        url: v.videoUrl,
-                                        imageUrl: v.coverImage,
-                                        duration: v.playTime,
-                                        playCount: v.playCount,
-                                        subhead: v.playCountStr
+                                        // url: v.videoUrl,
+                                        imageUrl: v.largeImage,
+                                        duration: v.status,
+                                        readCount: v.readCount,
+                                        subhead: v.readCountStr
                                     }
                                 ]
                             })
