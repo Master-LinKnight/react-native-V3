@@ -7,13 +7,16 @@ export function cartoonList() {
         dispatch(fetchDataLoading())
         ComicService.GetBaseComicInfos().then(
             (res) => {
-                // console.log(res)
+                console.log(res.comics)
+                console.log(res.comics.length)
                 if (res.comics && res.comics.length > 0) {
                     let data = []
                     for (let v of res.comics) {
                         if (data && data.length > 0) {
+                            let isExist = false
                             for (let vv of data) {
                                 if (v.groupKey == vv.groupKey) {
+                                    isExist = true
                                     vv.listData.push({
                                         id: v.comicId,
                                         title: v.name,
@@ -24,24 +27,27 @@ export function cartoonList() {
                                         readCount: v.readCount,
                                         subhead: v.readCountStr
                                     })
-                                } else {
-                                    data.push({
-                                        displayIndex: v.displayIndex,
-                                        groupKey: v.groupKey,
-                                        listData: [
-                                            {
-                                                id: v.comicId,
-                                                title: v.name,
-                                                description: v.description,
-                                                // url: v.videoUrl,
-                                                imageUrl: v.largeImage,
-                                                duration: v.status,
-                                                readCount: v.readCount,
-                                                subhead: v.readCountStr
-                                            }
-                                        ]
-                                    })
+                                    break
                                 }
+                            }
+
+                            if (!isExist) {
+                                data.push({
+                                    displayIndex: v.displayIndex,
+                                    groupKey: v.groupKey,
+                                    listData: [
+                                        {
+                                            id: v.comicId,
+                                            title: v.name,
+                                            description: v.description,
+                                            // url: v.videoUrl,
+                                            imageUrl: v.largeImage,
+                                            duration: v.status,
+                                            readCount: v.readCount,
+                                            subhead: v.readCountStr
+                                        }
+                                    ]
+                                })
                             }
                         } else {
                             data.push({
@@ -75,21 +81,21 @@ export function cartoonList() {
 
 function fetchDataLoading() {
     return {
-        type: types.FETCH_DATA_LOADING,
+        type: types.FETCH_CARTOON_DATA_LOADING,
         isFreshing: true
     }
 }
 
 function fetchDataError() {
     return {
-        type: types.FETCH_DATA_ERROR,
+        type: types.FETCH_CARTOON_DATA_ERROR,
         isFreshing: false
     }
 }
 
 function fetchDataSuccess(_data) {
     return {
-        type: types.FETCH_DATA_SUCCESS,
+        type: types.FETCH_CARTOON_DATA_SUCCESS,
         isFreshing: false,
         data: _data
     }

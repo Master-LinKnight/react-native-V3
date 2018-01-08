@@ -11,8 +11,10 @@ export function videoList() {
                     let data = []
                     for (let v of res.shortVideos) {
                         if (data && data.length > 0) {
+                            let isExist = false
                             for (let vv of data) {
                                 if (v.groupKey == vv.groupKey) {
+                                    isExist = true
                                     vv.listData.push({
                                         id: v.videoId,
                                         title: v.name,
@@ -23,24 +25,26 @@ export function videoList() {
                                         playCount: v.playCount,
                                         subhead: v.playCountStr
                                     })
-                                } else {
-                                    data.push({
-                                        displayIndex: v.displayIndex,
-                                        groupKey: v.groupKey,
-                                        listData: [
-                                            {
-                                                id: v.videoId,
-                                                title: v.name,
-                                                description: v.description,
-                                                url: v.videoUrl,
-                                                imageUrl: v.coverImage,
-                                                duration: v.playTime,
-                                                playCount: v.playCount,
-                                                subhead: v.playCountStr
-                                            }
-                                        ]
-                                    })
+                                    break
                                 }
+                            }
+                            if (!isExist) {
+                                data.push({
+                                    displayIndex: v.displayIndex,
+                                    groupKey: v.groupKey,
+                                    listData: [
+                                        {
+                                            id: v.videoId,
+                                            title: v.name,
+                                            description: v.description,
+                                            url: v.videoUrl,
+                                            imageUrl: v.coverImage,
+                                            duration: v.playTime,
+                                            playCount: v.playCount,
+                                            subhead: v.playCountStr
+                                        }
+                                    ]
+                                })
                             }
                         } else {
                             data.push({
@@ -74,21 +78,21 @@ export function videoList() {
 
 function fetchDataLoading() {
     return {
-        type: types.FETCH_DATA_LOADING,
+        type: types.FETCH_VIDEO_DATA_LOADING,
         isFreshing: true
     }
 }
 
 function fetchDataError() {
     return {
-        type: types.FETCH_DATA_ERROR,
+        type: types.FETCH_VIDEO_DATA_ERROR,
         isFreshing: false
     }
 }
 
 function fetchDataSuccess(_data) {
     return {
-        type: types.FETCH_DATA_SUCCESS,
+        type: types.FETCH_VIDEO_DATA_SUCCESS,
         isFreshing: false,
         data: _data
     }

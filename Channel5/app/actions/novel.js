@@ -9,7 +9,7 @@ export function novelList() {
             (res) => {
                 if (res.books && res.books.length > 0) {
                     let data = []
-                    console.log(res.books)
+                    // console.log(res.books)
                     for (let v of res.books) {
                         if (data && data.length > 0) {
                             let isExist = false
