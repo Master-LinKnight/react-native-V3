@@ -54,11 +54,7 @@ class Router extends Component {
                         tabBarLabel: '直播和视频',
                         tabBarIcon: ({focused}) => (
                             <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_video.png')} selectedImage={require('./images/icon_video_active.png')}/>
-                        ),
-                        tabBarOnPress: (obj) => {
-                            obj.jumpToIndex(obj.scene.index)
-                            // this.props.dispatch(changeRouter('video'))
-                        }
+                        )
                     }
                 },
                 Community: {
