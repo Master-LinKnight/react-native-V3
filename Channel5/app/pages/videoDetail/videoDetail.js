@@ -80,9 +80,12 @@ export default class VideoDetail extends Component {
             header: null
         })
     }
+
     clickToGoBack = () => {
-        Navigation.goBack()
+        const {navigation} = this.props
+        navigation.goBack()
     }
+
     renderRow = (rowData) => {
         return (
             <View style={{height: 265, marginLeft: 35, marginRight: 35, backgroundColor: '#f0f0f8', borderRadius: 20, marginBottom: 40}}>
@@ -92,33 +95,32 @@ export default class VideoDetail extends Component {
             </View>
         )
     }
-    onImageLayout = (event, imageUrl) => {
-        const descHeight = event.nativeEvent.layout.height;
-        const descWidth = event.nativeEvent.layout.width;
-        let h = 835
-        const self = this
-        console.log(imageUrl)
-        if (imageUrl && imageUrl != '') {
-            Image.getSize(imageUrl, (width, height) => {
-                h = descWidth / width * height
-                console.log(width, height)
-                console.log(h)
-                self.refs.imageView.setNativeProps({
-                    style: {
-                        height: h,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }
-                })
-            })
-        }
-    }
+
+    // onImageLayout = (event, imageUrl) => {
+    //     const descHeight = event.nativeEvent.layout.height;
+    //     const descWidth = event.nativeEvent.layout.width;
+    //     let h = 835
+    //     const self = this
+    //     console.log(imageUrl)
+    //     if (imageUrl && imageUrl != '') {
+    //         Image.getSize(imageUrl, (width, height) => {
+    //             h = descWidth / width * height
+    //             console.log(width, height)
+    //             console.log(h)
+    //             self.refs.imageView.setNativeProps({
+    //                 style: {
+    //                     height: h,
+    //                     justifyContent: 'center',
+    //                     alignItems: 'center'
+    //                 }
+    //             })
+    //         })
+    //     }
+    // }
     render() {
-        let w = '100%'
-        let h = 1010
         return (
             <ScrollView style={styles.container}>
-                <Image style={{height: 1010, justifyContent: 'center', alignItems: 'center'}} ref='imageView' onLayout={(e) => {this.onImageLayout(e, this.state.data.imageUrl)}} source={{uri: this.state.data.imageUrl}}>
+                <Image style={{height: 970, justifyContent: 'center', alignItems: 'center'}} ref='imageView' source={{uri: this.state.data.imageUrl}}>
                     <TouchableWithoutFeedback onPress={this.clickToGoBack.bind()}>
                         <Image style={{height: 50, width: 50, position: 'absolute', top: 55, left: 35}} source={require('../../images/close.png')}/>
                     </TouchableWithoutFeedback>

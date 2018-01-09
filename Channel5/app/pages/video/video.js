@@ -59,7 +59,7 @@ class Video extends Component {
     }
 
     componentWillReceiveProps = (nextProps, nextState) => {
-        console.log(nextProps.video)
+        // console.log(nextProps.video)
         if(nextProps.video.status != this.props.video.status && nextProps.video.status === 'FETCH_VIDEO_DATA_SUCCESS'){
             this.setState({
                 isFreshing: false

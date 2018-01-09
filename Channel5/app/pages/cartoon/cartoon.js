@@ -52,7 +52,7 @@ class Cartoon extends Component {
         })
     }
     componentWillReceiveProps = (nextProps, nextState) => {
-        console.log(nextProps.cartoon)
+        // console.log(nextProps.cartoon)
         if(nextProps.cartoon.status != this.props.cartoon.status && nextProps.cartoon.status === 'FETCH_CARTOON_DATA_SUCCESS'){
             this.setState({
                 isFreshing: false
@@ -131,7 +131,7 @@ class Cartoon extends Component {
                             <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
                             <Text style={styles.rowTitle}>{rowData.title}</Text>
                             <Text style={styles.rowDuration}>{rowData.duration}</Text>
-                            <Image style={styles.rowPlay} source={require('../../images/icon_play.png')}/>
+                            {/*<Image style={styles.rowPlay} source={require('../../images/icon_play.png')}/>*/}
                         </Image>
                     </View>
                 </TouchableWithoutFeedback>

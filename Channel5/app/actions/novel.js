@@ -79,21 +79,21 @@ export function novelList() {
 
 function fetchDataLoading() {
     return {
-        type: types.FETCH_DATA_LOADING,
+        type: types.FETCH_NOVEL_DATA_LOADING,
         isFreshing: true
     }
 }
 
 function fetchDataError() {
     return {
-        type: types.FETCH_DATA_ERROR,
+        type: types.FETCH_NOVEL_DATA_ERROR,
         isFreshing: false
     }
 }
 
 function fetchDataSuccess(_data) {
     return {
-        type: types.FETCH_DATA_SUCCESS,
+        type: types.FETCH_NOVEL_DATA_SUCCESS,
         isFreshing: false,
         data: _data
     }
