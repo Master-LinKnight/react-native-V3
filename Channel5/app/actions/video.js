@@ -76,6 +76,21 @@ export function videoList() {
     }
 }
 
+export function videoDetail(params) {
+    return dispatch => {
+        dispatch(fetchDataLoading())
+        ShortVideoService.GetSingleShortVideo(params).then(
+            (res) => {
+                if (res && res.shortVideo) {
+                    dispatch(fetchDetailSuccess(res))
+                } else {
+                    dispatch(fetchDataError())
+                }
+            }
+        )
+    }
+}
+
 function fetchDataLoading() {
     return {
         type: types.FETCH_VIDEO_DATA_LOADING,
@@ -93,6 +108,14 @@ function fetchDataError() {
 function fetchDataSuccess(_data) {
     return {
         type: types.FETCH_VIDEO_DATA_SUCCESS,
+        isFreshing: false,
+        data: _data
+    }
+}
+
+function fetchDetailSuccess(_data) {
+    return {
+        type: types.FETCH_VIDEO_DETAIL_SUCCESS,
         isFreshing: false,
         data: _data
     }

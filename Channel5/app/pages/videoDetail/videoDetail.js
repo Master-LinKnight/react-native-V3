@@ -20,14 +20,17 @@ var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
 import ShortVideoService from '../../services/shortVideoService'
 var shortVideoService = new ShortVideoService()
-export default class VideoDetail extends Component {
+import {videoDetail} from '../../actions/video'
+import Loading from '../../common/loading'
+import {connect} from 'react-redux'
+class VideoDetail extends Component {
     constructor(props){
         super(props);
         this.state = {
             data: {
-                title: '热点游戏视频',
-                duration: '05:40',
-                subhead: '游戏文化',
+                title: '',
+                duration: '',
+                subhead: '',
                 videoUrl: ''
             },
             listLength: 0,
@@ -36,45 +39,51 @@ export default class VideoDetail extends Component {
                 rowHasChanged:(row1,row2) => row1 !== row2
             })
         }
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     }
 
     componentDidMount() {
-        const {navigation} = this.props
+        const {navigation, dispatch} = this.props
         let detailData = navigation.state.params.data
         let params = {
             ShortVideoId: detailData.id
         }
-        console.log(params)
-        shortVideoService.GetSingleShortVideo(params).then(
-            (res) => {
-                console.log(res)
+        // console.log(params)
+        dispatch(videoDetail(params))
+    }
+
+    componentWillReceiveProps = (nextProps, nextState) => {
+        // const {navigation, dispatch, video} = this.props
+        // console.log(nextProps.video.data)
+        if (nextProps.video.status != this.props.video.status && nextProps.video.status === 'FETCH_VIDEO_DETAIL_SUCCESS') {
+            if (nextProps.video.data.shortVideo) {
                 this.setState({
                     data: {
-                        title: res.shortVideo.name,
-                        duration: res.shortVideo.playTime,
-                        subhead: res.shortVideo.playCountStr,
-                        imageUrl: res.shortVideo.coverImage,
-                        videoUrl: res.shortVideo.videoUrl
+                        title: nextProps.video.data.shortVideo.name,
+                        duration: nextProps.video.data.shortVideo.playTime,
+                        subhead: nextProps.video.data.shortVideo.playCountStr,
+                        imageUrl: nextProps.video.data.shortVideo.coverImage,
+                        videoUrl: nextProps.video.data.shortVideo.videoUrl
                     }
                 })
-                if (res.comments && res.comments.length > 0) {
-                    let list = []
-                    for (let v of res.comments) {
-                        list.push({
-                            userName: v.userName,
-                            dateTxt: v.createOnString,
-                            comment: v.content
-                        })
-                    }
-                    // console.log(list)
-                    this.setState({
-                        listLength: list.length,
-                        dataSource: this.state.dataSource.cloneWithRows(list)
+            }
+
+            if (nextProps.video.data.comments && nextProps.video.data.comments.length > 0) {
+                let list = []
+                for (let v of nextProps.video.data.comments) {
+                    list.push({
+                        userName: v.userName,
+                        dateTxt: v.createOnString,
+                        comment: v.content
                     })
                 }
+                // console.log(list)
+                this.setState({
+                    listLength: list.length,
+                    dataSource: this.state.dataSource.cloneWithRows(list)
+                })
             }
-        )
-
+        }
     }
 
     static navigationOptions = ({navigation}) => {
@@ -105,8 +114,11 @@ export default class VideoDetail extends Component {
         }})
     }
     render() {
+        const {video} = this.props
+
         return (
             <ScrollView style={styles.container}>
+                <Loading size={'large'} visible={video.isFreshing && video.status == 'FETCH_VIDEO_DATA_LOADING'}/>
                 <Image style={{height: 970, justifyContent: 'center', alignItems: 'center'}} source={{uri: this.state.data.imageUrl}}>
                     <TouchableWithoutFeedback onPress={this.clickToGoBack.bind(this)}>
                         <Image style={{height: 50, width: 50, position: 'absolute', top: 55, left: 35}} source={require('../../images/close.png')}/>
@@ -145,6 +157,15 @@ const styles = StyleSheet.create({
         // marginTop: 184
     }
 });
+
+function mapStateToProps(state) {
+    const { video } = state
+    return {
+        video
+    }
+}
+
+export default connect(mapStateToProps)(VideoDetail)
 
 
 
