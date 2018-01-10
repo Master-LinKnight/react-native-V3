@@ -27,7 +27,8 @@ export default class VideoDetail extends Component {
             data: {
                 title: '热点游戏视频',
                 duration: '05:40',
-                subhead: '游戏文化'
+                subhead: '游戏文化',
+                videoUrl: ''
             },
             listLength: 0,
             list: [],
@@ -52,7 +53,8 @@ export default class VideoDetail extends Component {
                         title: res.shortVideo.name,
                         duration: res.shortVideo.playTime,
                         subhead: res.shortVideo.playCountStr,
-                        imageUrl: res.shortVideo.coverImage
+                        imageUrl: res.shortVideo.coverImage,
+                        videoUrl: res.shortVideo.videoUrl
                     }
                 })
                 if (res.comments && res.comments.length > 0) {
@@ -64,7 +66,7 @@ export default class VideoDetail extends Component {
                             comment: v.content
                         })
                     }
-                    console.log(list)
+                    // console.log(list)
                     this.setState({
                         listLength: list.length,
                         dataSource: this.state.dataSource.cloneWithRows(list)
@@ -96,35 +98,22 @@ export default class VideoDetail extends Component {
         )
     }
 
-    // onImageLayout = (event, imageUrl) => {
-    //     const descHeight = event.nativeEvent.layout.height;
-    //     const descWidth = event.nativeEvent.layout.width;
-    //     let h = 835
-    //     const self = this
-    //     console.log(imageUrl)
-    //     if (imageUrl && imageUrl != '') {
-    //         Image.getSize(imageUrl, (width, height) => {
-    //             h = descWidth / width * height
-    //             console.log(width, height)
-    //             console.log(h)
-    //             self.refs.imageView.setNativeProps({
-    //                 style: {
-    //                     height: h,
-    //                     justifyContent: 'center',
-    //                     alignItems: 'center'
-    //                 }
-    //             })
-    //         })
-    //     }
-    // }
+    skipToPlay = () => {
+        const {navigation} = this.props
+        navigation.navigate('VideoPlay', {data: {
+            url: this.state.data.videoUrl
+        }})
+    }
     render() {
         return (
             <ScrollView style={styles.container}>
-                <Image style={{height: 970, justifyContent: 'center', alignItems: 'center'}} ref='imageView' source={{uri: this.state.data.imageUrl}}>
-                    <TouchableWithoutFeedback onPress={this.clickToGoBack.bind()}>
+                <Image style={{height: 970, justifyContent: 'center', alignItems: 'center'}} source={{uri: this.state.data.imageUrl}}>
+                    <TouchableWithoutFeedback onPress={this.clickToGoBack.bind(this)}>
                         <Image style={{height: 50, width: 50, position: 'absolute', top: 55, left: 35}} source={require('../../images/close.png')}/>
                     </TouchableWithoutFeedback>
-                    <Image style={styles.playImg} source={require('../../images/icon_play.png')}/>
+                    <TouchableWithoutFeedback onPress={this.skipToPlay.bind(this)}>
+                        <Image style={styles.playImg} source={require('../../images/icon_play.png')}/>
+                    </TouchableWithoutFeedback>
                 </Image>
                 <View style={{height: 310, width: '100%'}}>
                     <Text style={{fontSize: 28, color: '#999999', position: 'absolute', top: 50, left: 35}}>{this.state.data.subhead}</Text>
