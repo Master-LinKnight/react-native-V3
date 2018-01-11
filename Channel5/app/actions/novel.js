@@ -77,6 +77,23 @@ export function novelList() {
     }
 }
 
+export function novelDetail(params) {
+    return dispatch => {
+        dispatch(fetchDataLoading())
+        BookSerivce.GetSingleBook(params).then(
+            (res) => {
+                if (res) {
+                    dispatch(fetchDetailSuccess(res))
+                } else {
+                    dispatch(fetchDataError())
+                }
+            }
+        ).catch((error) => {
+            console.log(error)
+        }).done()
+    }
+}
+
 function fetchDataLoading() {
     return {
         type: types.FETCH_NOVEL_DATA_LOADING,
@@ -94,6 +111,14 @@ function fetchDataError() {
 function fetchDataSuccess(_data) {
     return {
         type: types.FETCH_NOVEL_DATA_SUCCESS,
+        isFreshing: false,
+        data: _data
+    }
+}
+
+function fetchDetailSuccess(_data) {
+    return {
+        type: types.FETCH_NOVEL_DETAIIL_SUCCESS,
         isFreshing: false,
         data: _data
     }

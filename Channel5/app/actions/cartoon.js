@@ -79,10 +79,10 @@ export function cartoonList() {
     }
 }
 
-export function cartoonDetail() {
+export function cartoonDetail(params) {
     return dispatch => {
         dispatch(fetchDataLoading())
-        ComicService.GetSingleComic().then(
+        ComicService.GetSingleComic(params).then(
             (res) => {
                 if (res) {
                     dispatch(fetchDetailSuccess(res))

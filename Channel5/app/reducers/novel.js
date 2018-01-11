@@ -10,19 +10,21 @@ export default function novel(state=initialState, action){
     switch (action.type) {
         case types.FETCH_NOVEL_DATA_SUCCESS:
             return {
-                ...state,
+                isFreshing: false,
                 status: types.FETCH_NOVEL_DATA_SUCCESS,
                 data: action.data
             }
         case types.FETCH_NOVEL_DATA_LOADING:
             return {
-                ...state,
-                status: types.FETCH_NOVEL_DATA_LOADING
+                isFreshing: false,
+                status: types.FETCH_NOVEL_DATA_LOADING,
+                data: null
             }
         case types.FETCH_NOVEL_DATA_ERROR:
             return {
-                ...state,
-                status: types.FETCH_NOVEL_DATA_ERROR
+                isFreshing: false,
+                status: types.FETCH_NOVEL_DATA_ERROR,
+                data: 
             }
         default:
             return state
