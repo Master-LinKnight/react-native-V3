@@ -79,6 +79,23 @@ export function cartoonList() {
     }
 }
 
+export function cartoonDetail() {
+    return dispatch => {
+        dispatch(fetchDataLoading())
+        ComicService.GetSingleComic().then(
+            (res) => {
+                if (res) {
+                    dispatch(fetchDetailSuccess(res))
+                } else {
+                    dispatch(fetchDataError())
+                }
+            }
+        ).catch((error) => {
+            console.log(error)
+        }).done()
+    }
+}
+
 function fetchDataLoading() {
     return {
         type: types.FETCH_CARTOON_DATA_LOADING,
@@ -96,6 +113,14 @@ function fetchDataError() {
 function fetchDataSuccess(_data) {
     return {
         type: types.FETCH_CARTOON_DATA_SUCCESS,
+        isFreshing: false,
+        data: _data
+    }
+}
+
+function fetchDetailSuccess(_data) {
+    return {
+        type: types.FETCH_CARTOON_DETAIL_SUCCESS,
         isFreshing: false,
         data: _data
     }

@@ -8,21 +8,29 @@ const initialState = {
 
 export default function cartoon(state=initialState, action){
     switch (action.type) {
+        case types.FETCH_CARTOON_DETAIL_SUCCESS:
+            return {
+                isFreshing: false,
+                status: types.FETCH_CARTOON_DETAIL_SUCCESS,
+                data: action.data
+            }
         case types.FETCH_CARTOON_DATA_SUCCESS:
             return {
-                ...state,
+                isFreshing: false,
                 status: types.FETCH_CARTOON_DATA_SUCCESS,
                 data: action.data
             }
         case types.FETCH_CARTOON_DATA_LOADING:
             return {
-                ...state,
-                status: types.FETCH_CARTOON_DATA_LOADING
+                isFreshing: true,
+                status: types.FETCH_CARTOON_DATA_LOADING,
+                data: null
             }
         case types.FETCH_CARTOON_DATA_ERROR:
             return {
-                ...state,
-                status: types.FETCH_CARTOON_DATA_ERROR
+                isFreshing: false,
+                status: types.FETCH_CARTOON_DATA_ERROR,
+                data: null
             }
         default:
             return state
