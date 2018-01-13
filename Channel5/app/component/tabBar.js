@@ -23,6 +23,8 @@ export default class TabBar extends Component {
         this.setState({
             opt: _opt.obj
         })
+        const opt = _opt.obj
+        this.props.callbackParent(opt)
     }
     render() {
         return (
