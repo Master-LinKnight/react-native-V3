@@ -16,7 +16,7 @@ export default function novel(state=initialState, action){
             }
         case types.FETCH_NOVEL_DATA_LOADING:
             return {
-                isFreshing: false,
+                isFreshing: true,
                 status: types.FETCH_NOVEL_DATA_LOADING,
                 data: null
             }
@@ -24,7 +24,13 @@ export default function novel(state=initialState, action){
             return {
                 isFreshing: false,
                 status: types.FETCH_NOVEL_DATA_ERROR,
-                data: 
+                data: null
+            }
+        case types.FETCH_NOVEL_DETAIIL_SUCCESS:
+            return {
+                isFreshing: false,
+                state: types.FETCH_NOVEL_DETAIIL_SUCCESS,
+                data: action.data
             }
         default:
             return state

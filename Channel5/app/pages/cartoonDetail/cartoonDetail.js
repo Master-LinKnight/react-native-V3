@@ -18,19 +18,21 @@ import {
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
-var Navigation
+import {cartoonDetail} from '../../actions/cartoon'
 import BaseStyle from '../../common/style'
+import Loading from '../../common/loading'
 import TabBar from '../../component/tabBar'
-export default class CartoonDetail extends Component {
+import {connect} from "react-redux";
+class CartoonDetail extends Component {
     constructor(props){
         super(props);
         this.state = {
             opt: 1,
             data: {
-                title: '海贼王',
-                duration: '12月16日 连载中 816集',
-                subhead: '尾田容一部',
-                editorName: '尾田容一部'
+                title: '',
+                subhead: '',
+                editorName: '',
+                imageUrl: ''
             },
             list: [{
                 userName: '阿宝好可爱',
@@ -45,6 +47,8 @@ export default class CartoonDetail extends Component {
             //     rowHasChanged:(row1,row2) => row1 !== row2
             // })
         }
+        this.componentDidMount = this.componentDidMount.bind(this)
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     }
 
     static navigationOptions = ({navigation}) => {
@@ -52,39 +56,55 @@ export default class CartoonDetail extends Component {
             header: null
         })
     }
+
+    componentDidMount = () => {
+        const {dispatch, navigation} = this.props
+        // console.log(navigation.state.params.data.id)
+        const detailData = navigation.state.params.data
+        let params = {
+            ComicId: detailData.id
+        }
+        dispatch(cartoonDetail(params))
+    }
+
+    componentWillReceiveProps = (nextProps, nextState) => {
+        if (nextProps.cartoon.status != this.props.cartoon.status && nextProps.cartoon.status == 'FETCH_CARTOON_DETAIL_SUCCESS') {
+            const {baseComicInfo, allChapters, comments} = nextProps.cartoon.data
+            console.log(baseComicInfo)
+            console.log(allChapters)
+            console.log(comments)
+            if (baseComicInfo) {
+                this.setState({
+                    data: {
+                        title: baseComicInfo.name,
+                        editorName: baseComicInfo.author,
+                        subhead: baseComicInfo.dateNow + baseComicInfo.status,
+                        imageUrl: baseComicInfo.largeImage
+                    }
+                })
+            }
+        }
+    }
+
     clickToGoBack = () => {
-        Navigation.goBack()
+        const {navigation} = this.props
+        navigation.goBack()
     }
-    clickTabBar = (opts) => {
-        // console.log(opts)
-        this.setState({
-            opt: opts.obj
-        })
-    }
+
     render() {
-        let w = '100%'
-        let h = 1010
-        // Image.getSize(require('../../images/index_img02.png'), (width, height) => {
-        //     if (width > Dimensions.get('window').width)
-        //     {
-        //         height = Dimensions.get('window').width / width * height
-        //         width = Dimensions.get('window').width
-        //     }
-        //     h = height
-        //     w = width
-        // })
-        Navigation = this.props.navigation
+        const {cartoon} = this.props
         return (
             <ScrollView style={styles.container}>
-                <Image style={{height: h, width: w, justifyContent: 'center', alignItems: 'center'}} source={require('../../images/index_img04.png')}>
+                <Loading size={'large'} visible={cartoon.isFreshing && cartoon.status == 'FETCH_CARTOON_DATA_LOADING'}/>
+                <Image style={{height: 970, justifyContent: 'center', alignItems: 'center'}} source={{uri: this.state.data.imageUrl}}>
                     <TouchableWithoutFeedback onPress={this.clickToGoBack.bind()}>
-                        <Image style={{height: 50, width: 50, position: 'absolute', top: 55, left: 35}} source={require('../../images/close.png')}/>
+                        <Image style={{height: 50, width: 50, position: 'absolute', top: 75, left: 35}} source={require('../../images/close.png')}/>
                     </TouchableWithoutFeedback>
                     {/*<Image style={styles.playImg} source={require('../../images/icon_play.png')}/>*/}
                     <View style={styles.titleBg}>
-                        <Text style={styles.subheadTxt}>{this.state.data.subhead}</Text>
+                        <Text style={styles.editorNameTxt}>{this.state.data.editorName}</Text>
                         <Text style={styles.titleTxt}>{this.state.data.title}</Text>
-                        <Text style={styles.timeTxt}>{this.state.data.duration}</Text>
+                        <Text style={styles.subheadTxt}>{this.state.data.subhead}</Text>
                         <View style={[styles.blueBtn, BaseStyle.txtCenter]}>
                             <Text style={styles.btnTxt}>{'开始阅读'}</Text>
                         </View>
@@ -100,9 +120,10 @@ export default class CartoonDetail extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        marginTop: -20
     },
-    subheadTxt: {
+    editorNameTxt: {
         fontSize: 26,
         left: 30,
         top: 26,
@@ -110,7 +131,7 @@ const styles = StyleSheet.create({
         color: '#999999',
         fontWeight: 'bold'
     },
-    timeTxt: {
+    subheadTxt: {
         fontSize: 28,
         right: 30,
         top: 24,
@@ -149,7 +170,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0)',
         fontWeight: '500'
     }
-});
+})
+
+function mapStateToProps(state) {
+    const { cartoon } = state
+    return {
+        cartoon
+    }
+}
+
+export default connect(mapStateToProps)(CartoonDetail)
 
 
 

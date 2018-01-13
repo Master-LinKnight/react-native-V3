@@ -42,10 +42,10 @@ export default class TabBar extends Component {
                 <TouchableWithoutFeedback onPress={this.clickTabBar.bind(this, {obj: 2})}>
                     {
                         this.state.opt === 2 ?
-                            <View style={[{backgroundColor: '#007aff', height: 52, width: '33%'}, BaseStyle.txtCenter]}>
+                            <View style={[{backgroundColor: '#007aff', height: 52, width: '33.2%'}, BaseStyle.txtCenter]}>
                                 <Text style={styles.whiteTxt}>{'目录'}</Text>
                             </View> :
-                            <View style={[{height: 52, width: '33%'}, BaseStyle.txtCenter]}>
+                            <View style={[{height: 52, width: '33.2%'}, BaseStyle.txtCenter]}>
                                 <Text style={styles.blueTxt}>{'目录'}</Text>
                             </View>
                     }
