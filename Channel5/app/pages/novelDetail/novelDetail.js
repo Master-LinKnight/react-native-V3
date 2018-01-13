@@ -19,13 +19,13 @@ import {
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
-import {cartoonDetail, clearCartoonDetail} from '../../actions/cartoon'
+import {novelDetail} from '../../actions/novel'
 import BaseStyle from '../../common/style'
 import Loading from '../../common/loading'
 import TabBar from '../../component/tabBar'
 import {connect} from "react-redux";
 var itemHeight = 65
-class CartoonDetail extends Component {
+class NovelDetail extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -59,31 +59,35 @@ class CartoonDetail extends Component {
         // console.log(navigation.state.params.data.id)
         const detailData = navigation.state.params.data
         let params = {
-            ComicId: detailData.id
+            BookId: detailData.id
         }
-        dispatch(cartoonDetail(params))
+        dispatch(novelDetail(params))
     }
 
     componentWillReceiveProps = (nextProps, nextState) => {
-        // console.log(nextProps)
-        if (nextProps.cartoon.status != this.props.cartoon.status && nextProps.cartoon.status == 'FETCH_CARTOON_DETAIL_SUCCESS') {
-            const {baseComicInfo, allChapters, comments} = nextProps.cartoon.data
-            console.log(allChapters)
+        console.log(nextProps.novel)
+        if (nextProps.novel.status != this.props.novel.status && nextProps.novel.status == 'FETCH_NOVEL_DETAIL_SUCCESS') {
+            const {baseBookInfo, volumes, comments} = nextProps.novel.data
+            console.log(baseBookInfo)
+            console.log(volumes[0])
             console.log(comments)
-            if (baseComicInfo) {
+            if (baseBookInfo && volumes[0].chapters) {
                 this.setState({
                     data: {
-                        title: baseComicInfo.name,
-                        editorName: baseComicInfo.author,
-                        subhead: baseComicInfo.dateNow + ' ' + baseComicInfo.status + ' ' + allChapters.length + '集',
-                        imageUrl: baseComicInfo.largeImage,
-                        description: baseComicInfo.description
+                        title: baseBookInfo.name,
+                        editorName: baseBookInfo.author,
+                        subhead: baseBookInfo.dateNow + ' ' + baseBookInfo.status + ' ' + volumes[0].chapters.length + '回',
+                        imageUrl: baseBookInfo.largeImage,
+                        description: baseBookInfo.description
                     }
                 })
             }
-            if (allChapters && allChapters.length > 0) {
+            if (volumes[0].chapters && volumes[0].chapters.length > 0) {
+                for (let v of volumes[0].chapters) {
+                    v.subName = '第' + v.chapterIndex + '回'
+                }
                 this.setState({
-                    chaptersList: allChapters
+                    chaptersList: volumes[0].chapters
                 })
             }
 
@@ -98,7 +102,7 @@ class CartoonDetail extends Component {
 
     clickToGoBack = () => {
         const {navigation, dispatch} = this.props
-        dispatch(clearCartoonDetail())
+        dispatch(clearnovelDetail())
         navigation.goBack()
     }
 
@@ -112,7 +116,7 @@ class CartoonDetail extends Component {
     renderItemView = (item) => {
         return (
             <View style={{height: itemHeight, width: 210, justifyContent: 'center', alignItems: 'center', margin: 10, borderRadius: 4, borderColor: '#999999', borderWidth: 1}}>
-                <Text style={[BaseStyle.txtCenter, {fontSize: 30, color: '#333333'}]}>{item.name}</Text>
+                <Text style={[BaseStyle.txtCenter, {fontSize: 30, color: '#333333'}]}>{item.subName}</Text>
             </View>
         )
     }
@@ -171,12 +175,11 @@ class CartoonDetail extends Component {
     }
 
     render() {
-        const {cartoon} = this.props
-        let tabBarFlatFrom = {}
+        const {novel} = this.props
         return (
             <ScrollView style={styles.container}>
-                <Loading size={'large'} visible={cartoon.isFreshing && cartoon.status == 'FETCH_CARTOON_DATA_LOADING'}/>
-                {cartoon.status == 'FETCH_CARTOON_DETAIL_SUCCESS' ?
+                <Loading size={'large'} visible={novel.isFreshing && novel.status == 'FETCH_NOVEL_DATA_LOADING'}/>
+                {novel.status == 'FETCH_NOVEL_DETAIL_SUCCESS' ?
                     <Image style={{height: 970, justifyContent: 'center', alignItems: 'center'}} source={{uri: this.state.data.imageUrl}}>
                         <TouchableWithoutFeedback onPress={this.clickToGoBack.bind()}>
                             <Image style={{height: 50, width: 50, position: 'absolute', top: 75, left: 35}} source={require('../../images/close.png')}/>
@@ -259,13 +262,13 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-    const { cartoon } = state
+    const { novel } = state
     return {
-        cartoon
+        novel
     }
 }
 
-export default connect(mapStateToProps)(CartoonDetail)
+export default connect(mapStateToProps)(NovelDetail)
 
 
 

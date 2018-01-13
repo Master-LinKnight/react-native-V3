@@ -21,7 +21,7 @@ export function novelList() {
                                         title: v.name,
                                         description: v.description,
                                         // url: v.videoUrl,
-                                        imageUrl: 'http://images.hezikele.com/channel5/video/1/snapshot20171207221035.jpg',
+                                        imageUrl: v.largeImage,
                                         duration: v.status,
                                         readCount: v.readCount,
                                         subhead: v.readCountStr
@@ -39,7 +39,7 @@ export function novelList() {
                                             title: v.name,
                                             description: v.description,
                                             // url: v.videoUrl,
-                                            imageUrl: 'http://images.hezikele.com/channel5/video/1/snapshot20171207221035.jpg',
+                                            imageUrl: v.largeImage,
                                             duration: v.status,
                                             readCount: v.readCount,
                                             subhead: v.readCountStr
@@ -57,7 +57,7 @@ export function novelList() {
                                         title: v.name,
                                         description: v.description,
                                         // url: v.videoUrl,
-                                        imageUrl: 'http://images.hezikele.com/channel5/video/1/snapshot20171207221035.jpg',
+                                        imageUrl: v.largeImage,
                                         duration: v.status,
                                         readCount: v.readCount,
                                         subhead: v.readCountStr
@@ -118,7 +118,7 @@ function fetchDataSuccess(_data) {
 
 function fetchDetailSuccess(_data) {
     return {
-        type: types.FETCH_NOVEL_DETAIIL_SUCCESS,
+        type: types.FETCH_NOVEL_DETAIL_SUCCESS,
         isFreshing: false,
         data: _data
     }

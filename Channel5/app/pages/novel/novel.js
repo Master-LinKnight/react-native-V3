@@ -118,7 +118,7 @@ class Novel extends Component {
 
     onItemClick = (rowData) => {
         const Navigation = this.props.navigation
-        Navigation.navigate('CartoonDetail', {data: {
+        Navigation.navigate('NovelDetail', {data: {
             id: rowData.id
         }})
     }

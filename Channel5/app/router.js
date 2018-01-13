@@ -26,6 +26,7 @@ import Video from  './pages/video/video'
 import VideoDetail from './pages/videoDetail/videoDetail'
 import CartoonDetail from './pages/cartoonDetail/cartoonDetail'
 import VideoPlay from './pages/videoPlay/videoPlay'
+import NovelDetail from './pages/novelDetail/novelDetail'
 import {connect} from 'react-redux'
 import {changeRouter} from './actions/router'
 class Router extends Component {
@@ -128,6 +129,10 @@ class Router extends Component {
                 CartoonDetail: {
                     screen: CartoonDetail,
                     path: '/pages/CartoonDetail'
+                },
+                NovelDetail: {
+                    screen: NovelDetail,
+                    path: '/pages/NovelDetail'
                 },
                 VideoPlay: {
                     screen: VideoPlay,
