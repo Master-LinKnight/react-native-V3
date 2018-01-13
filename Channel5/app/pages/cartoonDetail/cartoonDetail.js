@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
-import {cartoonDetail} from '../../actions/cartoon'
+import {cartoonDetail, clearCartoonDetail} from '../../actions/cartoon'
 import BaseStyle from '../../common/style'
 import Loading from '../../common/loading'
 import TabBar from '../../component/tabBar'
@@ -97,7 +97,8 @@ class CartoonDetail extends Component {
     }
 
     clickToGoBack = () => {
-        const {navigation} = this.props
+        const {navigation, dispatch} = this.props
+        dispatch(clearCartoonDetail())
         navigation.goBack()
     }
 

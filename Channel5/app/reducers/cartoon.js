@@ -32,6 +32,12 @@ export default function cartoon(state=initialState, action){
                 status: types.FETCH_CARTOON_DATA_ERROR,
                 data: null
             }
+        case types.FETCH_CARTOON_DETAIL_CLEAR:
+            return {
+                isFreshing: false,
+                status: types.FETCH_CARTOON_DETAIL_CLEAR,
+                data: null
+            }
         default:
             return state
     }

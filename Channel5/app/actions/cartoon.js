@@ -96,6 +96,12 @@ export function cartoonDetail(params) {
     }
 }
 
+export function clearCartoonDetail() {
+    return dispatch => {
+        dispatch(fetchDetailClear())
+    }
+}
+
 function fetchDataLoading() {
     return {
         type: types.FETCH_CARTOON_DATA_LOADING,
@@ -123,5 +129,12 @@ function fetchDetailSuccess(_data) {
         type: types.FETCH_CARTOON_DETAIL_SUCCESS,
         isFreshing: false,
         data: _data
+    }
+}
+
+function fetchDetailClear() {
+    return {
+        type: types.FETCH_CARTOON_DETAIL_CLEAR,
+        isFreshing: false
     }
 }
