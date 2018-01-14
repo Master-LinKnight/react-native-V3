@@ -89,9 +89,10 @@ class NovelDetail extends Component {
 
                 if (volumes[0].chapters.length > 29) {
                     let arrayList = []
-                    arrayList = volumes[0].chapters.slice(0, 29)
+                    arrayList = volumes[0].chapters.sort((a, b) => b.chapterIndex - a.chapterIndex)
+                    arrayList = arrayList.slice(0, 29)
                     arrayList.push({
-                        chapterIndex: 30,
+                        chapterIndex: 0,
                         name: '查看更多',
                         subName: '查看更多',
                         isCtrl: true
@@ -135,7 +136,7 @@ class NovelDetail extends Component {
             const {baseBookInfo, volumes, comments} = novel.data
             if (volumes[0].chapters && volumes[0].chapters.length > 0) {
                 this.setState({
-                    chaptersList: volumes[0].chapters
+                    chaptersList: volumes[0].chapters.sort((a, b) => b.chapterIndex - a.chapterIndex)
                 })
             }
         } else {

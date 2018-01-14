@@ -83,11 +83,12 @@ class CartoonDetail extends Component {
             if (allChapters && allChapters.length > 0) {
                 if (allChapters.length > 29) {
                     let arrayList = []
-                    arrayList = allChapters.slice(0, 29)
+                    arrayList = allChapters.sort((a, b) => b.chapterIndex - a.chapterIndex)
+                    arrayList = arrayList.slice(0, 29)
                     arrayList.push({
                         isCtrl: true,
                         name: '查看更多',
-                        chapterIndex: 30,
+                        chapterIndex: 0,
                     })
                     this.setState({
                         chaptersList: arrayList
@@ -128,7 +129,7 @@ class CartoonDetail extends Component {
             const {baseComicInfo, allChapters, comments} = cartoon.data
             if (allChapters && allChapters.length > 0) {
                 this.setState({
-                    chaptersList: allChapters
+                    chaptersList: allChapters.sort((a, b) => b.chapterIndex - a.chapterIndex)
                 })
             }
         } else {
