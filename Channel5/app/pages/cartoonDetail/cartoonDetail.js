@@ -75,7 +75,7 @@ class CartoonDetail extends Component {
                         title: baseComicInfo.name,
                         editorName: baseComicInfo.author,
                         subhead: baseComicInfo.dateNow + ' ' + baseComicInfo.status + ' ' + allChapters.length + '集',
-                        imageUrl: baseComicInfo.largeImage,
+                        imageUrl: baseComicInfo.smallImage,
                         description: baseComicInfo.description
                     }
                 })
@@ -124,7 +124,7 @@ class CartoonDetail extends Component {
 
     clickToChapter = (item) => {
         console.log(item)
-        const {cartoon} = this.props
+        const {cartoon, navigation} = this.props
         if (item.isCtrl) {
             const {baseComicInfo, allChapters, comments} = cartoon.data
             if (allChapters && allChapters.length > 0) {
@@ -133,7 +133,10 @@ class CartoonDetail extends Component {
                 })
             }
         } else {
-
+            navigation.navigate('CartoonChapter', {data: {
+                id: item.chapterId,
+                title: item.name
+            }})
         }
     }
 

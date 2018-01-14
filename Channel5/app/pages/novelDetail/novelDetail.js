@@ -77,7 +77,7 @@ class NovelDetail extends Component {
                         title: baseBookInfo.name,
                         editorName: baseBookInfo.author,
                         subhead: baseBookInfo.dateNow + ' ' + baseBookInfo.status + ' ' + volumes[0].chapters.length + '回',
-                        imageUrl: baseBookInfo.largeImage,
+                        imageUrl: baseBookInfo.smallImage,
                         description: baseBookInfo.description
                     }
                 })
@@ -131,7 +131,7 @@ class NovelDetail extends Component {
 
     clickToChapter = (item) => {
         console.log(item)
-        const {novel} = this.props
+        const {novel, navigation} = this.props
         if (item.isCtrl) {
             const {baseBookInfo, volumes, comments} = novel.data
             if (volumes[0].chapters && volumes[0].chapters.length > 0) {
@@ -140,7 +140,10 @@ class NovelDetail extends Component {
                 })
             }
         } else {
-
+            navigation.navigate('NovelChapter', {data: {
+                id: item.chapterId,
+                title: item.name
+            }})
         }
     }
 
