@@ -28,7 +28,7 @@ class NovelChapters extends Component {
             title: '',
             list: new ListView.DataSource({
                 rowHasChanged:(row1,row2) => row1 !== row2
-            }),
+            })
         }
         this.componentDidMount = this.componentDidMount.bind(this)
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)

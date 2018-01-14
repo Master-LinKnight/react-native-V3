@@ -5,6 +5,7 @@ import cartoon from './cartoon'
 import novel from './novel'
 import router from './router'
 import chapter from './chapter'
+import image from './image'
 
 const rootReducer = combineReducers({
     login,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     cartoon,
     novel,
     router,
-    chapter
+    chapter,
+    image
 })
 
 export default rootReducer;

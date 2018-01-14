@@ -26,6 +26,12 @@ export default function chapter(state=initialState, action){
                 status: types.FETCH_NOVEL_CHAPTER_SUCCESS,
                 data: action.data
             }
+        case types.FETCH_CARTOON_CHAPTER_SUCCESS:
+            return {
+                isFreshing: false,
+                status: types.FETCH_CARTOON_CHAPTER_SUCCESS,
+                data: action.data
+            }
         default:
             return state
     }
