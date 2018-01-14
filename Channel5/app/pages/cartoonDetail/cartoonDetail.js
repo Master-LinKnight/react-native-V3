@@ -65,7 +65,6 @@ class CartoonDetail extends Component {
     }
 
     componentWillReceiveProps = (nextProps, nextState) => {
-        // console.log(nextProps)
         if (nextProps.cartoon.status != this.props.cartoon.status && nextProps.cartoon.status == 'FETCH_CARTOON_DETAIL_SUCCESS') {
             const {baseComicInfo, allChapters, comments} = nextProps.cartoon.data
             console.log(allChapters)
@@ -82,9 +81,22 @@ class CartoonDetail extends Component {
                 })
             }
             if (allChapters && allChapters.length > 0) {
-                this.setState({
-                    chaptersList: allChapters
-                })
+                if (allChapters.length > 29) {
+                    let arrayList = []
+                    arrayList = allChapters.slice(0, 29)
+                    arrayList.push({
+                        isCtrl: true,
+                        name: '查看更多',
+                        chapterIndex: 30,
+                    })
+                    this.setState({
+                        chaptersList: arrayList
+                    })
+                } else {
+                    this.setState({
+                        chaptersList: allChapters
+                    })
+                }
             }
 
             if (comments && comments.length > 0) {
@@ -109,11 +121,28 @@ class CartoonDetail extends Component {
         })
     }
 
+    clickToChapter = (item) => {
+        console.log(item)
+        const {cartoon} = this.props
+        if (item.isCtrl) {
+            const {baseComicInfo, allChapters, comments} = cartoon.data
+            if (allChapters && allChapters.length > 0) {
+                this.setState({
+                    chaptersList: allChapters
+                })
+            }
+        } else {
+
+        }
+    }
+
     renderItemView = (item) => {
         return (
-            <View style={{height: itemHeight, width: 210, justifyContent: 'center', alignItems: 'center', margin: 10, borderRadius: 4, borderColor: '#999999', borderWidth: 1}}>
-                <Text style={[BaseStyle.txtCenter, {fontSize: 30, color: '#333333'}]}>{item.name}</Text>
-            </View>
+            <TouchableWithoutFeedback onPress={this.clickToChapter.bind(this, item)}>
+                <View style={{height: itemHeight, width: 210, justifyContent: 'center', alignItems: 'center', margin: 10, borderRadius: 4, borderColor: '#999999', borderWidth: 1}}>
+                    <Text style={[BaseStyle.txtCenter, {fontSize: 30, color: '#333333'}]}>{item.name}</Text>
+                </View>
+            </TouchableWithoutFeedback>
         )
     }
 

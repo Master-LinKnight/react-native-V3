@@ -94,6 +94,12 @@ export function novelDetail(params) {
     }
 }
 
+export function clearNovelDetail() {
+    return dispatch => {
+        dispatch(fetchDetailClear())
+    }
+}
+
 function fetchDataLoading() {
     return {
         type: types.FETCH_NOVEL_DATA_LOADING,
@@ -121,5 +127,12 @@ function fetchDetailSuccess(_data) {
         type: types.FETCH_NOVEL_DETAIL_SUCCESS,
         isFreshing: false,
         data: _data
+    }
+}
+
+function fetchDetailClear() {
+    return {
+        type: types.FETCH_NOVEL_DETAIL_CLEAR,
+        isFreshing: false
     }
 }

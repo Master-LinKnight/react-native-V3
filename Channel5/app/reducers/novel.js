@@ -32,6 +32,12 @@ export default function novel(state=initialState, action){
                 status: types.FETCH_NOVEL_DETAIL_SUCCESS,
                 data: action.data
             }
+        case types.FETCH_NOVEL_DETAIL_CLEAR:
+            return {
+                isFreshing: false,
+                status: types.FETCH_NOVEL_DETAIL_CLEAR,
+                data: null
+            }
         default:
             return state
     }

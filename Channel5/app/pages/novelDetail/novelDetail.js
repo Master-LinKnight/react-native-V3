@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
-import {novelDetail} from '../../actions/novel'
+import {novelDetail, clearNovelDetail} from '../../actions/novel'
 import BaseStyle from '../../common/style'
 import Loading from '../../common/loading'
 import TabBar from '../../component/tabBar'
@@ -86,9 +86,24 @@ class NovelDetail extends Component {
                 for (let v of volumes[0].chapters) {
                     v.subName = '第' + v.chapterIndex + '回'
                 }
-                this.setState({
-                    chaptersList: volumes[0].chapters
-                })
+
+                if (volumes[0].chapters.length > 29) {
+                    let arrayList = []
+                    arrayList = volumes[0].chapters.slice(0, 29)
+                    arrayList.push({
+                        chapterIndex: 30,
+                        name: '查看更多',
+                        subName: '查看更多',
+                        isCtrl: true
+                    })
+                    this.setState({
+                        chaptersList: arrayList
+                    })
+                } else {
+                    this.setState({
+                        chaptersList: volumes[0].chapters
+                    })
+                }
             }
 
             if (comments && comments.length > 0) {
@@ -102,7 +117,7 @@ class NovelDetail extends Component {
 
     clickToGoBack = () => {
         const {navigation, dispatch} = this.props
-        dispatch(clearnovelDetail())
+        dispatch(clearNovelDetail())
         navigation.goBack()
     }
 
@@ -113,11 +128,28 @@ class NovelDetail extends Component {
         })
     }
 
+    clickToChapter = (item) => {
+        console.log(item)
+        const {novel} = this.props
+        if (item.isCtrl) {
+            const {baseBookInfo, volumes, comments} = novel.data
+            if (volumes[0].chapters && volumes[0].chapters.length > 0) {
+                this.setState({
+                    chaptersList: volumes[0].chapters
+                })
+            }
+        } else {
+
+        }
+    }
+
     renderItemView = (item) => {
         return (
-            <View style={{height: itemHeight, width: 210, justifyContent: 'center', alignItems: 'center', margin: 10, borderRadius: 4, borderColor: '#999999', borderWidth: 1}}>
-                <Text style={[BaseStyle.txtCenter, {fontSize: 30, color: '#333333'}]}>{item.subName}</Text>
-            </View>
+            <TouchableWithoutFeedback onPress={this.clickToChapter.bind(this, item)}>
+                <View style={{height: itemHeight, width: 210, justifyContent: 'center', alignItems: 'center', margin: 10, borderRadius: 4, borderColor: '#999999', borderWidth: 1}}>
+                    <Text style={[BaseStyle.txtCenter, {fontSize: 30, color: '#333333'}]}>{item.subName}</Text>
+                </View>
+            </TouchableWithoutFeedback>
         )
     }
 
