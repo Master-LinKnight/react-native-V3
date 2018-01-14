@@ -4,13 +4,15 @@ import video from './video'
 import cartoon from './cartoon'
 import novel from './novel'
 import router from './router'
+import chapter from './chapter'
 
 const rootReducer = combineReducers({
     login,
     video,
     cartoon,
     novel,
-    router
+    router,
+    chapter
 })
 
 export default rootReducer;

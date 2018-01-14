@@ -167,7 +167,7 @@ class CartoonDetail extends Component {
     tabBarCtrl = () => {
         if (this.state.opt == 1) {
             return (
-                <Text style={{fontSize: 24, marginLeft: 35, marginRight: 35, color: '#333333', marginTop: 56}}>{this.state.data.description}</Text>
+                <Text style={{fontSize: 30, lineHeight: 48, marginLeft: 35, marginRight: 35, color: '#333333', marginTop: 56}}>{this.state.data.description}</Text>
             )
         } else if (this.state.opt == 2) {
             return (
