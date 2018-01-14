@@ -125,8 +125,8 @@ class CartoonDetail extends Component {
     clickToChapter = (item) => {
         console.log(item)
         const {cartoon, navigation} = this.props
+        const {baseComicInfo, allChapters, comments} = cartoon.data
         if (item.isCtrl) {
-            const {baseComicInfo, allChapters, comments} = cartoon.data
             if (allChapters && allChapters.length > 0) {
                 this.setState({
                     chaptersList: allChapters.sort((a, b) => b.chapterIndex - a.chapterIndex)
@@ -135,7 +135,8 @@ class CartoonDetail extends Component {
         } else {
             navigation.navigate('CartoonChapter', {data: {
                 id: item.chapterId,
-                title: item.name
+                title: item.name,
+                name: baseComicInfo.name
             }})
         }
     }

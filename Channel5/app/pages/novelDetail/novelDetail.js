@@ -132,8 +132,8 @@ class NovelDetail extends Component {
     clickToChapter = (item) => {
         console.log(item)
         const {novel, navigation} = this.props
+        const {baseBookInfo, volumes, comments} = novel.data
         if (item.isCtrl) {
-            const {baseBookInfo, volumes, comments} = novel.data
             if (volumes[0].chapters && volumes[0].chapters.length > 0) {
                 this.setState({
                     chaptersList: volumes[0].chapters.sort((a, b) => b.chapterIndex - a.chapterIndex)
@@ -142,7 +142,8 @@ class NovelDetail extends Component {
         } else {
             navigation.navigate('NovelChapter', {data: {
                 id: item.chapterId,
-                title: item.name
+                title: item.name,
+                name: baseBookInfo.name
             }})
         }
     }
