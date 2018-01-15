@@ -21,8 +21,10 @@ import {
 import BaseStyle from "../../common/style";
 import {connect} from "react-redux";
 import {cartoonChapter} from '../../actions/chaper'
+import {imageSlider, imageClear} from '../../actions/image'
 import ChapterItem from './chapterItem'
 import Loading from '../../common/loading'
+import image from "../../reducers/image";
 
 class CartoonChapter extends Component {
     constructor(props){
@@ -45,12 +47,13 @@ class CartoonChapter extends Component {
     }
 
     skipToGoBack = () => {
-        const {navigation} = this.props
+        const {navigation, dispatch} = this.props
+        dispatch(imageClear())
         navigation.goBack()
     }
 
     componentWillReceiveProps = (nextProps, nextState) => {
-        console.log(nextProps.chapter)
+        // console.log(nextProps.chapter)
         if (nextProps.chapter.status != this.props.chapter.status && nextProps.chapter.status == 'FETCH_CARTOON_CHAPTER_SUCCESS') {
             const {data} = nextProps.chapter
             // console.log(data)
@@ -63,7 +66,23 @@ class CartoonChapter extends Component {
                 }
                 // console.log(arrayList)
                 this.setState({
-                    list: this.state.list.cloneWithRows(arrayList.slice(0, 1))
+                    list: this.state.list.cloneWithRows(arrayList.slice(0, 2))
+                })
+            }
+        }
+        if (nextProps.image.status != this.props.image.status && nextProps.image.status == 'FETCH_IMAGE_INDEX_SLIDER') {
+            // console.log(nextProps.image)
+            const {data} = this.props.chapter
+            if (data && data.files.length > 0) {
+                let arrayList = []
+                for (let v of data.files) {
+                    arrayList.push({
+                        imageUrl: v
+                    })
+                }
+                // console.log(arrayList)
+                this.setState({
+                    list: this.state.list.cloneWithRows(arrayList.slice(0, nextProps.image.index))
                 })
             }
         }
@@ -72,7 +91,7 @@ class CartoonChapter extends Component {
     componentDidMount = () => {
         const {navigation, dispatch} = this.props
         const detailData = navigation.state.params.data
-        console.log(detailData)
+        // console.log(detailData)
         this.setState({
             subtitle: detailData.name,
             title: detailData.title
@@ -85,7 +104,13 @@ class CartoonChapter extends Component {
     }
 
     getEndReached = () => {
-        // console.log(1)
+        const {image, dispatch, chapter} = this.props
+        console.log(image)
+        // console.log(chapter.data.files.length)
+        if (image.isFreshing == false && image.status == 'FETCH_IMAGE_INDEX_END' && image.index <= chapter.data.files.length) {
+            // console.log(1)
+            dispatch(imageSlider(image.index))
+        }
     }
 
     onChildChanged = (isComplete) => {

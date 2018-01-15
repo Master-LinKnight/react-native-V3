@@ -19,6 +19,12 @@ export function imageSlider(_index) {
     }
 }
 
+export function imageClear() {
+    return dispatch => {
+        dispatch(fetchImageClear())
+    }
+}
+
 function fetchImageLoading() {
     return {
         type: types.FETCH_IMAGE_INDEX_LOADING,
@@ -38,5 +44,13 @@ function fetchImageSlider(_index) {
         type: types.FETCH_IMAGE_INDEX_SLIDER,
         isFreshing: false,
         index: _index
+    }
+}
+
+function fetchImageClear() {
+    return {
+        type: types.FETCH_IMAGE_INDEX_CLEAR,
+        isFreshing: false,
+        index: 2
     }
 }
