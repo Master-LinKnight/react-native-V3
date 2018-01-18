@@ -22,24 +22,24 @@ class ChapterItem extends Component {
     }
 
     onImageLayout = (event, rowData) => {
-        const descHeight = event.nativeEvent.layout.height;
-        const descWidth = event.nativeEvent.layout.width;
-        let h = 835
-
-        const self = this
-        if (rowData.imageUrl && rowData.imageUrl != '') {
-            Image.getSize(rowData.imageUrl, (width, height) => {
-                h = descWidth / width * height
-                console.log(h)
-                self.refs.itemImage.setNativeProps({
-                    style: {
-                        height: h,
-                        width: descWidth,
-                        marginTop: 20,
-                    }
-                })
-            })
-        }
+        // const descHeight = event.nativeEvent.layout.height;
+        // const descWidth = event.nativeEvent.layout.width;
+        // let h = 835
+        //
+        // const self = this
+        // if (rowData.imageUrl && rowData.imageUrl != '') {
+        //     Image.getSize(rowData.imageUrl, (width, height) => {
+        //         h = descWidth / width * height
+        //         console.log(h)
+        //         self.refs.itemImage.setNativeProps({
+        //             style: {
+        //                 height: h,
+        //                 width: descWidth,
+        //                 marginTop: 20,
+        //             }
+        //         })
+        //     })
+        // }
     }
 
     onLoadEnd = () => {
@@ -57,7 +57,7 @@ class ChapterItem extends Component {
     render() {
         const {rowData} = this.props
         return (
-            <Image style={{height: 800}} ref={'itemImage'} onLoadStart={this.onLoadStart.bind(this)} onLoadEnd={this.onLoadEnd.bind(this)} onLayout={(e) => {this.onImageLayout(e, rowData)}} source={{uri: rowData.imageUrl}} />
+            <Image style={{height: 1040}} ref={'itemImage'} onLoadStart={this.onLoadStart.bind(this)} onLoadEnd={this.onLoadEnd.bind(this)} onLayout={(e) => {this.onImageLayout(e, rowData)}} source={{uri: rowData.imageUrl}} />
         );
     }
 }

@@ -3,7 +3,7 @@ import * as types from '../actions/types'
 const initialState = {
     isFreshing: false,
     status: '',
-    index: 1
+    index: 2
 }
 
 export default function image(state=initialState, action){
@@ -25,6 +25,12 @@ export default function image(state=initialState, action){
                 index: action.index,
                 isFreshing: false,
                 status: types.FETCH_IMAGE_INDEX_SLIDER
+            }
+        case types.FETCH_IMAGE_INDEX_CLEAR:
+            return {
+                index: 2,
+                isFreshing: false,
+                status: types.FETCH_IMAGE_INDEX_CLEAR
             }
         default:
             return state
