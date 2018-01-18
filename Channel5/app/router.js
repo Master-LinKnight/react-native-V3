@@ -29,6 +29,7 @@ import VideoPlay from './pages/videoPlay/videoPlay'
 import NovelDetail from './pages/novelDetail/novelDetail'
 import NovelChapters from './pages/novelChapter/novelChapters'
 import CartoonChapter from './pages/cartoonChapter/cartoonChapter'
+import BarDetail from './pages/barDetail/barDetail'
 import {connect} from 'react-redux'
 import {changeRouter} from './actions/router'
 class Router extends Component {
@@ -147,6 +148,10 @@ class Router extends Component {
                 NovelChapters: {
                     screen: NovelChapters,
                     path: '/pages/NovelChapters'
+                },
+                BarDetail: {
+                    screen: BarDetail,
+                    path: '/pages/BarDetail'
                 }
             },
             {
@@ -196,4 +201,3 @@ const styles = StyleSheet.create({
 // export default connect(mapStateToProps)(Router)
 
 export default Router
-
