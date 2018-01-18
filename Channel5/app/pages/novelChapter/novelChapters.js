@@ -24,6 +24,11 @@ var fontArray = [
     {lineHeight: 48, fontSize: 30},
     {lineHeight: 42, fontSize: 24}
 ]
+var colorArray = [
+    {bgColor: '#ffffff', fontColor: '#333333'},
+    {bgColor: '#c0edc6', fontColor: '#000000'},
+    {bgColor: '#1d1c21', fontColor: '#868686'}
+]
 
 class NovelChapters extends Component {
     constructor(props){
@@ -35,6 +40,7 @@ class NovelChapters extends Component {
                 rowHasChanged:(row1,row2) => row1 !== row2
             }),
             fontCtrl: 1,
+            formCtrl: 0,
             arrayList: []
         }
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -83,7 +89,8 @@ class NovelChapters extends Component {
                     arrayList.push({
                         text: v,
                         fontSize: 30,
-                        lineHeight: 48
+                        lineHeight: 48,
+                        fontColor: '#333333'
                     })
                 }
 
@@ -113,7 +120,7 @@ class NovelChapters extends Component {
     renderRow = (rowData) => {
         return (
             <View>
-                <Text style={{fontSize: rowData.fontSize, color: '#333333', lineHeight: rowData.lineHeight}}>{rowData.text}</Text>
+                <Text style={{fontSize: rowData.fontSize, color: rowData.fontColor, lineHeight: rowData.lineHeight}}>{rowData.text}</Text>
             </View>
         )
     }
@@ -145,6 +152,19 @@ class NovelChapters extends Component {
             fontCtrl: _opt,
             list: this.state.list.cloneWithRows(JSON.parse(JSON.stringify(array)))
         })
+    }
+
+    clickToCtrlFrom = (_opt) => {
+        // console.log(_opt)
+        if (_opt == this.state.formCtrl) {
+            this.setState({
+                formCtrl: 0
+            })
+        } else {
+            this.setState({
+                formCtrl: _opt
+            })
+        }
     }
 
     render() {
@@ -202,16 +222,38 @@ class NovelChapters extends Component {
                                 </View>
                         }
                     </TouchableWithoutFeedback>
-                    <View style={[BaseStyle.txtCenter, {height: 50, width: 130, position: 'absolute', top: 76, left: 440,
-                        backgroundColor: '#f0f0f7', borderRadius: 25
-                    }]}>
-                        <Text style={{fontSize: 25, color: '#007aff'}}>{'护眼'}</Text>
-                    </View>
-                    <View style={[BaseStyle.txtCenter, {height: 50, width: 130, position: 'absolute', top: 76, left: 590,
-                        backgroundColor: '#f0f0f7', borderRadius: 25
-                    }]}>
-                        <Text style={{fontSize: 25, color: '#007aff'}}>{'夜间'}</Text>
-                    </View>
+                    <TouchableWithoutFeedback onPress={this.clickToCtrlFrom.bind(this, 1)}>
+                        {
+                            this.state.formCtrl == 1 ?
+                            <View style={[BaseStyle.txtCenter, {height: 50, width: 130, position: 'absolute', top: 76, left: 440,
+                                backgroundColor: '#007aff', borderRadius: 25
+                            }]}>
+                                <Text style={{fontSize: 25, color: '#f0f0f7'}}>{'护眼'}</Text>
+                            </View> :
+                            <View style={[BaseStyle.txtCenter, {height: 50, width: 130, position: 'absolute', top: 76, left: 440,
+                                backgroundColor: '#f0f0f7', borderRadius: 25
+                            }]}>
+                                <Text style={{fontSize: 25, color: '#007aff'}}>{'护眼'}</Text>
+                            </View>
+
+                        }
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={this.clickToCtrlFrom.bind(this, 2)}>
+                        {
+                            this.state.formCtrl == 2 ?
+                            <View style={[BaseStyle.txtCenter, {height: 50, width: 130, position: 'absolute', top: 76, left: 590,
+                                backgroundColor: '#007aff', borderRadius: 25
+                            }]}>
+                                <Text style={{fontSize: 25, color: '#f0f0f7'}}>{'夜间'}</Text>
+                            </View> :
+                            <View style={[BaseStyle.txtCenter, {height: 50, width: 130, position: 'absolute', top: 76, left: 590,
+                                backgroundColor: '#f0f0f7', borderRadius: 25
+                            }]}>
+                                <Text style={{fontSize: 25, color: '#007aff'}}>{'夜间'}</Text>
+                            </View>
+
+                        }
+                    </TouchableWithoutFeedback>
                 </View>
                 <View style={{height: 1, backgroundColor: '#999999'}}/>
                 <ScrollView>
@@ -241,14 +283,14 @@ class NovelChapters extends Component {
                     <View style={{height: 100}}>
                         <TouchableWithoutFeedback onPress={this.lastChapter.bind(this)}>
                             <View style={[{height: 56, width: 184, borderRadius: 28, backgroundColor: '#f0f0f7', position: 'absolute',
-                                bottom: 20, left: 35
+                                bottom: 40, left: 35
                             }, BaseStyle.txtCenter]}>
                                 <Text style={{fontSize: 28, color: '#007aff'}}>{'上一章'}</Text>
                             </View>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={this.nextChapter.bind(this)}>
                             <View style={[{height: 56, width: 184, borderRadius: 28, backgroundColor: '#f0f0f7', position: 'absolute',
-                                bottom: 20, right: 35
+                                bottom: 40, right: 35
                             }, BaseStyle.txtCenter]}>
                                 <Text style={{fontSize: 28, color: '#007aff'}}>{'下一章'}</Text>
                             </View>
