@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         color: "#333333",
     },
     listTitleContainer:{
-        marginTop:25,
+        paddingTop:25,
         backgroundColor: "white"
     },
     createInfoMargin: {

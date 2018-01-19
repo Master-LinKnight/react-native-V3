@@ -211,6 +211,13 @@ export default class BarDetail extends Component {
         })
     }
 
+    pushToTopic = () => {
+        const Navigation = this.props.navigation
+        Navigation.navigate('TopicDetail', {data: {
+            id: "barId"
+        }})
+    }
+
     getData(){
         let sections = []
         sections.push(
@@ -228,7 +235,7 @@ export default class BarDetail extends Component {
     }
 
     _renderHeader = (item) => {
-        let headdata = this.state.header[item.section.key]
+        let headdata = this.state.header
         const Navigation = this.props.navigation
 
         return (
@@ -268,39 +275,42 @@ export default class BarDetail extends Component {
 
     _renderItem = (item) => {
         return (
-            <View style={styles.itemContainer}>
-                <Text
-                    style={styles.itemDescription}
-                    numberOfLines={5}
-                    >
-                        {item.item.topicTitle}
-                </Text>
-                <View style={styles.itemInfomation} >
-                    <TouchableWithoutFeedback
-                        onPress={()=>alert(item.item.userName)}>
-                        <View>
-                            <Text style={styles.itemOwner} >
-                                {item.item.userName}
-                            </Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+                onPress={this.pushToTopic}>
+                <View style={styles.itemContainer}>
+                    <Text
+                        style={styles.itemDescription}
+                        numberOfLines={5}
+                        >
+                            {item.item.topicTitle}
+                    </Text>
+                    <View style={styles.itemInfomation} >
+                        <TouchableWithoutFeedback
+                            onPress={()=>alert(item.item.userName)}>
+                            <View>
+                                <Text style={styles.itemOwner} >
+                                    {item.item.userName}
+                                </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
 
-                    <View style={styles.topicInfoContainer} >
-                        <View style={[styles.itemTimeContainer,styles.itemShower]}>
-                            <Image style={styles.itemIcon} resizeMode="contain"  source={require("../../images/icon_Time.png")} />
-                            <Text  style={[styles.itemInfoTxt,styles.itemTimeTxt]}>
-                                2018-02-02
-                            </Text>
-                        </View>
-                        <View style={[styles.itemCommentContainer,styles.itemShower]}>
-                            <Image style={styles.itemIcon} resizeMode="contain"  source={require("../../images/icon_Messages.png")} />
-                            <Text  style={[styles.itemInfoTxt,styles.itemCommentCount]}>
-                                {item.item.commentCount}
-                            </Text>
+                        <View style={styles.topicInfoContainer} >
+                            <View style={[styles.itemTimeContainer,styles.itemShower]}>
+                                <Image style={styles.itemIcon} resizeMode="contain"  source={require("../../images/icon_Time.png")} />
+                                <Text  style={[styles.itemInfoTxt,styles.itemTimeTxt]}>
+                                    2018-02-02
+                                </Text>
+                            </View>
+                            <View style={[styles.itemCommentContainer,styles.itemShower]}>
+                                <Image style={styles.itemIcon} resizeMode="contain"  source={require("../../images/icon_Messages.png")} />
+                                <Text  style={[styles.itemInfoTxt,styles.itemCommentCount]}>
+                                    {item.item.commentCount}
+                                </Text>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         )
     }
 
@@ -317,12 +327,13 @@ export default class BarDetail extends Component {
             <View style={styles.container} >
                 <SectionList
                     ref='list'
-                    refreshing={true}
-                    onRefresh={() => alert("下拉刷新")}
+                    // refreshing={true}
+                    // onRefresh={() => alert("下拉刷新")}
                     onEndReachedThreshold={0.1}
                     onEndReached={() => alert("上拉加载")}
                     renderItem={this._renderItem}
-                    renderSectionHeader={this._renderHeader}
+                    // renderSectionHeader={this._renderHeader}
+                    ListHeaderComponent={this._renderHeader}
                     sections={this.state.sections}
                     keyExtractor={this._extraUniqueKey}
                     ItemSeparatorComponent={() => <View style={styles.listLine} />}

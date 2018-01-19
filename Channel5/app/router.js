@@ -30,6 +30,7 @@ import NovelDetail from './pages/novelDetail/novelDetail'
 import NovelChapters from './pages/novelChapter/novelChapters'
 import CartoonChapter from './pages/cartoonChapter/cartoonChapter'
 import BarDetail from './pages/barDetail/barDetail'
+import TopicDetail from './pages/topicDetail/topicDetail'
 import {connect} from 'react-redux'
 import {changeRouter} from './actions/router'
 class Router extends Component {
@@ -152,6 +153,10 @@ class Router extends Component {
                 BarDetail: {
                     screen: BarDetail,
                     path: '/pages/BarDetail'
+                },
+                TopicDetail: {
+                    screen: TopicDetail,
+                    path: '/pages/TopicDetail'
                 }
             },
             {
