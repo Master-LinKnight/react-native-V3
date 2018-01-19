@@ -76,13 +76,13 @@ class Login extends Component {
         }
 
         if (nextProps.login.isFreshing) {
-            console.log('isfreshing')
+            // console.log('isfreshing')
             this.setState({
                 isFreshing: true
             })
             return false
         } else {
-            console.log('not isfreshing')
+            // console.log('not isfreshing')
             this.setState({
                 isFreshing: false
             })

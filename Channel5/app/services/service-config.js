@@ -1,4 +1,4 @@
 const serverConfig = {}
-serverConfig.serverUrl = 'http://www.hezikele.com'
+serverConfig.serverUrl = 'http://api.hezikele.com'
 
 export default serverConfig
