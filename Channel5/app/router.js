@@ -31,6 +31,9 @@ import NovelChapters from './pages/novelChapter/novelChapters'
 import CartoonChapter from './pages/cartoonChapter/cartoonChapter'
 import BarDetail from './pages/barDetail/barDetail'
 import TopicDetail from './pages/topicDetail/topicDetail'
+import Register from './pages/register/register'
+import FindPassWord from './pages/findPassWord/findPassWord'
+import UserCenter from './pages/userCenter/userCenter'
 import {connect} from 'react-redux'
 import {changeRouter} from './actions/router'
 class Router extends Component {
@@ -122,6 +125,10 @@ class Router extends Component {
                     screen: Login,
                     path: '/pages/Login'
                 },
+                Register: {
+                    screen: Register,
+                    path: '/pages/Register'
+                },
                 Index: {
                     screen: TabScreen,
                     path: '/pages/Index'
@@ -157,6 +164,14 @@ class Router extends Component {
                 TopicDetail: {
                     screen: TopicDetail,
                     path: '/pages/TopicDetail'
+                },
+                FindPassWord: {
+                    screen: FindPassWord,
+                    path: '/pages/FindPassWord'
+                },
+                UserCenter: {
+                    screen: UserCenter,
+                    path: '/pages/UserCenter'
                 }
             },
             {

@@ -211,6 +211,19 @@ class NovelDetail extends Component {
         }
     }
 
+    beginToReading = () => {
+        const {novel, navigation} = this.props
+        const {baseBookInfo, volumes, comments} = novel.data
+        if (volumes && volumes[0].chapters && volumes[0].chapters.length > 0) {
+            const item = volumes[0].chapters[0]
+            navigation.navigate('NovelChapters', {data: {
+                id: item.chapterId,
+                title: item.name,
+                name: baseBookInfo.name
+            }})
+        }
+    }
+
     render() {
         const {novel} = this.props
         return (
@@ -226,9 +239,11 @@ class NovelDetail extends Component {
                             <Text style={styles.editorNameTxt}>{this.state.data.editorName}</Text>
                             <Text style={styles.titleTxt}>{this.state.data.title}</Text>
                             <Text style={styles.subheadTxt}>{this.state.data.subhead}</Text>
-                            <View style={[styles.blueBtn, BaseStyle.txtCenter]}>
-                                <Text style={styles.btnTxt}>{'开始阅读'}</Text>
-                            </View>
+                            <TouchableWithoutFeedback onPress={this.beginToReading.bind(this)}>
+                                <View style={[styles.blueBtn, BaseStyle.txtCenter]}>
+                                    <Text style={styles.btnTxt}>{'开始阅读'}</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
                         </View>
                     </Image> : <View style={{height: 970}}/>
                 }

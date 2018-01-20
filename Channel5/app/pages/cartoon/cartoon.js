@@ -85,16 +85,23 @@ class Cartoon extends Component {
     }
 
     loadListViewDataFormJson = (data) => {
+        const {login, register} = this.props
         let jsonData = data
         dataBlob = []
         sectionIDs = []
         rowIDs = []
+        let avatar = ''
+        if (login && login.userInfo && login.userInfo.avatar) {
+            avatar = login.userInfo.avatar
+        } else if (register && register.userInfo && register.userInfo.avatar) {
+            avatar = register.userInfo.avatar
+        }
         for (let i in jsonData) {
             sectionIDs.push(i)
             dataBlob[i] = {
                 dateTitle: jsonData[i].dateTitle,
                 title: jsonData[i].title,
-                // iconUrl: jsonData[i].iconUrl
+                iconUrl: i == 0 ? avatar : ''
             }
             rowIDs[i] = []
             let listData = jsonData[i].listData
@@ -122,6 +129,19 @@ class Cartoon extends Component {
         this.props.dispatch(cartoonList())
     }
 
+    skipToPersonal = () => {
+        const {navigation, login, register} = this.props
+        let avatar = ''
+        if (login && login.userInfo && login.userInfo.avatar) {
+            avatar = login.userInfo.avatar
+        } else if (register && register.userInfo && register.userInfo.avatar) {
+            avatar = register.userInfo.avatar
+        }
+        navigation.navigate('UserCenter', {data: {
+            avatar: avatar
+        }})
+    }
+
     renderRow = (rowData) => {
         return (
             <View style={{height: 895}}>
@@ -144,6 +164,13 @@ class Cartoon extends Component {
             <View style={styles.sectionHeader}>
                 <Text style={styles.sectionDateTitle}>{sectionData.dateTitle}</Text>
                 <Text style={styles.sectionTitle}>{sectionData.title}</Text>
+                {
+                    sectionData.iconUrl && sectionData.iconUrl != '' ?
+                        <TouchableWithoutFeedback onPress={this.skipToPersonal.bind(this)}>
+                            <Image style={styles.sectionAvatar} source={{uri: sectionData.iconUrl}}/>
+                        </TouchableWithoutFeedback>
+                        : null
+                }
             </View>
         )
     }
@@ -239,13 +266,23 @@ const styles = StyleSheet.create({
         height: 128,
         alignSelf: 'center',
         marginTop: 184
+    },
+    sectionAvatar: {
+        height: 60,
+        width: 60,
+        borderRadius: 30,
+        position: 'absolute',
+        right: 35,
+        top: 85
     }
 })
 
 function mapStateToProps(state) {
-    const { cartoon } = state
+    const { cartoon, login, register } = state
     return {
-        cartoon
+        cartoon,
+        login,
+        register
     }
 }
 

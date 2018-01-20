@@ -24,6 +24,7 @@ const userService = new UserService()
 import { connect } from 'react-redux'
 import {login} from '../../actions/login'
 var Navigation
+import BaseStyle from '../../common/style'
 class Login extends Component {
     // static navigationOptions = ({navigation}) => {
     //     return ({
@@ -32,21 +33,7 @@ class Login extends Component {
     // }
     static navigationOptions = ({navigation}) => {
         return ({
-            title:'login',
-            headerTitleStyle: {
-                color: '#ffffff',
-                fontSize: 36,
-                textAlign: 'center',
-                marginTop: 16,
-            },
-            headerStyle: {
-                backgroundColor: '#3b5597',
-                height: 132
-            },
-            headerTintColor: '#ffffff',
-            headerBackTitle: null,
-            // headerLeft: null,
-            gesturesEnabled: false
+            header: null
         })
     }
     constructor(props) {
@@ -59,18 +46,13 @@ class Login extends Component {
         // this.pswBlock = this.pswBlock.bind(this)
     }
 
-    pswBlock = () => {
-        this.setState({
-            isBlock: !this.state.isBlock
-        })
-    };
-
     componentWillReceiveProps (nextProps, nextState) {
         // console.log(nextProps)
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
             this.setState({
                 isFreshing: false
             })
+            console.log('login1')
             Navigation.navigate('Index')
             return false
         }
@@ -106,24 +88,68 @@ class Login extends Component {
         let params = {}
         params.username = 'lei'
         params.password = '123456'
-        // userService.PostLogin(params).then(
-        //     (res) => {
-        //         console.log(res)
-        //     }
-        // )
-        // Navigation.navigate('Index')
         this.props.dispatch(login(params))
     }
+
+    skipToRegister = () => {
+        const {navigation} = this.props
+        // console.log(navigation)
+        navigation.navigate('Register')
+    }
+
+    skipToPWS = () => {
+        const {navigation} = this.props
+        navigation.navigate('FindPassWord')
+    }
+
+    OpenMask = () => {}
 
     render() {
         Navigation = this.props.navigation;
         return (
-            <View>
+            <View style={styles.container}>
                 <Loading size={'large'} visible={this.state.isFreshing}/>
-                <View style={styles.loginBtnView}>
-                    <TouchableWithoutFeedback onPress={this.skipToIndex}>
-                        <View style={styles.loginBtn}>
-                            <Text style={{fontSize:28, color:'#3b5597', fontWeight:'bold'}}>{'Login'}</Text>
+                <View style={styles.registerView}>
+                    <TouchableWithoutFeedback onPress={this.skipToRegister.bind(this)}>
+                        <View>
+                            <Text style={styles.registerText}>{'注册'}</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+                <Text style={styles.titleTxt}>{'登陆'}</Text>
+                <View style={styles.textView}>
+                    <Text style={styles.userTxt}>{'用户名'}</Text>
+                    <TextInput
+                        placeholder=""
+                        autoCapitalize={"none"}
+                        autoCorrect={false}
+                        style={styles.input}
+                    />
+                </View>
+                <View style={styles.textView}>
+                    <Text style={styles.userTxt}>{'密    码'}</Text>
+                    <TextInput
+                        placeholder=''
+                        autoCapitalize={"none"}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        style={styles.input}
+                    />
+                </View>
+                <TouchableWithoutFeedback onPress={this.skipToIndex.bind(this)}>
+                    <View style={[styles.loginBtnView, BaseStyle.txtCenter]}>
+                        <Text style={styles.loginTxt}>{'登  陆'}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+                <View style={styles.loginOptView}>
+                    <TouchableWithoutFeedback onPress={this.skipToPWS.bind(this)}>
+                        <View>
+                            <Text style={[styles.resetPwdTxt, styles.bottomTxt]}>{'忘记密码？'}</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
+                        <View>
+                            <Text style={[styles.reloginTxt, styles.bottomTxt]}>{'其他方式登陆'}</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -135,20 +161,75 @@ class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#ffffff'
         // justifyContent: 'center',
         // alignItems: 'center',
-        backgroundColor: '#3b5597'
     },
-    header: {
-        height: 128,
-        marginTop: 0,
-        backgroundColor: '#272638'
+    registerView: {
+        height: 30,
+        marginTop: 60,
+        flexDirection: 'row-reverse'
+    },
+    registerText: {
+        fontSize: 30,
+        color: '#333333',
+        marginRight: 35
+    },
+    titleTxt: {
+        marginTop: 65,
+        fontSize: 60,
+        fontWeight: '900',
+        marginLeft: 35
+    },
+    textView: {
+        marginTop: 60,
+        marginLeft: 35,
+        marginRight: 35,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#f0f0f7',
+        // justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    input: {
+        fontSize: 30,
+        color: '#999999',
+        marginLeft: 30,
+        width: 300
     },
     loginBtnView: {
         height:80,
-        margin:30,
-        borderRadius:4,
-        backgroundColor: '#FFFFFF'
+        marginTop: 90,
+        marginLeft: 35,
+        marginRight: 35,
+        borderRadius:40,
+        backgroundColor: '#007aff'
+    },
+    userTxt: {
+        marginLeft: 40,
+        fontSize: 30,
+        color: '#333333'
+    },
+    loginTxt: {
+        color: '#ffffff',
+        fontSize: 30
+    },
+    loginOptView: {
+        marginTop: 65,
+        height: 35,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    resetPwdTxt: {
+        marginLeft: 35
+    },
+    reloginTxt: {
+        marginRight: 35
+    },
+    bottomTxt: {
+        fontSize: 35,
+        color: '#007aff'
     },
     loginBtn: {
         position:'absolute',

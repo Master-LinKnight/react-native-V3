@@ -204,6 +204,20 @@ class CartoonDetail extends Component {
         }
     }
 
+    beginToReading = () => {
+        const {cartoon, navigation} = this.props
+        const {baseComicInfo, allChapters, comments} = cartoon.data
+        console.log(allChapters)
+        if (allChapters && allChapters.length > 0) {
+            const item = allChapters[0]
+            navigation.navigate('CartoonChapter', {data: {
+                id: item.chapterId,
+                title: item.name,
+                name: baseComicInfo.name
+            }})
+        }
+    }
+
     render() {
         const {cartoon} = this.props
         let tabBarFlatFrom = {}
@@ -220,9 +234,11 @@ class CartoonDetail extends Component {
                             <Text style={styles.editorNameTxt}>{this.state.data.editorName}</Text>
                             <Text style={styles.titleTxt}>{this.state.data.title}</Text>
                             <Text style={styles.subheadTxt}>{this.state.data.subhead}</Text>
-                            <View style={[styles.blueBtn, BaseStyle.txtCenter]}>
-                                <Text style={styles.btnTxt}>{'开始阅读'}</Text>
-                            </View>
+                            <TouchableWithoutFeedback onPress={this.beginToReading.bind()}>
+                                <View style={[styles.blueBtn, BaseStyle.txtCenter]}>
+                                    <Text style={styles.btnTxt}>{'开始阅读'}</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
                         </View>
                     </Image> : <View style={{height: 970}}/>
                 }

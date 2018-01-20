@@ -6,6 +6,7 @@ import novel from './novel'
 import router from './router'
 import chapter from './chapter'
 import image from './image'
+import register from './register'
 
 const rootReducer = combineReducers({
     login,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     novel,
     router,
     chapter,
-    image
+    image,
+    register
 })
 
 export default rootReducer;
