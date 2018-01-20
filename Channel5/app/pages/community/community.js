@@ -10,6 +10,105 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 
+const CATGORYDATA = [
+    {
+        groupName:"热门精华",
+        createTime:"2018年1月1日",
+        groups:[
+            {
+                topicTitle:"凡人修仙传",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/1.jpg",
+                description:"喜欢《凡人修仙传》的筒子快到碗里来！！！",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"海贼王",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
+                description:"启航出发！！我一定要成为最伟大的海贼！！！",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"漫威",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/1.jpg",
+                description:"如果让你选择一个最喜欢的漫威超级英雄，你会选胸肌大的呢，还是选个胸肌大的呢？",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            }
+        ]
+    },
+    {
+        groupName:"小说吧",
+        createTime:"2018年1月12日",
+        groups:[
+            {
+                topicTitle:"斗破苍穹",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
+                description:"史上最火退婚流，土豆出品。。。",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"陈二狗的妖孽人生",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/1.jpg",
+                description:"你不用顶天立地，因为我也只是一朵狗尾巴花而已~",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"斗罗大陆",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
+                description:"三少灌水留集大成之作，褒贬由你评说。",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            }
+        ]
+    },
+    {
+        groupName:"影视吧",
+        createTime:"2018年1月7日",
+        groups:[
+            {
+                topicTitle:"拯救大兵瑞恩",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/1.jpg",
+                description:"汤姆汉克斯千里驰援马特达蒙",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"卧虎藏龙",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/1.jpg",
+                description:"李安，当下华人中最伟大的导演，没有之一，前无古人",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"战狼2",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
+                description:"中国大兵孤胆拯救，扬我国威",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            }
+        ]
+    },
+    {
+        groupName:"动漫吧",
+        createTime:"2018年1月6日",
+        groups:[
+            {
+                topicTitle:"海贼王",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/1.jpg",
+                description:"启航出发！！我一定要成为最伟大的海贼！！！",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"我的英雄学院",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
+                description:"英雄的披风，就是为了给哪些受到坏人伤害的无助少女带去温暖的啊",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            },
+            {
+                topicTitle:"fade系列",
+                userAvatar:"http://images.hezikele.com/channel5/avatar/1.jpg",
+                description:"狗咬狗一嘴毛",
+                topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+            }
+        ]
+    },
+]
+
 export default class Community extends Component {
     constructor(props){
         super(props);
@@ -37,34 +136,42 @@ export default class Community extends Component {
 
     getData(){
         let sections = [];
-        let headers = [];
+        // let headers = [];
 
-        for (let i = 0; i < 4; i++) {
-            headers.push({
-                name:"分类" + i,
-                time:"2018年1月" + i + "日"
-            })
-        }
-        this.setState({headers:headers})
+        // for (let i = 0; i < 4; i++) {
+        //     headers.push({
+        //         name:(CATGORYDATA[i]!=null)?CATGORYDATA[i]:"分类",
+        //         time:"2018年1月" + (i+15) + "日"
+        //     })
+        // }
+        this.setState({headers:CATGORYDATA})
 
-        for (let i = 0; i < 4; i++) {
-            let datas = []
-            for (let j = 0; j < 3; j++) {
-                datas.push(
+        // for (let i = 0; i < 4; i++) {
+        //     let datas = []
+        //     for (let j = 0; j < 3; j++) {
+        //         datas.push(
+        //             {
+        //                 topicTitle:"我的标题",
+        //                 userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
+        //                 description:"这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述",
+        //                 topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+        //             }
+        //         )
+        //     }
+        //     sections.push(
+        //         {
+        //             key:i,
+        //             data:datas,
+        //         }
+        //     )
+        // }
+        for (var i = 0; i < CATGORYDATA.length; i++) {
+                sections.push(
                     {
-                        topicTitle:"我的标题",
-                        userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
-                        description:"这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述",
-                        topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
+                        key:i,
+                        data:CATGORYDATA[i].groups,
                     }
                 )
-            }
-            sections.push(
-                {
-                    key:i,
-                    data:datas,
-                }
-            )
         }
 
         this.setState({sections:sections})
@@ -78,6 +185,7 @@ export default class Community extends Component {
     }
 
     _renderItem = (info) => {
+        console.log("-----------",info)
         return (
             <View style={styles.listItemContainer} >
                 <View style={styles.listItemIconContainer} >
@@ -110,13 +218,14 @@ export default class Community extends Component {
     }
 
     _renderHeader = (info) => {
+        console.log("------header------",info)
         return (
             <View style={styles.listTitleContainer} >
                 <Text style={[styles.createInfoMargin,styles.createTime]}>
-                    {this.state.headers[info.section.key].time}
+                    {this.state.headers[info.section.key].createTime}
                 </Text>
                 <Text style={[styles.createInfoMargin,styles.createName]} >
-                    {this.state.headers[info.section.key].name}
+                    {this.state.headers[info.section.key].groupName}
                 </Text>
             </View>
         )
@@ -127,7 +236,7 @@ export default class Community extends Component {
             <View style={styles.container} >
               <View style={styles.postBarTitleContainer} >
                   <TouchableWithoutFeedback
-                      onPress={()=>alert("返回")}>
+                      onPress={() => console.log("返回")}>
                       <View style={styles.postBarTitleBackButtonContainer} >
                           <Image style={styles.postBarTitleBackImg} source={require("../../images/return.png")} />
                       </View>

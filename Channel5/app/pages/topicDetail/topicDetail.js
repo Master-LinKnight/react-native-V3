@@ -19,96 +19,96 @@ if (width < 750) {
 const singleTopicInfo = {
   "topic": {
     "bar": {
-      "topics": "纳米科技",
+      "topics": "关于One For All个性",
       "barId": "e079088f-e8b1-479b-8cfe-421025bc30f5",
-      "displayName": "鲁磊的论坛",
+      "displayName": "关于One For All个性",
       "barAvatar": "http://images.hezikele.com/channel5/avatar/1.jpg",
-      "userName": "lei",
+      "userName": "Deku",
       "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
       "userAvatar": "../../images/themePicture.png",
-      "description": "随便什么随便什么随便什么随便什么随便什么随便什么随便什么随便什么随便什么随便什么",
-      "largePic": "datu"
+      "description": "为什么One For All个性这么强？？",
+      "largePic": "Deku"
     },
     "comments": [
       {
         "commentId": "a31f6163-9a54-4413-8db6-42c86ad5fd56",
         "topicId": "872c2181-42c0-40fd-a200-26fbb87120d1",
-        "comment": "ABCDEFGABCDEFG",
+        "comment": "我不想要，以我的性格，得到个性的第一天就爆体而亡了。",
         "photos": [],
         "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
-        "userName": "lei",
+        "userName": "暴躁的猪",
         "userAvatar": "http://images.hezikele.com/channel5/avatar/2.jpg",
         "photoString": "../../images/themePicture.png"
         },
         {
           "commentId": "a31f6163-9a54-4413-8db6-42c86ad5fd56",
           "topicId": "872c2181-42c0-40fd-a200-26fbb87120d1",
-          "comment": "ABCDEFGABCDEFG",
+          "comment": "One For All之所以强是因为力量在传承的过程中不断的累加。",
           "photos": [],
           "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
-          "userName": "lei",
+          "userName": "理性看剧",
           "userAvatar": "http://images.hezikele.com/channel5/avatar/2.jpg",
           "photoString": null,
         },
         {
           "commentId": "a31f6163-9a54-4413-8db6-42c86ad5fd56",
           "topicId": "872c2181-42c0-40fd-a200-26fbb87120d1",
-          "comment": "ABCDEFGABCDEFG",
+          "comment": "这么说来的话总有一天这个个性会成长到无人可以继承的地步吧，因为不会有人有这么强的肉体。",
           "photos": [],
           "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
-          "userName": "lei",
+          "userName": "补刀小能手",
           "userAvatar": "http://images.hezikele.com/channel5/avatar/2.jpg",
           "photoString": "../../images/themePicture.png"
         },
         {
           "commentId": "a31f6163-9a54-4413-8db6-42c86ad5fd56",
           "topicId": "872c2181-42c0-40fd-a200-26fbb87120d1",
-          "comment": "ABCDEFGABCDEFG",
+          "comment": "无所谓啊，只要能把All For One打到就行了",
           "photos": [],
           "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
-          "userName": "lei",
+          "userName": "佛系小学生",
           "userAvatar": "http://images.hezikele.com/channel5/avatar/2.jpg",
           "photoString": null,
         },
         {
           "commentId": "a31f6163-9a54-4413-8db6-42c86ad5fd56",
           "topicId": "872c2181-42c0-40fd-a200-26fbb87120d1",
-          "comment": "ABCDEFGABCDEFG",
+          "comment": "楼上正解，其他的英雄也不是吃醋的。",
           "photos": [],
           "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
-          "userName": "lei",
+          "userName": "KKKkk",
           "userAvatar": "http://images.hezikele.com/channel5/avatar/2.jpg",
           "photoString": null,
         },
         {
           "commentId": "a31f6163-9a54-4413-8db6-42c86ad5fd56",
           "topicId": "872c2181-42c0-40fd-a200-26fbb87120d1",
-          "comment": "ABCDEFGABCDEFG",
+          "comment": "只有我一个人觉得斯坦因很帅么？",
           "photos": [],
           "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
-          "userName": "lei",
+          "userName": "英雄杀手",
           "userAvatar": "http://images.hezikele.com/channel5/avatar/2.jpg",
           "photoString": "../../images/themePicture.png"
         },
         {
           "commentId": "a31f6163-9a54-4413-8db6-42c86ad5fd56",
           "topicId": "872c2181-42c0-40fd-a200-26fbb87120d1",
-          "comment": "ABCDEFGABCDEFG",
+          "comment": "当然不是，还有我！！！",
           "photos": [],
           "userId": "911f6a86-73d7-42b6-b860-0b17a1a4609a",
-          "userName": "lei",
+          "userName": "斯坦因第二",
           "userAvatar": "http://images.hezikele.com/channel5/avatar/2.jpg",
           "photoString": null,
         }
     ],
     "barId": "00000000-0000-0000-0000-000000000000",
     "topicId": "00000000-0000-0000-0000-000000000000",
-    "topicTitle": "纳米科技",
+    "topicTitle": "关于One For All个性",
     "userAvatar": "../../images/themePicture.png",
-    "userName": "白羽飞凤",
+    "userName": "Deku",
     "userId": "00000000-0000-0000-0000-000000000000",
     "commentCount": 0,
-    "description": "随便什么随便什么随便什么随便什么随便什么随便什么随便什么随便什么随便什么随便什么",
+    "description": "如果给你一个机会你会想要得到One For All个性么？你觉得你能坚持下来吗？",
   }
 }
 
@@ -260,7 +260,7 @@ export default class TopicDetail extends Component {
                     // refreshing={true}
                     // onRefresh={() => alert("下拉刷新")}
                     onEndReachedThreshold={0.1}
-                    onEndReached={() => alert("上拉加载")}
+                    // onEndReached={() => alert("上拉加载")}
                     renderItem={this._renderItem}
                     // renderSectionHeader={this._renderHeader}
                     ListHeaderComponent={this._renderHeader}
