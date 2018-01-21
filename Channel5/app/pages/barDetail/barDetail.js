@@ -286,6 +286,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         top: 40,
+        backgroundColor: "white",
     },
     headerContainer:{
         flex: 1,
@@ -334,6 +335,7 @@ const styles = StyleSheet.create({
 
     },
     itemContainer:{
+        backgroundColor: "white"
     },
     itemDescription:{
         fontSize: 30,

@@ -187,7 +187,9 @@ export default class Community extends Component {
     _renderItem = (info) => {
         // console.log("-----------",info)
         return (
+            <TouchableWithoutFeedback onPress={this.onItemClick}>
             <View style={styles.listItemContainer} >
+
                 <View style={styles.listItemIconContainer} >
                     <Image style={styles.cardIcon}
                         source={
@@ -206,14 +208,10 @@ export default class Community extends Component {
                     </Text>
                 </View>
                 <View style={styles.listItemCheckBtnContainer} >
-                    <TouchableWithoutFeedback
-                        onPress={this.onItemClick}>
-                        <View>
-                            <Text style={styles.listItemCheckText} >查看</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                        <Text style={styles.listItemCheckText} >查看</Text>
                 </View>
             </View>
+            </TouchableWithoutFeedback>
         )
     }
 
