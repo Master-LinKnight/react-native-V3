@@ -7,7 +7,7 @@ export function videoList() {
         dispatch(fetchDataLoading())
         ShortVideoService.GetBaseShortVideoInfos().then(
             (res) => {
-                console.log(res.shortVideos)
+                // console.log(res.shortVideos)
                 if (res && res.shortVideos && res.shortVideos.length > 0) {
                     let data = []
                     for (let v of res.shortVideos) {

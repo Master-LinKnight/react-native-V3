@@ -61,17 +61,21 @@ export default class videoPlay extends Component {
         console.log(detailData)
         return (
             <View style={styles.container}>
-                <WebView
-                    style={styles.web}
-                    source={{uri: detailData.url}}
-                    // onNavigationStateChange  = {(navState) => this._onNavigationStateChange (navState)}
-                    automaticallyAdjustContentInsets={true}
-                    scalesPageToFit={true}
-                    onLoadEnd={this.loadComplete}
-                    onLoadStart={this.loadStart}
-                    renderLoading={this.onRenderLoading}
-                    onMessage={this.handleMessage}
-                />
+                {
+                    detailData.url && detailData.url != '' ?
+                        <WebView
+                            style={styles.web}
+                            source={{uri: detailData.url}}
+                            // onNavigationStateChange  = {(navState) => this._onNavigationStateChange (navState)}
+                            automaticallyAdjustContentInsets={true}
+                            scalesPageToFit={true}
+                            onLoadEnd={this.loadComplete}
+                            onLoadStart={this.loadStart}
+                            renderLoading={this.onRenderLoading}
+                            onMessage={(event)=>{console.log(event.nativeEvent)}}
+                            onNavigationStateChange={(event)=>{console.log(event)}}
+                        /> : null
+                }
             </View>
         );
     }

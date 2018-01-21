@@ -52,13 +52,13 @@ class Login extends Component {
         SplashScreen.hide()
     }
 
-    componentWillReceiveProps (nextProps, nextState) {
+     componentWillReceiveProps (nextProps, nextState) {
         // console.log(nextProps)
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
             this.setState({
                 isFreshing: false
             })
-            Alert.alert('登陆成功')
+            // Alert.alert('登陆成功')
             Navigation.navigate('Index')
             return false
         }
