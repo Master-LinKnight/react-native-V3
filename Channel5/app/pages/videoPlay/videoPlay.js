@@ -50,6 +50,11 @@ export default class videoPlay extends Component {
         })
     }
 
+    handleMessage = (evt: any) => {
+        const message = evt.nativeEvent.data
+        console.log(message)
+    }
+
     render() {
         const {navigation} = this.props
         let detailData = navigation.state.params.data
@@ -65,6 +70,7 @@ export default class videoPlay extends Component {
                     onLoadEnd={this.loadComplete}
                     onLoadStart={this.loadStart}
                     renderLoading={this.onRenderLoading}
+                    onMessage={this.handleMessage}
                 />
             </View>
         );
@@ -73,7 +79,8 @@ export default class videoPlay extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        marginTop: -20
     },
     web: {
         position: 'absolute',

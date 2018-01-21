@@ -16,7 +16,8 @@ import {
     TextInput,
     View,
     Text,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert
 } from 'react-native';
 import UserService from '../../services/userService'
 import Loading from '../../common/loading'
@@ -25,6 +26,7 @@ import { connect } from 'react-redux'
 import {login} from '../../actions/login'
 var Navigation
 import BaseStyle from '../../common/style'
+import SplashScreen from 'react-native-splash-screen'
 class Login extends Component {
     // static navigationOptions = ({navigation}) => {
     //     return ({
@@ -46,13 +48,17 @@ class Login extends Component {
         // this.pswBlock = this.pswBlock.bind(this)
     }
 
+    componentDidMount() {
+        SplashScreen.hide()
+    }
+
     componentWillReceiveProps (nextProps, nextState) {
         // console.log(nextProps)
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
             this.setState({
                 isFreshing: false
             })
-            console.log('login1')
+            Alert.alert('登陆成功')
             Navigation.navigate('Index')
             return false
         }
