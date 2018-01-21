@@ -16,7 +16,7 @@ import {
     TextInput
 } from 'react-native';
 
-var searchArray = ['纳米核心吧', '游戏', '王者荣耀攻略', '足球', '爱科技', '游戏视频']
+var searchArray = ['凡人修仙传', '行尸走肉', '星球大战', '足球', '爱科技', '视频']
 
 export default class Search extends Component {
     constructor(props){
@@ -30,7 +30,8 @@ export default class Search extends Component {
     }
 
     onSubmitEditing = () => {
-        console.log('onSubmitEditing')
+        const {navigation} = this.props
+        navigation.navigate('SearchList')
     }
 
     render() {

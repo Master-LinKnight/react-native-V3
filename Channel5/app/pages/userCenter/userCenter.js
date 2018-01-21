@@ -33,8 +33,14 @@ class UserCenter extends Component {
         })
     }
 
-    onSubmitEditing = () => {
-        console.log('onSubmitEditing')
+    onSubmitEditing = (index) => {
+        // console.log('onSubmitEditing', index)
+        const {navigation} = this.props
+        if (index == 2) {
+            navigation.navigate('Collection')
+        } else if (index == 1) {
+            navigation.navigate('MyCommunity')
+        }
     }
 
     clickToGoBack = () => {
@@ -58,7 +64,7 @@ class UserCenter extends Component {
         const {login, register} = this.props
         const ArrayList = array.map(function (item, i) {
             const Item = (
-                <TouchableWithoutFeedback key={i+'_'+item.id+'_btn'} onPress={self.onSubmitEditing.bind(self)}>
+                <TouchableWithoutFeedback key={i+'_'+item.id+'_btn'} onPress={self.onSubmitEditing.bind(self, i)}>
                     <View style={{height: 90}}>
                         <View style={{height: 89, justifyContent: 'center'}}>
                             <Text style={{color: '#007aff', fontSize: 40, fontWeight: '700', marginLeft: 35}}>{item}</Text>

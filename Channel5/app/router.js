@@ -34,6 +34,9 @@ import TopicDetail from './pages/topicDetail/topicDetail'
 import Register from './pages/register/register'
 import FindPassWord from './pages/findPassWord/findPassWord'
 import UserCenter from './pages/userCenter/userCenter'
+import SearchList from './pages/searchList/searchList'
+import Collection from './pages/collection/collection'
+import MyCommunity from './pages/myCommunity/myCommunity'
 import {connect} from 'react-redux'
 import {changeRouter} from './actions/router'
 class Router extends Component {
@@ -172,6 +175,18 @@ class Router extends Component {
                 UserCenter: {
                     screen: UserCenter,
                     path: '/pages/UserCenter'
+                },
+                SearchList: {
+                    screen: SearchList,
+                    path: '/pages/SearchList'
+                },
+                Collection: {
+                    screen: Collection,
+                    path: '/pages/Collection'
+                },
+                MyCommunity: {
+                    screen: MyCommunity,
+                    path: '/pages/MyCommunity'
                 }
             },
             {

@@ -185,9 +185,11 @@ export default class Community extends Component {
     }
 
     _renderItem = (info) => {
-        console.log("-----------",info)
+        // console.log("-----------",info)
         return (
+            <TouchableWithoutFeedback onPress={this.onItemClick}>
             <View style={styles.listItemContainer} >
+
                 <View style={styles.listItemIconContainer} >
                     <Image style={styles.cardIcon}
                         source={
@@ -206,19 +208,15 @@ export default class Community extends Component {
                     </Text>
                 </View>
                 <View style={styles.listItemCheckBtnContainer} >
-                    <TouchableWithoutFeedback
-                        onPress={this.onItemClick}>
-                        <View>
-                            <Text style={styles.listItemCheckText} >查看</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                        <Text style={styles.listItemCheckText} >查看</Text>
                 </View>
             </View>
+            </TouchableWithoutFeedback>
         )
     }
 
     _renderHeader = (info) => {
-        console.log("------header------",info)
+        // console.log("------header------",info)
         return (
             <View style={styles.listTitleContainer} >
                 <Text style={[styles.createInfoMargin,styles.createTime]}>
@@ -235,12 +233,12 @@ export default class Community extends Component {
         return (
             <View style={styles.container} >
               <View style={styles.postBarTitleContainer} >
-                  <TouchableWithoutFeedback
-                      onPress={() => console.log("返回")}>
-                      <View style={styles.postBarTitleBackButtonContainer} >
-                          <Image style={styles.postBarTitleBackImg} source={require("../../images/return.png")} />
-                      </View>
-                  </TouchableWithoutFeedback>
+                  {/*<TouchableWithoutFeedback*/}
+                      {/*onPress={() => console.log("返回")}>*/}
+                      {/*<View style={styles.postBarTitleBackButtonContainer} >*/}
+                          {/*<Image style={styles.postBarTitleBackImg} source={require("../../images/return.png")} />*/}
+                      {/*</View>*/}
+                  {/*</TouchableWithoutFeedback>*/}
                   <Text style={styles.postBarTitleText} >
                       大神贴吧
                   </Text>
@@ -252,6 +250,7 @@ export default class Community extends Component {
                       renderItem={this._renderItem}
                       renderSectionHeader={this._renderHeader}
                       sections={this.state.sections}
+                      stickySectionHeadersEnabled={false}
                   />
               </View>
             </View>
@@ -295,7 +294,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
         marginTop: 35,
-        marginRight: 85,
+        // marginRight: 85,
         fontSize: 30,
         color: "#333333",
     },

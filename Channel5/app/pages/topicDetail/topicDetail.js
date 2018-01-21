@@ -128,7 +128,7 @@ class TopicItem extends Component{
                         //     uri:this.props.photo,
                         //     cache: 'force-cache'
                         // }
-                        require("../../images/themePicture.png")
+                        require("../../images/themePicture-comment.png")
                     }
                 />
             )
@@ -140,7 +140,7 @@ class TopicItem extends Component{
             <View style={[styles.topicItemContainer,{backgroundColor: this.props.bgColor}]}>
                 <View style={styles.topicItemInfoContainer} >
                     <View style={styles.topicItemUserInfoContainer} >
-                        <Image style={styles.topicItemUserIcon}
+                        <Image  style={styles.topicItemUserIcon}
                             source={
                                 // {
                                 //     uri:this.props.userIcon,
@@ -215,7 +215,7 @@ export default class TopicDetail extends Component {
                             //     uri:headdata.barAvatar,
                             //     cache: 'force-cache'
                             // }
-                            require("../../images/themePicture.png")
+                            require("../../images/themePicture-head.png")
                         } >
                         <TouchableWithoutFeedback
                             onPress={()=>Navigation.goBack()}>
