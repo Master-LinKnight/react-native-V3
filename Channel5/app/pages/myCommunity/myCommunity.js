@@ -109,7 +109,7 @@ const CATGORYDATA = [
     },
 ]
 
-export default class Community extends Component {
+export default class MyCommunity extends Component {
     constructor(props){
         super(props);
 
@@ -136,42 +136,15 @@ export default class Community extends Component {
 
     getData(){
         let sections = [];
-        // let headers = [];
-
-        // for (let i = 0; i < 4; i++) {
-        //     headers.push({
-        //         name:(CATGORYDATA[i]!=null)?CATGORYDATA[i]:"分类",
-        //         time:"2018年1月" + (i+15) + "日"
-        //     })
-        // }
         this.setState({headers:CATGORYDATA})
 
-        // for (let i = 0; i < 4; i++) {
-        //     let datas = []
-        //     for (let j = 0; j < 3; j++) {
-        //         datas.push(
-        //             {
-        //                 topicTitle:"我的标题",
-        //                 userAvatar:"http://images.hezikele.com/channel5/avatar/2.jpg",
-        //                 description:"这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述这个是描述",
-        //                 topicId:"7fe685d3-935c-49ac-b882-a802202aa885"
-        //             }
-        //         )
-        //     }
-        //     sections.push(
-        //         {
-        //             key:i,
-        //             data:datas,
-        //         }
-        //     )
-        // }
         for (var i = 0; i < CATGORYDATA.length; i++) {
-                sections.push(
-                    {
-                        key:i,
-                        data:CATGORYDATA[i].groups,
-                    }
-                )
+            sections.push(
+                {
+                    key:i,
+                    data:CATGORYDATA[i].groups,
+                }
+            )
         }
 
         this.setState({sections:sections})
@@ -180,8 +153,8 @@ export default class Community extends Component {
     onItemClick = () => {
         const Navigation = this.props.navigation
         Navigation.navigate('BarDetail', {data: {
-            id: "barId"
-        }})
+                id: "barId"
+            }})
     }
 
     _renderItem = (info) => {
@@ -190,12 +163,12 @@ export default class Community extends Component {
             <View style={styles.listItemContainer} >
                 <View style={styles.listItemIconContainer} >
                     <Image style={styles.cardIcon}
-                        source={
-                            {
-                                uri:info.item.userAvatar,
-                                cache: 'force-cache'
-                            }
-                        } />
+                           source={
+                               {
+                                   uri:info.item.userAvatar,
+                                   cache: 'force-cache'
+                               }
+                           } />
                 </View>
                 <View style={styles.listItemDocContainer} >
                     <Text style={styles.listItemTitle} >
@@ -231,30 +204,35 @@ export default class Community extends Component {
         )
     }
 
+    clickToGoBack = () => {
+        const {navigation} = this.props
+        navigation.goBack()
+    }
+
     render() {
         return (
             <View style={styles.container} >
-              <View style={styles.postBarTitleContainer} >
-                  {/*<TouchableWithoutFeedback*/}
-                      {/*onPress={() => console.log("返回")}>*/}
-                      {/*<View style={styles.postBarTitleBackButtonContainer} >*/}
-                          {/*<Image style={styles.postBarTitleBackImg} source={require("../../images/return.png")} />*/}
-                      {/*</View>*/}
-                  {/*</TouchableWithoutFeedback>*/}
-                  <Text style={styles.postBarTitleText} >
-                      大神贴吧
-                  </Text>
-              </View>
-              <View style={styles.listContainer} >
-                  <SectionList
-                      ref='list'
-                      keyExtractor={this._extraUniqueKey}
-                      renderItem={this._renderItem}
-                      renderSectionHeader={this._renderHeader}
-                      sections={this.state.sections}
-                      stickySectionHeadersEnabled={false}
-                  />
-              </View>
+                <View style={styles.postBarTitleContainer} >
+                    <TouchableWithoutFeedback
+                    onPress={this.clickToGoBack.bind(this)}>
+                    <View style={styles.postBarTitleBackButtonContainer} >
+                        <Image style={styles.postBarTitleBackImg} source={require("../../images/return.png")} />
+                    </View>
+                    </TouchableWithoutFeedback>
+                    <Text style={styles.postBarTitleText} >
+                        我的大神
+                    </Text>
+                </View>
+                <View style={styles.listContainer} >
+                    <SectionList
+                        ref='list'
+                        keyExtractor={this._extraUniqueKey}
+                        renderItem={this._renderItem}
+                        renderSectionHeader={this._renderHeader}
+                        sections={this.state.sections}
+                        stickySectionHeadersEnabled={false}
+                    />
+                </View>
             </View>
 
         );
@@ -278,25 +256,25 @@ const styles = StyleSheet.create({
     //     flex: 1,
     // },
     postBarTitleBackButtonContainer: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
         marginTop: 45,
         marginLeft: 25,
-        borderRadius: 30,
+        borderRadius: 25,
         backgroundColor: "#198bff"
     },
     postBarTitleBackImg: {
         flex: 1,
         alignSelf: 'stretch',
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
     },
     postBarTitleText: {
         flex: 1,
         alignSelf: 'center',
         textAlign: 'center',
         marginTop: 35,
-        // marginRight: 85,
+        marginRight: 90,
         fontSize: 30,
         color: "#333333",
     },

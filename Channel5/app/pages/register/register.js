@@ -16,7 +16,8 @@ import {
     TextInput,
     View,
     Text,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert
 } from 'react-native';
 import { connect } from 'react-redux'
 import BaseStyle from '../../common/style'
@@ -47,7 +48,6 @@ class Register extends Component {
             this.setState({
                 isFreshing: false
             })
-            console.log('login2')
             navigation.navigate('Index')
             return false
         }
@@ -78,6 +78,7 @@ class Register extends Component {
         let params = {}
         params.username = 'lei'
         params.password = '123456'
+        Alert.alert('注册成功')
         this.props.dispatch(register(params))
     }
 

@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
     Platform,
@@ -16,20 +10,14 @@ import {
     Text,
     Dimensions
 } from 'react-native';
-var headerIcon = require('../../images/pic_head.png')
-var ScreenWidth = Dimensions.get('window').width;
-var ScreenHeight = Dimensions.get('window').height;
-var Navigation
-import {connect} from 'react-redux'
+import {videoList} from "../../actions/video";
 var dataBlob = {},
     sectionIDs = [],
     rowIDs = []
-import {videoList} from '../../actions/video'
-import Loading from '../../common/loading'
 
-class Video extends Component {
+export default class SearchList extends Component {
     constructor(props){
-        super(props);
+        super(props)
         var _getSectionData = (dataBlob, sectionID) => {
             return dataBlob[sectionID]
         }
@@ -43,13 +31,57 @@ class Video extends Component {
             sectionHeaderHasChanged: (s1, s2) => s1 !== s2
         })
         this.state = {
-            isFreshing: false,
             dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
             data: [
+                {
+                    title: '小说',
+                    listData: [
+                        {
+                            imageUrl: 'http://images.hezikele.com/channel5/book/dzz1.jpg',
+                            title: '大主宰',
+                            id: 'b9e7b8a6-ae32-4c47-aa2e-b51ff2da7b2f',
+                            type: 'novel',
+                            subhead: '27.7 万次阅读',
+                            duration: '连载中'
+                        },
+                        {
+                            imageUrl: 'http://images.hezikele.com/channel5/book/thdd1.jpg',
+                            title: '天火大道',
+                            id: '73d3f825-b11a-40b8-81e5-ae7b841b342a',
+                            type: 'novel',
+                            subhead: '3.9 万次阅读',
+                            duration: '连载中'
+                        }
+                    ]
+                },
+                {
+                    title: '动漫',
+                    listData: [
+                        {
+                            imageUrl: 'http://images.hezikele.com/channel5/comic/xszr1.jpg',
+                            title: '行尸走肉',
+                            id: '8caed60c-66a6-4b1a-b847-76d6bc6bebcf',
+                            type: 'cartoon',
+                            subhead: '45 万次阅读',
+                            duration: '连载中'
+                        }
+                    ]
+                },
+                {
+                    title: '雷神3：诸神黄昏',
+                    listData: [
+                        {
+                            imageUrl: 'http://images.hezikele.com/channel5/video/lszc.jpg',
+                            title: '行尸走肉',
+                            id: '48a8deb4-bc78-4509-8151-d5f518149cd2',
+                            type: 'video',
+                            subhead: '37.3 万次播放',
+                            duration: '连载中'
+                        }
+                    ]
+                }
             ]
         }
-        this.componentDidMount = this.componentDidMount.bind(this)
-        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     }
 
     static navigationOptions = ({navigation}) => {
@@ -58,56 +90,24 @@ class Video extends Component {
         })
     }
 
-    componentWillReceiveProps = (nextProps, nextState) => {
-        // console.log(nextProps.video.data)
-        if(nextProps.video.status != this.props.video.status && nextProps.video.status === 'FETCH_VIDEO_DATA_SUCCESS'){
-            this.setState({
-                isFreshing: false
-            })
-            if (nextProps.video.data && nextProps.video.data.length > 0) {
-                for (let v of nextProps.video.data) {
-                    const array = v.groupKey.split(';')
-                    v.dateTitle = array[0]
-                    v.title = array[1]
-                }
-            }
-            // console.log(nextProps.video.data)
-            this.loadListViewDataFormJson(nextProps.video.data)
-            return false
+    componentDidMount = () => {
+        if (this.state.data.length > 0)
+        {
+            this.loadListViewDataFormJson(this.state.data)
         }
-        if (nextProps.video.status != this.props.video.status && nextProps.video.status === 'FETCH_VIDEO_DATA_LOADING') {
-            this.setState({
-                isFreshing: true
-            })
-            return false
-        } else {
-            this.setState({
-                isFreshing: false
-            })
-            return false
-        }
-        return true
     }
 
     loadListViewDataFormJson = (data) => {
-        const {login, register} = this.props
         let jsonData = data
         dataBlob = []
         sectionIDs = []
         rowIDs = []
 
-        let avatar = ''
-        if (login && login.userInfo && login.userInfo.avatar) {
-            avatar = login.userInfo.avatar
-        } else if (register && register.userInfo && register.userInfo.avatar) {
-            avatar = register.userInfo.avatar
-        }
         for (let i in jsonData) {
             sectionIDs.push(i)
             dataBlob[i] = {
-                dateTitle: jsonData[i].dateTitle,
+                // dateTitle: jsonData[i].dateTitle,
                 title: jsonData[i].title,
-                iconUrl: i == 0 ? avatar : ''
             }
             rowIDs[i] = []
             let listData = jsonData[i].listData
@@ -124,28 +124,27 @@ class Video extends Component {
         )
     }
 
-    componentDidMount = () => {
-        this.props.dispatch(videoList())
+    clickToGoBack = () => {
+        const {navigation} = this.props
+        navigation.goBack()
     }
 
     onItemClick = (rowData) => {
-        const Navigation = this.props.navigation
-        Navigation.navigate('VideoDetail', {data: {
-            id: rowData.id
-        }})
-    }
-
-    skipToPersonal = () => {
-        const {navigation, login, register} = this.props
-        let avatar = ''
-        if (login && login.userInfo && login.userInfo.avatar) {
-            avatar = login.userInfo.avatar
-        } else if (register && register.userInfo && register.userInfo.avatar) {
-            avatar = register.userInfo.avatar
+        const {navigation} = this.props
+        if (rowData.type == 'video') {
+            navigation.navigate('VideoDetail', {data: {
+                id: rowData.id
+            }})
+        } else if (rowData.type == 'cartoon') {
+            navigation.navigate('CartoonDetail', {data: {
+                id: rowData.id
+            }})
+        } else if (rowData.type == 'novel') {
+            navigation.navigate('NovelDetail', {data: {
+                id: rowData.id
+            }})
         }
-        navigation.navigate('UserCenter', {data: {
-            avatar: avatar
-        }})
+
     }
 
     renderRow = (rowData) => {
@@ -157,7 +156,7 @@ class Video extends Component {
                             <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
                             <Text style={styles.rowTitle}>{rowData.title}</Text>
                             <Text style={styles.rowDuration}>{rowData.duration}</Text>
-                            <Image style={styles.rowPlay} source={require('../../images/icon_play.png')}/>
+                            {/*<Image style={styles.rowPlay} source={require('../../images/icon_play.png')}/>*/}
                         </Image>
                     </View>
                 </TouchableWithoutFeedback>
@@ -168,24 +167,20 @@ class Video extends Component {
     renderSectionHeader = (sectionData,sectionId) => {
         return (
             <View style={styles.sectionHeader}>
-                <Text style={styles.sectionDateTitle}>{sectionData.dateTitle}</Text>
+                {/*<Text style={styles.sectionDateTitle}>{sectionData.dateTitle}</Text>*/}
                 <Text style={styles.sectionTitle}>{sectionData.title}</Text>
-                {
-                    sectionData.iconUrl && sectionData.iconUrl != '' ?
-                        <TouchableWithoutFeedback onPress={this.skipToPersonal.bind(this)}>
-                            <Image style={styles.sectionAvatar} source={{uri: sectionData.iconUrl}}/>
-                        </TouchableWithoutFeedback>
-                    : null
-                }
-
             </View>
         )
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <Loading size={'large'} visible={this.state.isFreshing}/>
+            <ScrollView style={styles.container}>
+                <TouchableWithoutFeedback onPress={this.clickToGoBack.bind(this)}>
+                    <View style={{height: 50, marginTop: 55}}>
+                        <Image style={styles.backView} source={require('../../images/return.png')}/>
+                    </View>
+                </TouchableWithoutFeedback>
                 <ListView
                     style={{marginTop: 40}}
                     dataSource={this.state.dataSource}
@@ -193,17 +188,23 @@ class Video extends Component {
                     renderSectionHeader={this.renderSectionHeader.bind(this)}
                     stickySectionHeadersEnabled={false}
                 />
-            </View>
-        );
+            </ScrollView>
+        )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff'
     },
+    backView: {
+        height: 50,
+        width: 50,
+        marginLeft: 35
+    },
     sectionHeader: {
-        height: 184,
+        height: 130,
         flexDirection:'column',
         backgroundColor: '#ffffff'
     },
@@ -267,34 +268,5 @@ const styles = StyleSheet.create({
         marginTop: 21,
         color: 'white',
         backgroundColor: 'rgba(255, 255, 255, 0)'
-    },
-    rowPlay: {
-        width: 128,
-        height: 128,
-        alignSelf: 'center',
-        marginTop: 184
-    },
-    sectionAvatar: {
-        height: 60,
-        width: 60,
-        borderRadius: 30,
-        position: 'absolute',
-        right: 35,
-        top: 85
     }
 })
-
-function mapStateToProps(state) {
-    const { video, router, login, register } = state
-    return {
-        video,
-        router,
-        login,
-        register
-    }
-}
-
-export default connect(mapStateToProps)(Video)
-
-
-
