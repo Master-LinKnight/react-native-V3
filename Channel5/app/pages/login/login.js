@@ -27,6 +27,7 @@ import {login} from '../../actions/login'
 var Navigation
 import BaseStyle from '../../common/style'
 import SplashScreen from 'react-native-splash-screen'
+import SharePOP from '../../component/sharePopView'
 class Login extends Component {
     // static navigationOptions = ({navigation}) => {
     //     return ({
@@ -42,7 +43,8 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            isFreshing: false
+            isFreshing: false,
+            isBindOther: false
         }
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
         // this.pswBlock = this.pswBlock.bind(this)
@@ -108,7 +110,13 @@ class Login extends Component {
         navigation.navigate('FindPassWord')
     }
 
-    OpenMask = () => {}
+    CloseMask = () => {
+        this.setState({isBindOther:false})
+    }
+
+    OpenMask = () => {
+        this.setState({isBindOther:true})
+    }
 
     render() {
         Navigation = this.props.navigation;
@@ -153,12 +161,18 @@ class Login extends Component {
                             <Text style={[styles.resetPwdTxt, styles.bottomTxt]}>{'忘记密码？'}</Text>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
+                    <TouchableWithoutFeedback onPress={this.OpenMask}>
                         <View>
                             <Text style={[styles.reloginTxt, styles.bottomTxt]}>{'其他方式登陆'}</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
+                {
+                    this.state.isBindOther == true?(
+                        <SharePOP Login={this.skipToIndex} cancel={this.CloseMask} />
+                    ) : ( null )
+                }
+
             </View>
         );
     }
