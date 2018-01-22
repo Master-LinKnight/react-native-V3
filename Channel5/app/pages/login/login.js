@@ -124,18 +124,18 @@ class Login extends Component {
                 </View>
                 <Text style={styles.titleTxt}>{'登陆'}</Text>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'用户名'}</Text>
+                    {/*<Text style={styles.userTxt}>{'用户名'}</Text>*/}
                     <TextInput
-                        placeholder=""
+                        placeholder='用户名'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}
                     />
                 </View>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'密    码'}</Text>
+                    {/*<Text style={styles.userTxt}>{'密    码'}</Text>*/}
                     <TextInput
-                        placeholder=''
+                        placeholder='密    码'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         secureTextEntry={true}
