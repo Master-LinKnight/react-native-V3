@@ -53,9 +53,9 @@ export default class FindPassWord extends Component {
                 <Text style={styles.titleTxt}>{'找回密码'}</Text>
                 <Text style={styles.subTitleTxt}>{'请输入您的邮箱和手机号'}</Text>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'请输入邮箱或手机号'}</Text>
+                    {/*<Text style={styles.userTxt}>{'请输入邮箱或手机号'}</Text>*/}
                     <TextInput
-                        placeholder=""
+                        placeholder='请输入邮箱或手机号'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}

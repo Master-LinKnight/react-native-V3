@@ -91,23 +91,23 @@ class Register extends Component {
                     </View>
                 </TouchableWithoutFeedback>
                 <Text style={styles.titleTxt}>{'手机注册'}</Text>
-                <View style={[styles.textView, {marginTop: 60, flexDirection: 'row'}]}>
-                    <Text style={styles.userTxt}>{'请输入手机号码'}</Text>
+                <View style={[styles.textView, {marginTop: 60}]}>
+                    {/*<Text style={styles.userTxt}>{'请输入手机号码'}</Text>*/}
                     <TextInput
-                        placeholder=""
+                        placeholder='请输入手机号码'
                         autoCapitalize={"none"}
                         autoCorrect={false}
-                        style={[styles.input]}
+                        style={styles.input}
                     />
                 </View>
                 <View style={styles.textContainer}>
                     <View style={[styles.PWSView]}>
-                        <Text style={styles.userTxt}>{'请输入验证码'}</Text>
+                        {/*<Text style={styles.userTxt}>{'请输入验证码'}</Text>*/}
                         <TextInput
-                            placeholder=""
+                            placeholder='请输入验证码'
                             autoCapitalize={"none"}
                             autoCorrect={false}
-                            style={[styles.input, {width: 50}]}
+                            style={styles.input}
                         />
                     </View>
                     <View style={[styles.getPWSBtnView, BaseStyle.txtCenter]}>
@@ -115,18 +115,18 @@ class Register extends Component {
                     </View>
                 </View>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'请输入用户名'}</Text>
+                    {/*<Text style={styles.userTxt}>{'请输入用户名'}</Text>*/}
                     <TextInput
-                        placeholder=""
+                        placeholder='请输入用户名'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}
                     />
                 </View>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'请输入密码'}</Text>
+                    {/*<Text style={styles.userTxt}>{'请输入密码'}</Text>*/}
                     <TextInput
-                        placeholder=""
+                        placeholder='请输入密码'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         secureTextEntry={true}
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#999999',
         marginLeft: 35,
-        width: 200
+        width: 350
     },
     loginTxt: {
         color: '#ffffff',
