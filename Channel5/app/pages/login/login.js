@@ -27,7 +27,9 @@ import {login} from '../../actions/login'
 var Navigation
 import BaseStyle from '../../common/style'
 import SplashScreen from 'react-native-splash-screen'
+import Orientation from 'react-native-orientation'
 import SharePOP from '../../component/sharePopView'
+
 class Login extends Component {
     // static navigationOptions = ({navigation}) => {
     //     return ({
@@ -44,10 +46,16 @@ class Login extends Component {
 
         this.state = {
             isFreshing: false,
-            isBindOther: false
+            isBindOther: false,
+            username: '',
+            password: ''
         }
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
         // this.pswBlock = this.pswBlock.bind(this)
+    }
+
+    componentWillMount() {
+
     }
 
     componentDidMount() {
@@ -56,7 +64,7 @@ class Login extends Component {
 
      componentWillReceiveProps (nextProps, nextState) {
         // console.log(nextProps)
-        if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
+        if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true && nextProps.login.status == 'LOGGED_IN'){
             this.setState({
                 isFreshing: false
             })
@@ -93,6 +101,10 @@ class Login extends Component {
 
     skipToIndex = () => {
         // userService.GetTest({id:1})
+        if (this.state.username == '' || this.state.password == '' ) {
+            Alert.alert('请填写用户名和密码')
+            return false
+        }
         let params = {}
         params.username = 'lei'
         params.password = '123456'
@@ -138,6 +150,9 @@ class Login extends Component {
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            username: txt
+                        })}
                     />
                 </View>
                 <View style={styles.textView}>
@@ -148,6 +163,9 @@ class Login extends Component {
                         autoCorrect={false}
                         secureTextEntry={true}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            password: txt
+                        })}
                     />
                 </View>
                 <TouchableWithoutFeedback onPress={this.skipToIndex.bind(this)}>

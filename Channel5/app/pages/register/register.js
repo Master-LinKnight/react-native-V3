@@ -37,14 +37,18 @@ class Register extends Component {
         super(props);
 
         this.state = {
-            isFreshing: false
+            isFreshing: false,
+            phone: '',
+            username: '',
+            password: '',
+            code: ''
         }
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     }
 
     componentWillReceiveProps (nextProps, nextState) {
         const {navigation} = this.props
-        if(nextProps.register.isLoggedIn != this.props.isLoggedIn && nextProps.register.isLoggedIn === true){
+        if(nextProps.register.isLoggedIn != this.props.isLoggedIn && nextProps.register.isLoggedIn === true && nextProps.register.status == 'REGISTER_IN'){
             this.setState({
                 isFreshing: false
             })
@@ -75,11 +79,35 @@ class Register extends Component {
     }
 
     skipToRegister = () => {
+        if (this.state.phone == '') {
+            Alert.alert('请输入手机号码')
+            return false
+        }
+        if (this.state.username == '') {
+            Alert.alert('请输入用户名')
+            return false
+        }
+        if (this.state.code == '') {
+            Alert.alert('请输入验证码')
+            return false
+        }
+        if (this.state.password == '') {
+            Alert.alert('请输入密码')
+            return false
+        }
         let params = {}
         params.username = 'lei'
         params.password = '123456'
         Alert.alert('注册成功')
         this.props.dispatch(register(params))
+    }
+
+    getCode = () => {
+        const random = Math.random()
+        this.setState({
+            // code:
+            code: String(Number.parseInt(random * 1000000))
+        })
     }
 
     render() {
@@ -98,6 +126,9 @@ class Register extends Component {
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            phone: txt
+                        })}
                     />
                 </View>
                 <View style={styles.textContainer}>
@@ -108,11 +139,17 @@ class Register extends Component {
                             autoCapitalize={"none"}
                             autoCorrect={false}
                             style={styles.input}
+                            onChangeText={(txt) => this.setState({
+                                code: txt
+                            })}
+                            value={this.state.code}
                         />
                     </View>
-                    <View style={[styles.getPWSBtnView, BaseStyle.txtCenter]}>
-                        <Text style={styles.getPWSBtnTxt}>{'获取验证码'}</Text>
-                    </View>
+                    <TouchableWithoutFeedback onPress={this.getCode.bind(this)}>
+                        <View style={[styles.getPWSBtnView, BaseStyle.txtCenter]}>
+                            <Text style={styles.getPWSBtnTxt}>{'获取验证码'}</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
                 <View style={styles.textView}>
                     {/*<Text style={styles.userTxt}>{'请输入用户名'}</Text>*/}
@@ -121,6 +158,9 @@ class Register extends Component {
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            username: txt
+                        })}
                     />
                 </View>
                 <View style={styles.textView}>
@@ -131,6 +171,9 @@ class Register extends Component {
                         autoCorrect={false}
                         secureTextEntry={true}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            password: txt
+                        })}
                     />
                 </View>
                 <TouchableWithoutFeedback onPress={this.skipToRegister.bind(this)}>
