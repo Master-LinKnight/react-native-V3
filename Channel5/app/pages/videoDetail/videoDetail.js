@@ -128,6 +128,7 @@ class VideoDetail extends Component {
 
     clickToShare = () => {
         Alert.alert('分享成功')
+        this.CloseMask()
     }
 
     render() {
