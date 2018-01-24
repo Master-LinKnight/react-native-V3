@@ -15,7 +15,8 @@ import {
     Dimensions,
     Text,
     ListView,
-    Alert
+    Alert,
+    WebView
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
@@ -36,6 +37,8 @@ class VideoDetail extends Component {
                 subhead: '',
                 videoUrl: ''
             },
+            url: '',
+            webview: null,
             isBindOther: false,
             listLength: 0,
             list: [],
@@ -111,11 +114,37 @@ class VideoDetail extends Component {
         )
     }
 
-    skipToPlay = () => {
-        const {navigation} = this.props
-        navigation.navigate('VideoPlay', {data: {
-            url: this.state.data.videoUrl
-        }})
+    skipToPlay = async () => {
+        const {navigation, video} = this.props
+        console.log(11)
+        // this.setState({
+        //     url: null
+        // })
+        // this.setState({
+        //     url: video.data.shortVideo.videoUrl
+        // })
+        // navigation.navigate('VideoPlay', {data: {
+        //     url: this.state.data.videoUrl
+        // }})
+        await this.setState({
+            webview: null
+        })
+        // console.log(this.state.webview)
+        // this.props.navigation.state.params.refresh()
+        try {
+            this.setState({
+                webview: (
+                    <WebView
+                        style={{height: 0}}
+                        source={{url: this.state.data.videoUrl}}
+                        automaticallyAdjustContentInsets={true}
+                        scalesPageToFit={true}
+                    />
+                )
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     CloseMask = () => {
@@ -165,12 +194,13 @@ class VideoDetail extends Component {
                 </View>
                 <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
                     <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
-                        <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10}}>
-                            <Image style={{height: 36, width: 39, position: 'absolute', top: 25, left: 70}} source={require('../../images/icon_share.png')}/>
-                            <Text style={{fontSize: 30, color: '#007aff', position: 'absolute', top: 28, right: 64}}>{'分享'}</Text>
+                        <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <Image style={{height: 36, width: 39, marginLeft: 64}} source={require('../../images/icon_share.png')}/>
+                            <Text style={{fontSize: 30, color: '#007aff', marginRight: 64}}>{'分享'}</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
+                {this.state.webview}
                 {
                     this.state.isBindOther == true?(
                         <SharePOP Login={this.clickToShare.bind(this)} cancel={this.CloseMask.bind(this)} />

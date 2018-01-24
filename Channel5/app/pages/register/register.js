@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#999999',
         marginLeft: 35,
-        width: 350
+        width: '90%'
     },
     loginTxt: {
         color: '#ffffff',

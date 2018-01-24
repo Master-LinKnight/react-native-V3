@@ -222,14 +222,14 @@ class NovelDetail extends Component {
                         <Image style={{width: 38, height: 38, marginLeft: 35}} source={require('../../images/icon_edit.png')}/>
                         <Text style={{fontSize: 38, marginLeft: 20, color: '#007aff'}}>{'我要留言'}</Text>
                     </View>
-                    <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)} >
-                        <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
-                            <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10}}>
-                                <Image style={{height: 36, width: 39, position: 'absolute', top: 25, left: 70}} source={require('../../images/icon_share.png')}/>
-                                <Text style={{fontSize: 30, color: '#007aff', position: 'absolute', top: 28, right: 64}}>{'分享'}</Text>
+                    <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
+                        <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
+                            <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                                <Image style={{height: 36, width: 39, marginLeft: 64}} source={require('../../images/icon_share.png')}/>
+                                <Text style={{fontSize: 30, color: '#007aff', marginRight: 64}}>{'分享'}</Text>
                             </View>
-                        </View>
-                    </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback>
+                    </View>
                     {
                         this.state.isBindOther == true?(
                             <SharePOP Login={this.clickToShare.bind(this)} cancel={this.CloseMask.bind(this)} />

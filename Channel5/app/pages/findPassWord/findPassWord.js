@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#999999',
         marginLeft: 30,
-        width: 300
+        width: '90%'
     },
     userTxt: {
         marginLeft: 40,
