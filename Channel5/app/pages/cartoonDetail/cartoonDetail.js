@@ -37,6 +37,7 @@ class CartoonDetail extends Component {
                 imageUrl: '',
                 description: ''
             },
+            isBindOther: false,
             comment: [],
             chaptersList: [],
             commentsList: new ListView.DataSource({
@@ -195,9 +196,15 @@ class CartoonDetail extends Component {
                         dataSource={this.state.commentsList}
                         renderRow={this.renderRow}
                     />
-                    <View style={{flexDirection: 'row', height: 40, marginBottom: 40}}>
+                    <View style={{flexDirection: 'row', height: 40, marginBottom: 200}}>
                         <Image style={{width: 38, height: 38, marginLeft: 35}} source={require('../../images/icon_edit.png')}/>
                         <Text style={{fontSize: 38, marginLeft: 20, color: '#007aff'}}>{'我要留言'}</Text>
+                    </View>
+                    <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
+                        <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10}}>
+                            <Image style={{height: 36, width: 39, position: 'absolute', top: 25, left: 70}} source={require('../../images/icon_share.png')}/>
+                            <Text style={{fontSize: 30, color: '#007aff', position: 'absolute', top: 28, right: 64}}>{'分享'}</Text>
+                        </View>
                     </View>
                 </View>
             )

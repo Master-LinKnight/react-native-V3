@@ -111,6 +111,14 @@ class Login extends Component {
         this.props.dispatch(login(params))
     }
 
+    skipToLogin = () => {
+        let params = {}
+        params.username = 'lei'
+        params.password = '123456'
+        this.setState({isBindOther:false})
+        this.props.dispatch(login(params))
+    }
+
     skipToRegister = () => {
         const {navigation} = this.props
         // console.log(navigation)
@@ -187,7 +195,7 @@ class Login extends Component {
                 </View>
                 {
                     this.state.isBindOther == true?(
-                        <SharePOP Login={this.skipToIndex} cancel={this.CloseMask} />
+                        <SharePOP Login={this.skipToLogin.bind(this)} cancel={this.CloseMask} />
                     ) : ( null )
                 }
 

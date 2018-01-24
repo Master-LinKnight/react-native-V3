@@ -14,7 +14,8 @@ import {
     TouchableWithoutFeedback,
     Dimensions,
     Text,
-    ListView
+    ListView,
+    Alert
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
@@ -23,6 +24,8 @@ var shortVideoService = new ShortVideoService()
 import {videoDetail} from '../../actions/video'
 import Loading from '../../common/loading'
 import {connect} from 'react-redux'
+import BaseStyle from "../../common/style";
+import SharePOP from '../../component/sharePopView'
 class VideoDetail extends Component {
     constructor(props){
         super(props);
@@ -33,6 +36,7 @@ class VideoDetail extends Component {
                 subhead: '',
                 videoUrl: ''
             },
+            isBindOther: false,
             listLength: 0,
             list: [],
             dataSource:new ListView.DataSource({
@@ -113,6 +117,19 @@ class VideoDetail extends Component {
             url: this.state.data.videoUrl
         }})
     }
+
+    CloseMask = () => {
+        this.setState({isBindOther:false})
+    }
+
+    OpenMask = () => {
+        this.setState({isBindOther:true})
+    }
+
+    clickToShare = () => {
+        Alert.alert('分享成功')
+    }
+
     render() {
         const {video} = this.props
 
@@ -141,6 +158,23 @@ class VideoDetail extends Component {
                     // renderSectionHeader={this.renderSectionHeader}
                     // stickySectionHeadersEnabled={false}
                 />
+                <View style={{flexDirection: 'row', height: 40, marginBottom: 200}}>
+                    <Image style={{width: 38, height: 38, marginLeft: 35}} source={require('../../images/icon_edit.png')}/>
+                    <Text style={{fontSize: 38, marginLeft: 20, color: '#007aff'}}>{'我要留言'}</Text>
+                </View>
+                <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
+                    <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
+                        <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10}}>
+                            <Image style={{height: 36, width: 39, position: 'absolute', top: 25, left: 70}} source={require('../../images/icon_share.png')}/>
+                            <Text style={{fontSize: 30, color: '#007aff', position: 'absolute', top: 28, right: 64}}>{'分享'}</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+                {
+                    this.state.isBindOther == true?(
+                        <SharePOP Login={this.clickToShare.bind(this)} cancel={this.CloseMask.bind(this)} />
+                    ) : ( null )
+                }
             </ScrollView>
         );
     }
