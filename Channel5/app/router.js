@@ -110,7 +110,7 @@ class Router extends Component {
                     },
                     labelStyle: {
                         marginBottom: 35,
-                        fontSize: 24 // 文字大小
+                        fontSize: 20 // 文字大小
                     },
                     style: {
                         backgroundColor: '#E1E1E1',

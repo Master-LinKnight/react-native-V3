@@ -73,7 +73,7 @@ class Login extends Component {
             return false
         }
 
-        if (nextProps.login.isFreshing) {
+        if (nextProps.login.isFreshing && nextProps.login.status == 'LOGGED_DOING') {
             // console.log('isfreshing')
             this.setState({
                 isFreshing: true
@@ -142,7 +142,7 @@ class Login extends Component {
         Navigation = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Loading size={'large'} visible={this.state.isFreshing}/>
+                {/*<Loading size={'large'} visible={this.state.isFreshing}/>*/}
                 <View style={styles.registerView}>
                     <TouchableWithoutFeedback onPress={this.skipToRegister.bind(this)}>
                         <View>
