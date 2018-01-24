@@ -16,6 +16,10 @@ export default class SharePOP extends Component {
     render() {
       return (
           <View style={styles.container} >
+              <TouchableWithoutFeedback onPress={this.props.cancel} >
+                  <View style={styles.blackIntouch} ></View>
+              </TouchableWithoutFeedback>
+
               <View style={styles.shareContainer} >
                   <View style={styles.shareBtnContainer} >
                       <TouchableWithoutFeedback onPress={this.props.Login} >
@@ -66,8 +70,16 @@ const styles = StyleSheet.create({
         bottom: 0,
         margin: 0,
         padding: 0,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+    },
+    blackIntouch:{
+        position: 'absolute',
+        bottom: 308,
+        top: 0,
+        left: 0,
+        right: 0,
         backgroundColor: "black",
-        opacity: 0.8,
+        opacity: 0,
     },
     shareContainer:{
         position: 'absolute',

@@ -15,7 +15,8 @@ import {
     Dimensions,
     Text,
     ListView,
-    FlatList
+    FlatList,
+    Alert
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
@@ -24,6 +25,7 @@ import BaseStyle from '../../common/style'
 import Loading from '../../common/loading'
 import TabBar from '../../component/tabBar'
 import {connect} from "react-redux";
+import SharePOP from '../../component/sharePopView'
 var itemHeight = 65
 class NovelDetail extends Component {
     constructor(props){
@@ -130,6 +132,19 @@ class NovelDetail extends Component {
         })
     }
 
+    CloseMask = () => {
+        this.setState({isBindOther:false})
+    }
+
+    OpenMask = () => {
+        this.setState({isBindOther:true})
+    }
+
+    clickToShare = () => {
+        Alert.alert('分享成功')
+        this.setState({isBindOther:false})
+    }
+
     clickToChapter = (item) => {
         console.log(item)
         const {novel, navigation} = this.props
@@ -207,12 +222,19 @@ class NovelDetail extends Component {
                         <Image style={{width: 38, height: 38, marginLeft: 35}} source={require('../../images/icon_edit.png')}/>
                         <Text style={{fontSize: 38, marginLeft: 20, color: '#007aff'}}>{'我要留言'}</Text>
                     </View>
-                    <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
-                        <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10}}>
-                            <Image style={{height: 36, width: 39, position: 'absolute', top: 25, left: 70}} source={require('../../images/icon_share.png')}/>
-                            <Text style={{fontSize: 30, color: '#007aff', position: 'absolute', top: 28, right: 64}}>{'分享'}</Text>
+                    <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)} >
+                        <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
+                            <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10}}>
+                                <Image style={{height: 36, width: 39, position: 'absolute', top: 25, left: 70}} source={require('../../images/icon_share.png')}/>
+                                <Text style={{fontSize: 30, color: '#007aff', position: 'absolute', top: 28, right: 64}}>{'分享'}</Text>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableWithoutFeedback>
+                    {
+                        this.state.isBindOther == true?(
+                            <SharePOP Login={this.clickToShare.bind(this)} cancel={this.CloseMask.bind(this)} />
+                        ) : ( null )
+                    }
                 </View>
             )
         }
@@ -328,6 +350,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(NovelDetail)
-
-
-
