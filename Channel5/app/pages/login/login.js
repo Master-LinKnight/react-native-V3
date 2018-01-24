@@ -63,13 +63,13 @@ class Login extends Component {
     }
 
      componentWillReceiveProps (nextProps, nextState) {
-        // console.log(nextProps)
+        const {navigation} = this.props
+        console.log(nextProps)
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true && nextProps.login.status == 'LOGGED_IN'){
             this.setState({
                 isFreshing: false
             })
-            // Alert.alert('登陆成功')
-            Navigation.navigate('Index')
+            navigation.navigate('Index')
             return false
         }
 
