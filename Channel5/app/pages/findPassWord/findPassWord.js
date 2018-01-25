@@ -63,7 +63,8 @@ export default class FindPassWord extends Component {
                     </View>
                 </TouchableWithoutFeedback>
                 <Text style={styles.titleTxt}>{'找回密码'}</Text>
-                <Text style={styles.subTitleTxt}>{'请输入您的邮箱或手机号'}</Text>
+                {/*<Text style={styles.subTitleTxt}>{'请输入您的邮箱或手机号'}</Text>*/}
+                <Text style={styles.subTitleTxt}>请输入您的邮箱或手机号</Text>
                 <View style={styles.textView}>
                     {/*<Text style={styles.userTxt}>{'请输入邮箱或手机号'}</Text>*/}
                     <TextInput
