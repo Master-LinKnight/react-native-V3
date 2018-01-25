@@ -132,14 +132,16 @@ class VideoDetail extends Component {
         // console.log(this.state.webview)
         // this.props.navigation.state.params.refresh()
         try {
-            this.setState({
+            await this.setState({
                 webview: (
-                    <WebView
-                        style={{height: 0}}
-                        source={{url: this.state.data.videoUrl}}
-                        automaticallyAdjustContentInsets={true}
-                        scalesPageToFit={true}
-                    />
+                    <View style={{height: 0, width: 0, overflow: 'hidden'}}>
+                        <WebView
+                            style={{height: 0, width: 0}}
+                            source={{url: this.state.data.videoUrl}}
+                            automaticallyAdjustContentInsets={true}
+                            scalesPageToFit={true}
+                        />
+                    </View>
                 )
             })
         } catch (error) {
