@@ -134,6 +134,7 @@ class NovelChapters extends Component {
         let params = {}
         params.ChapterId = detailData.last
         dispatch(novelChapter(params))
+        this.refs.list.scrollTo({x: 0, y: 0, animated: false})
     }
 
     nextChapter = () => {
@@ -142,6 +143,7 @@ class NovelChapters extends Component {
         let params = {}
         params.ChapterId = detailData.next
         dispatch(novelChapter(params))
+        this.refs.list.scrollTo({x: 0, y: 0, animated: false})
     }
 
     clickToCtrlFrom = (_opt) => {
@@ -272,7 +274,7 @@ class NovelChapters extends Component {
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={{height: 1, backgroundColor: '#999999'}}/>
-                <ScrollView>
+                <ScrollView ref='list'>
                     <View style={{height: 240}}>
                         <Text style={{fontSize: 24, color: '#999999', position: 'absolute', left: 35, top: 27}}>{this.state.subtitle}</Text>
                         <Text style={{fontSize: 60, color: '#000000', position: 'absolute', left: 35, top: 75, fontWeight: '900'}}>{this.state.title}</Text>
