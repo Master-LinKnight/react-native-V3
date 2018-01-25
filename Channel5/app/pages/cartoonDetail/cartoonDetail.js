@@ -214,7 +214,7 @@ class CartoonDetail extends Component {
                     />
                     <View style={{flexDirection: 'row', height: 40, marginBottom: 200}}>
                         <Image style={{width: 38, height: 38, marginLeft: 35}} source={require('../../images/icon_edit.png')}/>
-                        <Text style={{fontSize: 38, marginLeft: 20, color: '#007aff'}}>{'我要留言'}</Text>
+                        <Text style={{fontSize: 36, marginLeft: 20, color: '#007aff'}}>{'我要留言'}</Text>
                     </View>
                     <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
                         <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
