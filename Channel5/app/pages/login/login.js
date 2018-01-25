@@ -27,6 +27,9 @@ import {login} from '../../actions/login'
 var Navigation
 import BaseStyle from '../../common/style'
 import SplashScreen from 'react-native-splash-screen'
+import Orientation from 'react-native-orientation'
+import SharePOP from '../../component/sharePopView'
+
 class Login extends Component {
     // static navigationOptions = ({navigation}) => {
     //     return ({
@@ -42,10 +45,17 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            isFreshing: false
+            isFreshing: false,
+            isBindOther: false,
+            username: '',
+            password: ''
         }
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
         // this.pswBlock = this.pswBlock.bind(this)
+    }
+
+    componentWillMount() {
+
     }
 
     componentDidMount() {
@@ -53,17 +63,17 @@ class Login extends Component {
     }
 
      componentWillReceiveProps (nextProps, nextState) {
-        // console.log(nextProps)
-        if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true){
+        const {navigation} = this.props
+        console.log(nextProps)
+        if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true && nextProps.login.status == 'LOGGED_IN'){
             this.setState({
                 isFreshing: false
             })
-            // Alert.alert('登陆成功')
-            Navigation.navigate('Index')
+            navigation.navigate('Index')
             return false
         }
 
-        if (nextProps.login.isFreshing) {
+        if (nextProps.login.isFreshing && nextProps.login.status == 'LOGGED_DOING') {
             // console.log('isfreshing')
             this.setState({
                 isFreshing: true
@@ -91,9 +101,21 @@ class Login extends Component {
 
     skipToIndex = () => {
         // userService.GetTest({id:1})
+        if (this.state.username == '' || this.state.password == '' ) {
+            Alert.alert('请填写用户名和密码')
+            return false
+        }
         let params = {}
         params.username = 'lei'
         params.password = '123456'
+        this.props.dispatch(login(params))
+    }
+
+    skipToLogin = () => {
+        let params = {}
+        params.username = 'lei'
+        params.password = '123456'
+        this.setState({isBindOther:false})
         this.props.dispatch(login(params))
     }
 
@@ -108,13 +130,19 @@ class Login extends Component {
         navigation.navigate('FindPassWord')
     }
 
-    OpenMask = () => {}
+    CloseMask = () => {
+        this.setState({isBindOther:false})
+    }
+
+    OpenMask = () => {
+        this.setState({isBindOther:true})
+    }
 
     render() {
         Navigation = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Loading size={'large'} visible={this.state.isFreshing}/>
+                {/*<Loading size={'large'} visible={this.state.isFreshing}/>*/}
                 <View style={styles.registerView}>
                     <TouchableWithoutFeedback onPress={this.skipToRegister.bind(this)}>
                         <View>
@@ -124,22 +152,28 @@ class Login extends Component {
                 </View>
                 <Text style={styles.titleTxt}>{'登陆'}</Text>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'用户名'}</Text>
+                    {/*<Text style={styles.userTxt}>{'用户名'}</Text>*/}
                     <TextInput
-                        placeholder=""
+                        placeholder='用户名'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            username: txt
+                        })}
                     />
                 </View>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'密    码'}</Text>
+                    {/*<Text style={styles.userTxt}>{'密    码'}</Text>*/}
                     <TextInput
-                        placeholder=''
+                        placeholder='密    码'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         secureTextEntry={true}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            password: txt
+                        })}
                     />
                 </View>
                 <TouchableWithoutFeedback onPress={this.skipToIndex.bind(this)}>
@@ -153,12 +187,18 @@ class Login extends Component {
                             <Text style={[styles.resetPwdTxt, styles.bottomTxt]}>{'忘记密码？'}</Text>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
+                    <TouchableWithoutFeedback onPress={this.OpenMask}>
                         <View>
                             <Text style={[styles.reloginTxt, styles.bottomTxt]}>{'其他方式登陆'}</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
+                {
+                    this.state.isBindOther == true?(
+                        <SharePOP Login={this.skipToLogin.bind(this)} cancel={this.CloseMask} />
+                    ) : ( null )
+                }
+
             </View>
         );
     }
@@ -202,7 +242,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#999999',
         marginLeft: 30,
-        width: 300
+        width: '90%'
     },
     loginBtnView: {
         height:80,

@@ -14,7 +14,9 @@ import {
     TouchableWithoutFeedback,
     Dimensions,
     Text,
-    ListView
+    ListView,
+    Alert,
+    WebView
 } from 'react-native';
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
@@ -23,6 +25,8 @@ var shortVideoService = new ShortVideoService()
 import {videoDetail} from '../../actions/video'
 import Loading from '../../common/loading'
 import {connect} from 'react-redux'
+import BaseStyle from "../../common/style";
+import SharePOP from '../../component/sharePopView'
 class VideoDetail extends Component {
     constructor(props){
         super(props);
@@ -33,6 +37,9 @@ class VideoDetail extends Component {
                 subhead: '',
                 videoUrl: ''
             },
+            url: '',
+            webview: null,
+            isBindOther: false,
             listLength: 0,
             list: [],
             dataSource:new ListView.DataSource({
@@ -107,12 +114,54 @@ class VideoDetail extends Component {
         )
     }
 
-    skipToPlay = () => {
-        const {navigation} = this.props
-        navigation.navigate('VideoPlay', {data: {
-            url: this.state.data.videoUrl
-        }})
+    skipToPlay = async () => {
+        const {navigation, video} = this.props
+        console.log(11)
+        // this.setState({
+        //     url: null
+        // })
+        // this.setState({
+        //     url: video.data.shortVideo.videoUrl
+        // })
+        // navigation.navigate('VideoPlay', {data: {
+        //     url: this.state.data.videoUrl
+        // }})
+        await this.setState({
+            webview: null
+        })
+        // console.log(this.state.webview)
+        // this.props.navigation.state.params.refresh()
+        try {
+            await this.setState({
+                webview: (
+                    <View style={{height: 0, width: 0, overflow: 'hidden'}}>
+                        <WebView
+                            style={{height: 0, width: 0}}
+                            source={{url: this.state.data.videoUrl}}
+                            automaticallyAdjustContentInsets={true}
+                            scalesPageToFit={true}
+                        />
+                    </View>
+                )
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
+
+    CloseMask = () => {
+        this.setState({isBindOther:false})
+    }
+
+    OpenMask = () => {
+        this.setState({isBindOther:true})
+    }
+
+    clickToShare = () => {
+        Alert.alert('分享成功')
+        this.CloseMask()
+    }
+
     render() {
         const {video} = this.props
 
@@ -141,6 +190,24 @@ class VideoDetail extends Component {
                     // renderSectionHeader={this.renderSectionHeader}
                     // stickySectionHeadersEnabled={false}
                 />
+                <View style={{flexDirection: 'row', height: 40, marginBottom: 200}}>
+                    <Image style={{width: 38, height: 38, marginLeft: 35}} source={require('../../images/icon_edit.png')}/>
+                    <Text style={{fontSize: 36, marginLeft: 20, color: '#007aff'}}>{'我要留言'}</Text>
+                </View>
+                <View style={[{height: 210, borderTopWidth: 1, borderTopColor: '#f0f4f7'}, BaseStyle.txtCenter]}>
+                    <TouchableWithoutFeedback onPress={this.OpenMask.bind(this)}>
+                        <View style={{height: 90, width: 240, backgroundColor: '#f0f0f7', borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <Image style={{height: 36, width: 39, marginLeft: 64}} source={require('../../images/icon_share.png')}/>
+                            <Text style={{fontSize: 30, color: '#007aff', marginRight: 64}}>{'分享'}</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+                {this.state.webview}
+                {
+                    this.state.isBindOther == true?(
+                        <SharePOP Login={this.clickToShare.bind(this)} cancel={this.CloseMask.bind(this)} />
+                    ) : ( null )
+                }
             </ScrollView>
         );
     }

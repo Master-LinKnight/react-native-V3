@@ -54,7 +54,7 @@ class Router extends Component {
                 Cartoon: {
                     screen: Cartoon,
                     navigationOptions: {
-                        tabBarLabel: '卡通',
+                        tabBarLabel: '漫画',
                         tabBarIcon: ({focused}) => (
                             <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_cartoon.png')} selectedImage={require('./images/icon_cartoon_active.png')}/>
                         )
@@ -81,7 +81,7 @@ class Router extends Component {
                 Search: {
                     screen: Search,
                     navigationOptions: {
-                        tabBarLabel: '搜素',
+                        tabBarLabel: '搜索',
                         tabBarIcon: ({focused}) => (
                             <TabBarItem focused={focused} style={styles.tabBarIcon} normalImage={require('./images/icon_search.png')} selectedImage={require('./images/icon_search_active.png')}/>
                         )
@@ -109,12 +109,12 @@ class Router extends Component {
                         justifyContent: 'flex-end'
                     },
                     labelStyle: {
-                        marginBottom: 6,
-                        fontSize: 18 // 文字大小
+                        marginBottom: 35,
+                        fontSize: 20 // 文字大小
                     },
                     style: {
                         backgroundColor: '#E1E1E1',
-                        height: 90
+                        height: 140
                     },
                     iconStyle: {
                         height: 38,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     tabBarIcon: {
         height: 41,
         width: 38,
-        marginBottom: 24
+        marginBottom: 55
     }
 });
 

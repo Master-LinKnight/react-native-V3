@@ -16,7 +16,8 @@ import {
     TextInput,
     View,
     Text,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert
 } from 'react-native';
 import UserService from '../../services/userService'
 import Loading from '../../common/loading'
@@ -32,12 +33,23 @@ export default class FindPassWord extends Component {
         super(props);
 
         this.state = {
-            isFreshing: false
+            isFreshing: false,
+            text: ''
         }
     }
 
     clickToGoBack = () => {
         const {navigation} = this.props
+        navigation.goBack()
+    }
+
+    clickToSubmit = () => {
+        if (this.state.text == '') {
+            Alert.alert('请输入邮箱或手机号')
+            return false
+        }
+        const {navigation} = this.props
+        Alert.alert('提交成功')
         navigation.goBack()
     }
 
@@ -51,17 +63,21 @@ export default class FindPassWord extends Component {
                     </View>
                 </TouchableWithoutFeedback>
                 <Text style={styles.titleTxt}>{'找回密码'}</Text>
-                <Text style={styles.subTitleTxt}>{'请输入您的邮箱和手机号'}</Text>
+                {/*<Text style={styles.subTitleTxt}>{'请输入您的邮箱或手机号'}</Text>*/}
+                <Text style={styles.subTitleTxt}>请输入您的邮箱或手机号</Text>
                 <View style={styles.textView}>
-                    <Text style={styles.userTxt}>{'请输入邮箱或手机号'}</Text>
+                    {/*<Text style={styles.userTxt}>{'请输入邮箱或手机号'}</Text>*/}
                     <TextInput
-                        placeholder=""
+                        placeholder='请输入邮箱或手机号'
                         autoCapitalize={"none"}
                         autoCorrect={false}
                         style={styles.input}
+                        onChangeText={(txt) => this.setState({
+                            text: txt
+                        })}
                     />
                 </View>
-                <TouchableWithoutFeedback onPress={this.clickToGoBack.bind(this)}>
+                <TouchableWithoutFeedback onPress={this.clickToSubmit.bind(this)}>
                     <View style={[styles.loginBtnView, BaseStyle.txtCenter]}>
                         <Text style={styles.loginTxt}>{'提  交'}</Text>
                     </View>
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#999999',
         marginLeft: 30,
-        width: 300
+        width: '90%'
     },
     userTxt: {
         marginLeft: 40,

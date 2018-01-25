@@ -137,7 +137,7 @@ class CartoonChapter extends Component {
 
         dispatch(cartoonChapter(params))
         dispatch(imageClear())
-        this.refs.list.scrollTo({y: 400})
+        this.refs.list.scrollTo({x: 0, y: 0, animated: false})
     }
 
     nextChapter = () => {
@@ -148,8 +148,7 @@ class CartoonChapter extends Component {
 
         dispatch(cartoonChapter(params))
         dispatch(imageClear())
-        this.refs.list.scrollTo({y: 400})
-
+        this.refs.list.scrollTo({x: 0, y: 0, animated: false})
     }
 
     render() {
