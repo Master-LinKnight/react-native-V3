@@ -62,26 +62,29 @@ class Login extends Component {
         SplashScreen.hide()
     }
 
-     componentWillReceiveProps (nextProps, nextState) {
+     async componentWillReceiveProps (nextProps, nextState) {
         const {navigation} = this.props
-        console.log(nextProps)
+        // console.log(nextProps)
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true && nextProps.login.status == 'LOGGED_IN'){
-            this.setState({
+            await this.setState({
                 isFreshing: false
             })
-            navigation.navigate('Index')
+            // Alert.alert('登陆成功')
+            setTimeout(()=>{
+                navigation.navigate('Index')
+            },50)
             return false
         }
 
         if (nextProps.login.isFreshing && nextProps.login.status == 'LOGGED_DOING') {
             // console.log('isfreshing')
-            this.setState({
+            await this.setState({
                 isFreshing: true
             })
             return false
         } else {
             // console.log('not isfreshing')
-            this.setState({
+            await this.setState({
                 isFreshing: false
             })
             return false
@@ -142,7 +145,7 @@ class Login extends Component {
         Navigation = this.props.navigation;
         return (
             <View style={styles.container}>
-                {/*<Loading size={'large'} visible={this.state.isFreshing}/>*/}
+                <Loading size={'large'} visible={this.state.isFreshing}/>
                 <View style={styles.registerView}>
                     <TouchableWithoutFeedback onPress={this.skipToRegister.bind(this)}>
                         <View>
