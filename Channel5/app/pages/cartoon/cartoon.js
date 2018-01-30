@@ -147,7 +147,7 @@ class Cartoon extends Component {
             <View style={{height: 895}}>
                 <TouchableWithoutFeedback onPress={this.onItemClick.bind(this, rowData)}>
                     <View style={styles.rowView}>
-                        <Image style={styles.rowImageView} source={{url: rowData.imageUrl}}>
+                        <Image style={styles.rowImageView} source={{uri: rowData.imageUrl}}>
                             <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
                             <Text style={styles.rowTitle}>{rowData.title}</Text>
                             <Text style={styles.rowDuration}>{rowData.duration}</Text>

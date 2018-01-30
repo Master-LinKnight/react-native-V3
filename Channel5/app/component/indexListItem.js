@@ -78,7 +78,7 @@ export default class IndexListItem extends Component {
             <View ref='item' style={{height: 895}}>
                 <TouchableWithoutFeedback onPress={this.onItemClick.bind(this, rowData)}>
                     <View ref='itemRow' style={styles.rowView}>
-                        <Image ref='itemImage' style={styles.rowImageView} onLayout={(e) => {this.onImageLayout(e, rowData)}} source={{url: rowData.imageUrl}}>
+                        <Image ref='itemImage' style={styles.rowImageView} onLayout={(e) => {this.onImageLayout(e, rowData)}} source={{uri: rowData.imageUrl}}>
                             <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
                             <Text style={styles.rowTitle}>{rowData.title}</Text>
                             <Text style={styles.rowDuration}>{rowData.duration}</Text>
