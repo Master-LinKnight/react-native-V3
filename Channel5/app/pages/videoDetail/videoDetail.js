@@ -170,7 +170,7 @@ class VideoDetail extends Component {
                 <Loading size={'large'} visible={video.isFreshing && video.status == 'FETCH_VIDEO_DATA_LOADING'}/>
                 <Image style={{height: 970, justifyContent: 'center', alignItems: 'center'}} source={{uri: this.state.data.imageUrl}}>
                     <TouchableWithoutFeedback onPress={this.clickToGoBack.bind(this)}>
-                        <Image style={{height: 50, width: 50, position: 'absolute', top: 55, left: 35}} source={require('../../images/close.png')}/>
+                        <Image style={{height: 50, width: 50, position: 'absolute', top: 75, left: 35}} source={require('../../images/close.png')}/>
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback onPress={this.skipToPlay.bind(this)}>
                         <Image style={styles.playImg} source={require('../../images/icon_play.png')}/>

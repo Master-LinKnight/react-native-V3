@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
     },
     registerView: {
-        height: 30,
+        height: 35,
         marginTop: 60,
         flexDirection: 'row-reverse'
     },
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     },
     loginOptView: {
         marginTop: 65,
-        height: 35,
+        height: 40,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },

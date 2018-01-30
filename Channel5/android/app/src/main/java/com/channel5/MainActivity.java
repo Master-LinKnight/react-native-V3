@@ -3,6 +3,9 @@ package com.channel5;
 import com.facebook.react.ReactActivity;
 import android.content.Intent; // <--- import
 import android.content.res.Configuration; // <--- import
+import android.os.Bundle;
+import com.cboy.rn.splashscreen.SplashScreen;
+import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 
 public class MainActivity extends ReactActivity {
 
@@ -21,5 +24,11 @@ public class MainActivity extends ReactActivity {
         Intent intent = new Intent("onConfigurationChanged");
         intent.putExtra("newConfig", newConfig);
         this.sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);  // 添加这一句
+        super.onCreate(savedInstanceState);
     }
 }

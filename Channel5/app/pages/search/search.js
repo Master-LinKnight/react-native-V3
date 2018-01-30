@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#999999',
         marginLeft: 30,
-        width: 300
+        width: '80%'
     },
     secondTitle: {
         fontSize: 36,

@@ -39,6 +39,11 @@ import Collection from './pages/collection/collection'
 import MyCommunity from './pages/myCommunity/myCommunity'
 import {connect} from 'react-redux'
 import {changeRouter} from './actions/router'
+var iconBottom = 0
+if (Platform.OS === 'ios')
+{
+    iconBottom = 55
+}
 class Router extends Component {
     render() {
         const TabScreen = TabNavigator({
@@ -117,7 +122,7 @@ class Router extends Component {
                         height: 140
                     },
                     iconStyle: {
-                        height: 38,
+                        height: 41,
                         width: 38,
                     }
                 },
@@ -223,7 +228,7 @@ const styles = StyleSheet.create({
     tabBarIcon: {
         height: 41,
         width: 38,
-        marginBottom: 55
+        marginBottom: iconBottom
     }
 });
 
