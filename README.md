@@ -31,6 +31,6 @@ Channel5 是为上海电视台第五频道制作的互联网产品，是基于�
 在根目录执行 react-native run-ios & react-native run-android
 
 ### 项目预览
-<img width="375" height="667" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG15.jpeg"/><img width="375" height="667" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG16.jpeg"/>
-<img width="375" height="667" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG17.jpeg"/><img width="375" height="667" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG19.jpeg"/>
-<img width="667" height="375" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG18.jpeg"/>
+<img width="540" height="960" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG15.jpeg"/><img width="540" height="960" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG16.jpeg"/>
+<img width="540" height="960" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG17.jpeg"/><img width="540" height="960" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG19.jpeg"/>
+<img width="960" height="540" src="https://github.com/MK-LinKnight/react-native-V3/blob/master/doc/WechatIMG18.jpeg"/>
