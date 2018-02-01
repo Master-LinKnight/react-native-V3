@@ -4,10 +4,10 @@
 ![](https://img.shields.io/badge/platform-iOS%7CAndroid-orange.svg)
 
 ## 项目概述
-Channel5 是为上海电视台第五频道制作的互联网产品，是基于互联网2.0以用户驱动。产品以短视频、轻阅读、漫画为主，后期加入了搜索、贴吧、互动等功能
+Channel5 是为上海电视台第五频道制作的互联网产品，是基于互联网2.0以用户驱动。产品以短视频、轻阅读、漫画为主，后期加入了搜索、贴吧、互动等功能。Channel5 是一款概念型产品，功能在未来还会不断迭代，React Native部分开发历时不满一个月,是一款完整的React Native应用，并完成iOS、Android适配和发布。
 ### 贡献者
 #### React Native Knight、ke,Yang
-#### API Lei,Lu
+#### Server (Restful API) Lei,Lu
 
 ### App功能
 * 短视频、轻阅读、漫画
