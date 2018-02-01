@@ -1,0 +1,31 @@
+# React Native 项目 Channel5
+![](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![](https://img.shields.io/badge/release--date-november-green.svg)
+![](https://img.shields.io/badge/platform-iOS%7CAndroid-orange.svg)
+
+## 项目概述
+Channel5 是为上海电视台第五频道制作的互联网产品，是基于互联网2.0以用户驱动。产品以短视频、轻阅读、漫画为主，后期加入了搜索、贴吧、互动等功能
+### 贡献者
+#### React Native Knight、ke,Yang
+#### API Lei,Lu
+
+### App功能
+* 短视频、轻阅读、漫画
+
+## 配置
+### React Native 版本 0.44.0
+
+### 使用组件一览：
+* react-native-splash-screen@2.1.0
+* react-navigation
+* redux
+* react-redux
+* redux-thunk
+* redux-persist
+
+### 安装配置
+* 未安装React Native需执行命令npm install -g react-native-cli
+* 已安装React Native在根目录执行 npm install
+
+### 编译运行
+在根目录执行 react-native run-ios & react-native run-android
