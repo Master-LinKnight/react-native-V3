@@ -16,7 +16,8 @@ import {
     ListView,
     Dimensions,
     PixelRatio,
-    InteractionManager
+    InteractionManager,
+    FlatList
 } from 'react-native';
 import {imageSlider, imageClear} from '../../actions/image'
 import BaseStyle from "../../common/style"
@@ -25,6 +26,7 @@ import {cartoonChapter, novelChapter} from '../../actions/chaper'
 import ChapterItem from './chapterItem'
 import Loading from '../../common/loading'
 import image from "../../reducers/image"
+var itemHeight = 1040
 
 class CartoonChapter extends Component {
     constructor(props){
@@ -32,9 +34,10 @@ class CartoonChapter extends Component {
         this.state = {
             subtitle: '',
             title: '',
-            list: new ListView.DataSource({
-                rowHasChanged:(row1,row2) => row1 !== row2
-            }),
+            // list: new ListView.DataSource({
+            //     rowHasChanged:(row1,row2) => row1 !== row2
+            // }),
+            list: [],
             index: 1
         }
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -71,7 +74,7 @@ class CartoonChapter extends Component {
                     }
                     // console.log(arrayList)
                     this.setState({
-                        list: this.state.list.cloneWithRows(arrayList.slice(0, 2))
+                        list: arrayList.slice(0, 2)
                     })
                 }
             }
@@ -88,7 +91,7 @@ class CartoonChapter extends Component {
                 }
                 // console.log(arrayList)
                 this.setState({
-                    list: this.state.list.cloneWithRows(arrayList.slice(0, nextProps.image.index))
+                    list: arrayList.slice(0, nextProps.image.index)
                 })
             }
         }
@@ -123,7 +126,7 @@ class CartoonChapter extends Component {
         console.log(isComplete)
     }
 
-    renderRow = (rowData) => {
+    renderItemView = (rowData) => {
         return (
             <ChapterItem callbackParent={this.onChildChanged.bind(this)} rowData={rowData}/>
         )
@@ -137,7 +140,7 @@ class CartoonChapter extends Component {
 
         dispatch(cartoonChapter(params))
         dispatch(imageClear())
-        this.refs.list.scrollTo({x: 0, y: 0, animated: false})
+        this.refs.list.scrollToIndex({index: 0, animated: false})
     }
 
     nextChapter = () => {
@@ -148,7 +151,11 @@ class CartoonChapter extends Component {
 
         dispatch(cartoonChapter(params))
         dispatch(imageClear())
-        this.refs.list.scrollTo({x: 0, y: 0, animated: false})
+        this.refs.list.scrollToIndex({index: 0, animated: false})
+    }
+
+    renderItemLayout = (data, index) => {
+        return {length: itemHeight,offset: itemHeight*index,index}
     }
 
     render() {
@@ -184,37 +191,27 @@ class CartoonChapter extends Component {
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={{height: 1, backgroundColor: '#999999'}}/>
-                <ListView
-                    ref='list'
+                {/*<ListView*/}
+                    {/*ref='list'*/}
+                    {/*style={{margin: 35}}*/}
+                    {/*dataSource={this.state.list}*/}
+                    {/*renderRow={this.renderRow}*/}
+                    {/*onEndReached={this.getEndReached.bind(this)}*/}
+                {/*/>*/}
+                <FlatList
+                    ref={'list'}
                     style={{margin: 35}}
-                    dataSource={this.state.list}
-                    renderRow={this.renderRow}
+                    keyExtractor={(item, index) => index}
+                    data = {this.state.list}
+                    renderItem={
+                        ({item}) => this.renderItemView(item)
+                    }
+                    getItemLayout={(data, index) => this.renderItemLayout(data, index)}
+                    showsVerticalScrollIndicator={false}
+                    onEndReachedThreshold={0.5}
+                    numColumns={1}
                     onEndReached={this.getEndReached.bind(this)}
                 />
-                {/*<ScrollView>
-                    <ListView
-                        style={{margin: 35}}
-                        dataSource={this.state.list}
-                        renderRow={this.renderRow}
-                        onEndReached={this.getEndReached.bind(this)}
-                    />
-                    <View style={{height: 100}}>
-                        <TouchableWithoutFeedback onPress={this.lastChapter.bind(this)}>
-                            <View style={[{height: 56, width: 184, borderRadius: 28, backgroundColor: '#f0f0f7', position: 'absolute',
-                                bottom: 40, left: 35
-                            }, BaseStyle.txtCenter]}>
-                                <Text style={{fontSize: 28, color: '#007aff'}}>{'上一章'}</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={this.nextChapter.bind(this)}>
-                            <View style={[{height: 56, width: 184, borderRadius: 28, backgroundColor: '#f0f0f7', position: 'absolute',
-                                bottom: 40, right: 35
-                            }, BaseStyle.txtCenter]}>
-                                <Text style={{fontSize: 28, color: '#007aff'}}>{'下一章'}</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </View>
-                </ScrollView>*/}
             </View>
         );
     }
