@@ -57,7 +57,7 @@ class ChapterItem extends Component {
     render() {
         const {rowData} = this.props
         return (
-            <Image style={{height: 1040}} ref={'itemImage'} onLoadStart={this.onLoadStart.bind(this)} onLoadEnd={this.onLoadEnd.bind(this)} onLayout={(e) => {this.onImageLayout(e, rowData)}} source={{uri: rowData.imageUrl}} />
+            <Image style={{height: 1040}} ref={'itemImage'} onLoadStart={this.onLoadStart.bind(this)} onLoadEnd={this.onLoadEnd.bind(this)} source={{uri: rowData.imageUrl}} />
         );
     }
 }

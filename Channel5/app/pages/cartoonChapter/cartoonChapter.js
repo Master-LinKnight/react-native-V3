@@ -26,6 +26,7 @@ import {cartoonChapter, novelChapter} from '../../actions/chaper'
 import ChapterItem from './chapterItem'
 import Loading from '../../common/loading'
 import image from "../../reducers/image"
+import SGListView from 'react-native-sglistview'
 var itemHeight = 1040
 
 class CartoonChapter extends Component {
@@ -75,6 +76,7 @@ class CartoonChapter extends Component {
                     // console.log(arrayList)
                     this.setState({
                         list: arrayList.slice(0, 2)
+                        // list: this.state.list.cloneWithRows(arrayList.slice(0, 2))
                     })
                 }
             }
@@ -92,7 +94,9 @@ class CartoonChapter extends Component {
                 // console.log(arrayList)
                 this.setState({
                     list: arrayList.slice(0, nextProps.image.index)
+                    // list: this.state.list.cloneWithRows(arrayList.slice(0, nextProps.image.index))
                 })
+                // console.log(this.state.list)
             }
         }
     }
@@ -126,7 +130,7 @@ class CartoonChapter extends Component {
         console.log(isComplete)
     }
 
-    renderItemView = (rowData) => {
+    renderRow = (rowData) => {
         return (
             <ChapterItem callbackParent={this.onChildChanged.bind(this)} rowData={rowData}/>
         )
@@ -156,8 +160,15 @@ class CartoonChapter extends Component {
         }
     }
 
-    renderItemLayout = (data, index) => {
-        return {length: itemHeight,offset: itemHeight*index,index}
+    // renderItemLayout = (data, index) => {
+    //     return {length: itemHeight,offset: itemHeight*index,index}
+    // }
+    getDataSource() {
+        const dataSource = new ListView.DataSource(
+            { rowHasChanged: (r1, r2) => r1.uuid !== r2.uuid })
+
+        const deals = this.state.list.length > 0
+        return deals ? dataSource.cloneWithRows(this.state.list) : dataSource
     }
 
     render() {
@@ -193,27 +204,32 @@ class CartoonChapter extends Component {
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={{height: 1, backgroundColor: '#999999'}}/>
-                {/*<ListView*/}
-                    {/*ref='list'*/}
-                    {/*style={{margin: 35}}*/}
-                    {/*dataSource={this.state.list}*/}
-                    {/*renderRow={this.renderRow}*/}
-                    {/*onEndReached={this.getEndReached.bind(this)}*/}
-                {/*/>*/}
-                <FlatList
-                    ref={'list'}
+                <SGListView
+                    ref='list'
                     style={{margin: 35}}
-                    keyExtractor={(item, index) => index}
-                    data = {this.state.list}
-                    renderItem={
-                        ({item}) => this.renderItemView(item)
-                    }
-                    getItemLayout={(data, index) => this.renderItemLayout(data, index)}
-                    showsVerticalScrollIndicator={false}
+                    dataSource={this.getDataSource()}
+                    renderRow={this.renderRow}
+                    initialListSize={1}
+                    stickyHeaderIndices={[]}
                     onEndReachedThreshold={0.5}
-                    numColumns={1}
+                    scrollRenderAheadDistance={1}
+                    pageSize={2}
                     onEndReached={this.getEndReached.bind(this)}
                 />
+                {/*<FlatList*/}
+                    {/*ref={'list'}*/}
+                    {/*style={{margin: 35}}*/}
+                    {/*keyExtractor={(item, index) => index}*/}
+                    {/*data = {this.state.list}*/}
+                    {/*renderItem={*/}
+                        {/*({item}) => this.renderItemView(item)*/}
+                    {/*}*/}
+                    {/*getItemLayout={(data, index) => this.renderItemLayout(data, index)}*/}
+                    {/*showsVerticalScrollIndicator={false}*/}
+                    {/*onEndReachedThreshold={0.5}*/}
+                    {/*numColumns={1}*/}
+                    {/*onEndReached={this.getEndReached.bind(this)}*/}
+                {/*/>*/}
             </View>
         );
     }
