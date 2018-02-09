@@ -136,22 +136,24 @@ class CartoonChapter extends Component {
         const {chapter, dispatch} = this.props
         const detailData = chapter.data
         let params = {}
-        params.ChapterId = detailData.last
-
-        dispatch(cartoonChapter(params))
-        dispatch(imageClear())
-        this.refs.list.scrollToIndex({index: 0, animated: false})
+        if (detailData.last) {
+            params.ChapterId = detailData.last
+            dispatch(cartoonChapter(params))
+            dispatch(imageClear())
+            this.refs.list.scrollToIndex({index: 0, animated: false})
+        }
     }
 
     nextChapter = () => {
         const {chapter, dispatch} = this.props
         const detailData = chapter.data
         let params = {}
-        params.ChapterId = detailData.next
-
-        dispatch(cartoonChapter(params))
-        dispatch(imageClear())
-        this.refs.list.scrollToIndex({index: 0, animated: false})
+        if (detailData.next) {
+            params.ChapterId = detailData.next
+            dispatch(cartoonChapter(params))
+            dispatch(imageClear())
+            this.refs.list.scrollToIndex({index: 0, animated: false})
+        }
     }
 
     renderItemLayout = (data, index) => {

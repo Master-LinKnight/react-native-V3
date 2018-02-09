@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
         marginLeft: 35,
         marginRight: 35,
         width: 680,
-        borderRadius: 30,
+        borderRadius: Platform.OS === 'ios' ? 30 : 0,
         shadowOffset: {width: 0, height: 0},
         shadowColor: 'black',
         shadowOpacity: 0.4,
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     rowImageView: {
         height: 835,
         width: 680,
-        borderRadius: 30
+        borderRadius: Platform.OS === 'ios' ? 30 : 0
     },
     rowSubhead: {
         fontSize: 28,

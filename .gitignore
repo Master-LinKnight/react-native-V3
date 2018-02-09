@@ -5,3 +5,4 @@ Channel5/.tmp/reactNativeBuild/index.ios.map
 yarn.lock
 Channel5/android/app/src/main/assets/index.android.jsbundle
 Channel5/android/app/src/main/assets/index.android.jsbundle.meta
+*.hprof
