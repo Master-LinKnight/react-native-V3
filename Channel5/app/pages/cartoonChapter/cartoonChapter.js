@@ -160,9 +160,16 @@ class CartoonChapter extends Component {
         }
     }
 
-    // renderItemLayout = (data, index) => {
-    //     return {length: itemHeight,offset: itemHeight*index,index}
-    // }
+    renderItemView = (rowData) => {
+        return (
+            <ChapterItem callbackParent={this.onChildChanged.bind(this)} rowData={rowData}/>
+        )
+    }
+
+    renderItemLayout = (data, index) => {
+        return {length: itemHeight,offset: itemHeight*index,index}
+    }
+
     getDataSource() {
         const dataSource = new ListView.DataSource(
             { rowHasChanged: (r1, r2) => r1.uuid !== r2.uuid })
@@ -204,32 +211,32 @@ class CartoonChapter extends Component {
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={{height: 1, backgroundColor: '#999999'}}/>
-                <SGListView
-                    ref='list'
-                    style={{margin: 35}}
-                    dataSource={this.getDataSource()}
-                    renderRow={this.renderRow}
-                    initialListSize={1}
-                    stickyHeaderIndices={[]}
-                    onEndReachedThreshold={0.5}
-                    scrollRenderAheadDistance={1}
-                    pageSize={2}
-                    onEndReached={this.getEndReached.bind(this)}
-                />
-                {/*<FlatList*/}
-                    {/*ref={'list'}*/}
+                {/*<SGListView*/}
+                    {/*ref='list'*/}
                     {/*style={{margin: 35}}*/}
-                    {/*keyExtractor={(item, index) => index}*/}
-                    {/*data = {this.state.list}*/}
-                    {/*renderItem={*/}
-                        {/*({item}) => this.renderItemView(item)*/}
-                    {/*}*/}
-                    {/*getItemLayout={(data, index) => this.renderItemLayout(data, index)}*/}
-                    {/*showsVerticalScrollIndicator={false}*/}
+                    {/*dataSource={this.getDataSource()}*/}
+                    {/*renderRow={this.renderRow}*/}
+                    {/*initialListSize={1}*/}
+                    {/*stickyHeaderIndices={[]}*/}
                     {/*onEndReachedThreshold={0.5}*/}
-                    {/*numColumns={1}*/}
+                    {/*scrollRenderAheadDistance={1}*/}
+                    {/*pageSize={2}*/}
                     {/*onEndReached={this.getEndReached.bind(this)}*/}
                 {/*/>*/}
+                <FlatList
+                    ref={'list'}
+                    style={{margin: 35}}
+                    keyExtractor={(item, index) => index}
+                    data = {this.state.list}
+                    renderItem={
+                        ({item}) => this.renderItemView(item)
+                    }
+                    getItemLayout={(data, index) => this.renderItemLayout(data, index)}
+                    showsVerticalScrollIndicator={true}
+                    onEndReachedThreshold={0.5}
+                    numColumns={1}
+                    onEndReached={this.getEndReached.bind(this)}
+                />
             </View>
         );
     }
