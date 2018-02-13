@@ -26,6 +26,8 @@ var dataBlob = {},
     rowIDs = []
 import {videoList} from '../../actions/video'
 import Loading from '../../common/loading'
+import ListItem from '../../component/listItem'
+import ListItemHeader from '../../component/listItemHeader'
 
 class Video extends Component {
     constructor(props){
@@ -150,35 +152,13 @@ class Video extends Component {
 
     renderRow = (rowData) => {
         return (
-            <View style={{height: 895}}>
-                <TouchableWithoutFeedback onPress={this.onItemClick.bind(this, rowData)}>
-                    <View style={styles.rowView}>
-                        <Image style={styles.rowImageView} source={{uri: rowData.imageUrl}}>
-                            <Text style={styles.rowSubhead}>{rowData.subhead}</Text>
-                            <Text style={styles.rowTitle}>{rowData.title}</Text>
-                            <Text style={styles.rowDuration}>{rowData.duration}</Text>
-                            <Image style={styles.rowPlay} source={require('../../images/icon_play.png')}/>
-                        </Image>
-                    </View>
-                </TouchableWithoutFeedback>
-            </View>
+            <ListItem rowData={rowData} onItemClick={this.onItemClick.bind(this, rowData)} isVideo={true}/>
         )
     }
 
     renderSectionHeader = (sectionData,sectionId) => {
         return (
-            <View style={styles.sectionHeader}>
-                <Text style={styles.sectionDateTitle}>{sectionData.dateTitle}</Text>
-                <Text style={styles.sectionTitle}>{sectionData.title}</Text>
-                {
-                    sectionData.iconUrl && sectionData.iconUrl != '' ?
-                        <TouchableWithoutFeedback onPress={this.skipToPersonal.bind(this)}>
-                            <Image style={styles.sectionAvatar} source={{uri: sectionData.iconUrl}}/>
-                        </TouchableWithoutFeedback>
-                    : null
-                }
-
-            </View>
+            <ListItemHeader sectionData={sectionData} skipToPersonal={this.skipToPersonal.bind(this)}/>
         )
     }
 
@@ -201,86 +181,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff'
-    },
-    sectionHeader: {
-        height: 184,
-        flexDirection:'column',
-        backgroundColor: '#ffffff'
-    },
-    sectionDateTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginTop: 50,
-        marginLeft: 35,
-        color: '#999999'
-    },
-    sectionTitle: {
-        fontSize: 60,
-        fontWeight: 'bold',
-        marginTop: 28,
-        marginLeft: 35
-    },
-    sectionAvatar: {
-        height: 60,
-        width: 60,
-        borderRadius: 30,
-        position: 'absolute',
-        right: 35,
-        top: 85
-    },
-    rowView: {
-        height: 835,
-        marginTop: 25,
-        marginLeft: 35,
-        marginRight: 35,
-        width: 680,
-        borderRadius: Platform.OS === 'ios' ? 30 : 0,
-        shadowOffset: {width: 0, height: 0},
-        shadowColor: 'black',
-        shadowOpacity: 0.4,
-        shadowRadius: 12,
-        elevation: 8
-    },
-    rowImageView: {
-        height: 835,
-        width: 680,
-        borderRadius: Platform.OS === 'ios' ? 30 : 0
-    },
-    rowSubhead: {
-        fontSize: 28,
-        marginLeft: 36,
-        marginTop: 30,
-        color: 'white',
-        backgroundColor: 'rgba(255, 255, 255, 0)'
-    },
-    rowTitle: {
-        fontSize: 48,
-        marginLeft: 36,
-        marginTop: 20,
-        color: 'white',
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        fontWeight: '900'
-    },
-    rowDuration: {
-        fontSize: 28,
-        marginLeft: 36,
-        marginTop: 21,
-        color: 'white',
-        backgroundColor: 'rgba(255, 255, 255, 0)'
-    },
-    rowPlay: {
-        width: 128,
-        height: 128,
-        alignSelf: 'center',
-        marginTop: 184
-    },
-    sectionAvatar: {
-        height: 60,
-        width: 60,
-        borderRadius: 30,
-        position: 'absolute',
-        right: 35,
-        top: 85
     }
 })
 
