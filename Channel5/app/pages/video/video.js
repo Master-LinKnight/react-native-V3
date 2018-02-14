@@ -172,6 +172,7 @@ class Video extends Component {
                     renderRow={this.renderRow.bind(this)}
                     renderSectionHeader={this.renderSectionHeader.bind(this)}
                     stickySectionHeadersEnabled={false}
+                    removeClippedSubviews={false}
                 />
             </View>
         );
