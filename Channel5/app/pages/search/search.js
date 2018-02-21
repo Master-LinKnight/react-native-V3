@@ -66,6 +66,7 @@ export default class Search extends Component {
                         style={styles.input}
                         onChangeText={(text) => this.setState({text})}
                         onSubmitEditing={this.onSubmitEditing.bind(this)}
+                        returnKeyType={'search'}
                     />
                 </View>
                 <Text style={styles.secondTitle}>{'搜索历史'}</Text>
