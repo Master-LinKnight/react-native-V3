@@ -21,7 +21,9 @@ var searchArray = ['凡人修仙传', '行尸走肉', '星球大战', '足球', 
 export default class Search extends Component {
     constructor(props){
         super(props);
-
+        this.state = {
+            text: ''
+        }
     }
     static navigationOptions = ({navigation}) => {
         return ({
@@ -31,7 +33,10 @@ export default class Search extends Component {
 
     onSubmitEditing = () => {
         const {navigation} = this.props
-        navigation.navigate('SearchList')
+        // navigation.navigate('SearchList')
+        navigation.navigate('SearchList', {data: {
+            searchTxt: this.state.text
+        }})
     }
 
     render() {
@@ -58,8 +63,8 @@ export default class Search extends Component {
                         placeholder="搜索内容"
                         autoCapitalize={"none"}
                         autoCorrect={false}
-                        secureTextEntry={true}
                         style={styles.input}
+                        onChangeText={(text) => this.setState({text})}
                         onSubmitEditing={this.onSubmitEditing.bind(this)}
                     />
                 </View>

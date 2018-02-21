@@ -7,20 +7,29 @@ var ShortVideoService = new shortVideoService()
 var BookSerivce = new bookSerivce()
 var ComicService = new comicService()
 
-export async function searchList(params) {
-    let rslt = {}
+export function searchList(params) {
     return dispatch => {
         dispatch(fetchDataLoading())
-
+        fetchSearchList(params).then(
+            (res) => {
+                if (res) {
+                    dispatch(fetchDataSuccess(res))
+                } else {
+                    dispatch(fetchDataError())
+                }
+            }
+        ).catch((error) => {
+            console.log('searchListError', error)
+        }).done()
     }
 }
 
 async function fetchSearchList(params) {
     try {
-        let rslt = {}
+        let rslt = []
         const rsltVideos = await ShortVideoService.GetShortVideosByKeyWords(params)
         if (rsltVideos && rsltVideos.shortVideos.length > 0) {
-            let list = {}
+            let list = []
             for (let v of rsltVideos.shortVideos) {
                 list.push({
                     id: v.videoId,
@@ -30,7 +39,8 @@ async function fetchSearchList(params) {
                     imageUrl: v.coverImage,
                     duration: v.playTime,
                     playCount: v.playCount,
-                    subhead: v.playCountStr
+                    subhead: v.playCountStr,
+                    isVideo: true
                 })
             }
             rslt.push({
@@ -40,7 +50,7 @@ async function fetchSearchList(params) {
         }
         const rsltComics = await ComicService.GetComicsByKeyWords(params)
         if (rsltComics && rsltComics.comics.length > 0) {
-            let list = {}
+            let list = []
             for (let v of rsltComics.comics) {
                 list.push({
                     id: v.comicId,
@@ -49,7 +59,8 @@ async function fetchSearchList(params) {
                     imageUrl: v.largeImage,
                     duration: v.status,
                     readCount: v.readCount,
-                    subhead: v.readCountStr
+                    subhead: v.readCountStr,
+                    isVideo: true
                 })
             }
             rslt.push({
@@ -59,8 +70,9 @@ async function fetchSearchList(params) {
         }
         const rsltBooks = await BookSerivce.GetBooksByKeyWords(params)
         if (rsltBooks && rsltBooks.books.length > 0) {
-            let list = {}
+            let list = []
             for (let v of rsltBooks.books) {
+                console.log(v)
                 list.push({
                     id: v.bookId,
                     title: v.name,
@@ -68,7 +80,8 @@ async function fetchSearchList(params) {
                     imageUrl: v.largeImage,
                     duration: v.status,
                     readCount: v.readCount,
-                    subhead: v.readCountStr
+                    subhead: v.readCountStr,
+                    isVideo: true
                 })
             }
             rslt.push({
@@ -76,8 +89,9 @@ async function fetchSearchList(params) {
                 listData: list
             })
         }
+        return rslt
     } catch (error) {
-        console.log(error)
+        console.log('error', error)
     }
 }
 

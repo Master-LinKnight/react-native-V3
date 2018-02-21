@@ -10,12 +10,13 @@ import {
     Text,
     Dimensions
 } from 'react-native';
-import {videoList} from "../../actions/video";
+import {searchList} from "../../actions/search";
+import {connect} from "react-redux";
 var dataBlob = {},
     sectionIDs = [],
     rowIDs = []
 
-export default class SearchList extends Component {
+class SearchList extends Component {
     constructor(props){
         super(props)
         var _getSectionData = (dataBlob, sectionID) => {
@@ -32,55 +33,8 @@ export default class SearchList extends Component {
         })
         this.state = {
             dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-            data: [
-                {
-                    title: '小说',
-                    listData: [
-                        {
-                            imageUrl: 'http://images.hezikele.com/channel5/book/dzz1.jpg',
-                            title: '大主宰',
-                            id: 'b9e7b8a6-ae32-4c47-aa2e-b51ff2da7b2f',
-                            type: 'novel',
-                            subhead: '27.7 万次阅读',
-                            duration: '连载中'
-                        },
-                        {
-                            imageUrl: 'http://images.hezikele.com/channel5/book/thdd1.jpg',
-                            title: '天火大道',
-                            id: '73d3f825-b11a-40b8-81e5-ae7b841b342a',
-                            type: 'novel',
-                            subhead: '3.9 万次阅读',
-                            duration: '连载中'
-                        }
-                    ]
-                },
-                {
-                    title: '动漫',
-                    listData: [
-                        {
-                            imageUrl: 'http://images.hezikele.com/channel5/comic/xszr1.jpg',
-                            title: '行尸走肉',
-                            id: '8caed60c-66a6-4b1a-b847-76d6bc6bebcf',
-                            type: 'cartoon',
-                            subhead: '45 万次阅读',
-                            duration: '连载中'
-                        }
-                    ]
-                },
-                {
-                    title: '雷神3：诸神黄昏',
-                    listData: [
-                        {
-                            imageUrl: 'http://images.hezikele.com/channel5/video/lszc.jpg',
-                            title: '行尸走肉',
-                            id: '48a8deb4-bc78-4509-8151-d5f518149cd2',
-                            type: 'video',
-                            subhead: '37.3 万次播放',
-                            duration: '连载中'
-                        }
-                    ]
-                }
-            ]
+            data: [],
+            isFreshing: false
         }
     }
 
@@ -90,7 +44,39 @@ export default class SearchList extends Component {
         })
     }
 
+    componentWillReceiveProps = (nextProps, nextState) => {
+        console.log(nextProps.search)
+        if(nextProps.search.status != this.props.search.status && nextProps.search.status === 'FETCH_SEARCH_DATA_SUCCESS'){
+            this.setState({
+                isFreshing: false
+            })
+            if (nextProps.search.data && nextProps.search.data.length > 0) {
+                this.loadListViewDataFormJson(nextProps.search.data)
+            }
+            // console.log(nextProps.video.data)
+            // this.loadListViewDataFormJson(nextProps.search.data)
+            return false
+        }
+        if (nextProps.search.status != this.props.search.status && nextProps.search.status === 'FETCH_SEARCH_DATA_LOADING') {
+            this.setState({
+                isFreshing: true
+            })
+            return false
+        } else {
+            this.setState({
+                isFreshing: false
+            })
+            return false
+        }
+        return true
+    }
+
     componentDidMount = () => {
+        const {navigation, dispatch} = this.props
+        let detailData = navigation.state.params.data
+        let params = {}
+        params.KeyWords = detailData.searchTxt
+        dispatch(searchList(params))
         if (this.state.data.length > 0)
         {
             this.loadListViewDataFormJson(this.state.data)
@@ -270,3 +256,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0)'
     }
 })
+
+function mapStateToProps(state) {
+    const { search } = state
+    return {
+        search
+    }
+}
+
+export default connect(mapStateToProps)(SearchList)

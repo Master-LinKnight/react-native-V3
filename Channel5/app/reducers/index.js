@@ -7,6 +7,7 @@ import router from './router'
 import chapter from './chapter'
 import image from './image'
 import register from './register'
+import search from './search'
 
 const rootReducer = combineReducers({
     login,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     router,
     chapter,
     image,
-    register
+    register,
+    search
 })
 
 export default rootReducer;
