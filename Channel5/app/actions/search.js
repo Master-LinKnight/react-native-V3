@@ -72,7 +72,6 @@ async function fetchSearchList(params) {
         if (rsltBooks && rsltBooks.books.length > 0) {
             let list = []
             for (let v of rsltBooks.books) {
-                console.log(v)
                 list.push({
                     id: v.bookId,
                     title: v.name,
