@@ -29,7 +29,7 @@ import BaseStyle from '../../common/style'
 import SplashScreen from 'react-native-splash-screen'
 import Orientation from 'react-native-orientation'
 import SharePOP from '../../component/sharePopView'
-
+require("pinyin4js");
 class Login extends Component {
     // static navigationOptions = ({navigation}) => {
     //     return ({
@@ -64,7 +64,7 @@ class Login extends Component {
 
      async componentWillReceiveProps (nextProps, nextState) {
         const {navigation} = this.props
-        // console.log(nextProps)
+        // console.log(PinyinHelper.convertToPinyinString('厦门你好大厦厦门', '', PinyinFormat.WITHOUT_TONE))
         if(nextProps.login.isLoggedIn != this.props.isLoggedIn && nextProps.login.isLoggedIn === true && nextProps.login.status == 'LOGGED_IN'){
             await this.setState({
                 isFreshing: false
